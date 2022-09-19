@@ -1,0 +1,13 @@
+.ProfileLeft{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    overflow: auto;
+}
+
+.profile-center{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
