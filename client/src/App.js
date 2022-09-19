@@ -1,6 +1,7 @@
 import './App.css'
 import Home from './pages/home/Home'
 import Profile from './pages/profile/Profile'
+import Auth from './pages/auth/Auth'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/auth/register" element={<Auth path='/register'/>} />
+          <Route path="/auth/login" element={<Auth path='/login'/>} />
         </Routes>
       </Router>
       {/* <Home /> */}

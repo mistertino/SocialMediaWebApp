@@ -1,0 +1,45 @@
+- 	chỉ mục một hành động thực hiện
+>>> lệnh 
+> 	ghi chú
+**************************************
+
+- Front-end
+	- Tạo project react
+		>>> npm create-react-app client
+		>>> npm i @iconscout/react-unicons
+		>>> npm i react-router-dom
+	- Home Page:
+		- Tạo thư mục \client\src\pages\home
+			- Tạo file Home.js, Home.css
+				- Tại Home.js (chia bố cục)
+					import React from "react";
+					import "./Home.css";
+					const Home = () => {
+					  return (
+						<div className="Home">
+						  <div className="profileSide">Profile</div>
+						  <div className="postSide">Posts</div>
+						  <div className="RightSide">Rightside</div>
+						</div>
+					  );
+					};
+					export default Home;
+				- Home.css:
+					.Home{
+						position:relative;
+						display:grid;
+						grid-template-columns: 18rem auto 20rem;
+						gap: 1rem;
+					}
+		
+	- Components:
+		- Tạo thư mục \client\src\components:
+			- Tạo components ProfileSide:
+				- Tạo file: \client\src\components\profileSide\profileSide.js
+						\client\src\components\profileSide\profileSide.css
+					- Tại profileSide.js:
+						import React from 'react'
+							const ProfileSide = () => {
+							  return <div className="ProfileSide">ProfileSide</div>
+							}
+							export default ProfileSide
