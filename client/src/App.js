@@ -12,8 +12,8 @@ function App() {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/auth/register" element={<Auth path='/register'/>} />
-          <Route path="/auth/login" element={<Auth path='/login'/>} />
+          <Route path="/auth" element={<Auth />} />
+          
         </Routes>
       </Router>
       {/* <Home /> */}
