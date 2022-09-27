@@ -8,38 +8,84 @@
 		>>> npm create-react-app client
 		>>> npm i @iconscout/react-unicons
 		>>> npm i react-router-dom
-	- Home Page:
-		- Tạo thư mục \client\src\pages\home
-			- Tạo file Home.js, Home.css
-				- Tại Home.js (chia bố cục)
-					import React from "react";
-					import "./Home.css";
-					const Home = () => {
-					  return (
-						<div className="Home">
-						  <div className="profileSide">Profile</div>
-						  <div className="postSide">Posts</div>
-						  <div className="RightSide">Rightside</div>
-						</div>
-					  );
-					};
-					export default Home;
-				- Home.css:
-					.Home{
-						position:relative;
-						display:grid;
-						grid-template-columns: 18rem auto 20rem;
-						gap: 1rem;
-					}
-		
+		>>> npm install @mantine/core @mantine/hooks @emotion/react
+		>>> npm i redux redux-thunk react-redux
+		>>> npm i axios
+	- Tạo các Page chính:
+		- Tạo thư mục \client\src\pages\
+			- Tạo các page: Home, Profile, Auth
+					
 	- Components:
 		- Tạo thư mục \client\src\components:
-			- Tạo components ProfileSide:
-				- Tạo file: \client\src\components\profileSide\profileSide.js
-						\client\src\components\profileSide\profileSide.css
-					- Tại profileSide.js:
-						import React from 'react'
-							const ProfileSide = () => {
-							  return <div className="ProfileSide">ProfileSide</div>
-							}
-							export default ProfileSide
+			- Tạo các component:
+				- Components cho Home Page: (ProfileSide , PostSide, RightSide)
+					- Components con cho ProfileSide: (LogoSearch, ProfileCard, FollowerCard)
+					- Components con cho PostSide: (PostShare, Posts(có Post là component con)) 
+					- Components con cho RightSide: (TrendCard, ShareModal)
+					
+				- Components cho Profile Page: (ProfileLeft, ProfileCard, PostSide, RightSide)
+					- Components con cho ProfileLeft: (LogoSearch, InfoCard(có ProfileModal là component con), FollowerCard)
+					
+	- Tại \src\components\PostShare.js:
+		const PostShare = () => {
+		  const [image, setImage] = useState(null)
+		  const imageRef = useRef()
+		  const onImageChange = (event) => {
+			if (event.target.files && event.target.files[0]) {
+			  let img = event.target.files[0]
+			  setImage({
+				image: URL.createObjectURL(img),
+			  })
+			}
+		  }
+		  return (
+			<div className="PostShare">
+			  <img src={profileImage} alt="" />
+			  <div className="">
+				<input type="text" placeholder="What do you thing?" />
+				<div className="postOption">
+				  <div
+					className="option"
+					style={{ color: 'var(--photo)' }}
+					onClick={() => imageRef.current.click()}
+				  >
+					<UilScenery /> Photo
+				  </div>
+				  <div className="option" style={{ color: 'var(--video)' }}>
+					<UilPlayCircle /> Video
+				  </div>
+				  <div className="option" style={{ color: 'var(--location)' }}>
+					<UilLocationPoint /> Location
+				  </div>
+				  <div className="option" style={{ color: 'var(--schedule)' }}>
+					<UilSchedule /> Schedule
+				  </div>
+				  <button className="button ps-button">Post</button>
+				  <div style={{ display: 'none' }}>
+					<input
+					  type="file"
+					  name="myImage"
+					  ref={imageRef}
+					  onChange={onImageChange}
+					/>
+				  </div>
+				</div>
+				{image && (
+				  <div className="previewImage">
+					<UilTimes onClick={() => setImage(null)} />
+					<img src={image.image} alt="" />
+				  </div>
+				)}
+			  </div>
+			</div>
+		  )
+		}
+- Back-end:
+	- Tạo folder \sever
+		>>> npm init
+		>>> npm i express
+		>>> npm i mongoose
+		>>> npm i body-parser
+		>>> npm i nodemon
+		>>> npm i dotenv
+		>>> npm i bcrypt
