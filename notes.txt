@@ -89,3 +89,4 @@
 		>>> npm i nodemon
 		>>> npm i dotenv
 		>>> npm i bcrypt
+		>>> npm i cors

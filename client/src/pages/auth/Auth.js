@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import './Auth.css'
 import Logo from '../../img/logo.png'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { logIn, signUp } from '../../action/AuthAction'
 const Auth = () => {
+  const dispatch = useDispatch()
+
   // State
   const [isSignUp, setIsSignUp] = useState(true)
-  // const dispatch = useDispatch()
-
   const [data, setData] = useState({
     firstname: '',
     lastname: '',
@@ -23,9 +24,11 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (isSignUp) {
-      if (data.password !== data.confirmpass) {
-        setConfirmPass(false)
-      }
+      data.password === data.confirmpass
+        ? dispatch(signUp(data))
+        : setConfirmPass(false)
+    } else {
+      dispatch(logIn(data))
     }
   }
 
