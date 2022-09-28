@@ -48,6 +48,11 @@
   border: 2px solid var(--purple);
 }
 
+.button:disabled{
+  background: silver;
+  pointer-events: none;
+}
+
 ::-webkit-scrollbar{
   display: none;
 }
