@@ -16,6 +16,10 @@ app.use(cors())
 
 dotenv.config()
 
+// to serve image for public
+app.use(express.static('public'))
+app.use('/images', express.static('images'))
+
 //Connect DB & start sever
 mongoose
   .connect(process.env.MONGO_DB, {

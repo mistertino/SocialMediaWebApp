@@ -73,7 +73,7 @@ export const likePost = async (req, res) => {
 }
 
 // Get Post of user following
-export const getNewsfeed = async (req, res) => {
+export const getTimelinePosts = async (req, res) => {
   const currentUserId = req.params.id
   try {
     const currentUserPosts = await postModel.find({ userId: currentUserId })
