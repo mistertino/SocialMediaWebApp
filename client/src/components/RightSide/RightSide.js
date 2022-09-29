@@ -8,6 +8,7 @@ import TrendCard from '../TrendCard/TrendCard'
 import Dropdown from 'react-bootstrap/Dropdown'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ShareModal from '../ShareModal/ShareModal'
+import { Link } from 'react-router-dom'
 
 const RightSide = () => {
   // Sate modal
@@ -16,7 +17,9 @@ const RightSide = () => {
   return (
     <div className="RightSide">
       <div className="navIcon">
-        <img src={Home} alt="" />
+        <Link to="../home">
+          <img src={Home} alt="" />
+        </Link>
 
         <div className="dropdown">
           <Dropdown>
