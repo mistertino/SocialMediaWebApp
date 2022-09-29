@@ -91,3 +91,4 @@
 		>>> npm i bcrypt
 		>>> npm i cors
 		>>> npm i jsonwebtoken
+		>>> npm i multer
