@@ -14,7 +14,6 @@ const Post = ({ post }) => {
   const [likes, setLikes] = useState(post.likes.length)
   //Func
   const handleLike = () => {
-    console.log(post._id, user._id)
     likePost(post._id, user._id)
     setLiked((prev) => !prev)
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1)

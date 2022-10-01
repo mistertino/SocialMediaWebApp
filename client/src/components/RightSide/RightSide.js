@@ -9,11 +9,18 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ShareModal from '../ShareModal/ShareModal'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logOut } from '../../action/AuthAction'
 
 const RightSide = () => {
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.authReducer.authData)
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
-
+  //Func
+  const handleLogOut = () => {
+    dispatch(logOut())
+  }
   return (
     <div className="RightSide">
       <div className="navIcon">
@@ -42,9 +49,18 @@ const RightSide = () => {
               <UilSetting />
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="/profile">My profile</Dropdown.Item>
               <Dropdown.Item>
-                <button className="button logout-button">Logout</button>
+                <Link
+                  to={`/profile/${user._id}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {user.firstname} {user.lastname}
+                </Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <button className="button logout-button" onClick={handleLogOut}>
+                  Logout
+                </button>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
