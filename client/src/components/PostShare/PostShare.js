@@ -10,7 +10,7 @@ import { uploadImage, uploadPost } from '../../action/UploadAction'
 
 const PostShare = () => {
   const loading = useSelector((state) => state.postReducer.uploading)
-  const severPublic = process.env.REACT_APP_PUBLIC_FOLDER
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const { user } = useSelector((state) => state.authReducer.authData)
   const desc = useRef()
   const imageRef = useRef()
@@ -54,7 +54,7 @@ const PostShare = () => {
 
   return (
     <div className="PostShare">
-      <img src={user.profilePicture? severPublic + user.profilePicture: severPublic + 'user.png'} alt="" />
+      <img src={user.profilePicture? serverPublic + user.profilePicture: serverPublic + 'user.png'} alt="" />
       <div className="">
         <input
           type="text"

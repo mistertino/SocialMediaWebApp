@@ -23,7 +23,8 @@ const InfoCard = () => {
         setProfileUser(user)
       } else {
         const profileUser = await UserApi.getUser(profileUserId)
-        setProfileUser(profileUser)
+        console.log(profileUser.data)
+        setProfileUser(profileUser.data)
       }
     }
     fetchProfileUser()
@@ -35,7 +36,7 @@ const InfoCard = () => {
   return (
     <div className="InfoCard">
       <div className="infoHead">
-        <h4>Profile Info</h4>
+        <h5>Thông tin người dùng</h5>
         {user._id === params.id ? (
           <div>
             <UilPen
@@ -56,19 +57,19 @@ const InfoCard = () => {
       </div>
       <div className="info">
         <span>
-          <b>Status </b>
+          <b>Mối quan hệ: </b>
         </span>
         <span>{profileUser.relationship}</span>
       </div>
       <div className="info">
         <span>
-          <b>Lives in </b>
+          <b>Sống tại: </b>
         </span>
         <span>{profileUser.livesin}</span>
       </div>
       <div className="info">
         <span>
-          <b>Works at </b>
+          <b>Làm việc tại: </b>
         </span>
         <span>{profileUser.worksAt}</span>
       </div>

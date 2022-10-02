@@ -1,6 +1,6 @@
 import { Modal, useMantineTheme } from '@mantine/core'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { uploadImage } from '../../action/UploadAction'
 import { updateUser } from '../../action/UserAction'
@@ -14,7 +14,6 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const [profileImage, setProfileImage] = useState(null)
   const [coverImage, setCoverImage] = useState(null)
 
-  const { user } = useSelector((state) => state.authReducer.authData)
   const dispatch = useDispatch()
   const params = useParams()
 

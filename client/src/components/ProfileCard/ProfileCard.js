@@ -17,7 +17,7 @@ const ProfileCard = ({ location }) => {
               ? severPublic + user.coverPicture
               : severPublic + 'cover.jpg'
           }
-          alt=""
+          alt="" style={location==='profilePage'? {maxHeight: '15rem'}:{maxHeight: '12rem'}}
         />
         <img
           src={
