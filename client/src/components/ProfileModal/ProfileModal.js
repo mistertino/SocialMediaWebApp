@@ -74,13 +74,13 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       onClose={() => setModalOpened(false)}
     >
       <form action="" className="infoForm" onSubmit={handleSubmit}>
-        <h3>Your Info</h3>
+        <h3>Thông tin của bạn</h3>
         <div>
           <input
             type="text"
             className="infoInput"
             name="firstname"
-            placeholder="First Name"
+            placeholder="Họ"
             onChange={handleChange}
             value={formData.firstname}
           />
@@ -88,7 +88,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             type="text"
             className="infoInput"
             name="lastname"
-            placeholder="Last Name"
+            placeholder="Tên"
             onChange={handleChange}
             value={formData.lastname}
           />
@@ -98,7 +98,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             type="text"
             className="infoInput"
             name="worksAt"
-            placeholder="Works at"
+            placeholder="Nơi làm việc"
             onChange={handleChange}
             value={formData.worksAt}
           />
@@ -108,7 +108,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             type="text"
             className="infoInput"
             name="livesin"
-            placeholder="Lives in"
+            placeholder="Sống tại"
             onChange={handleChange}
             value={formData.livesin}
           />
@@ -116,7 +116,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             type="text"
             className="infoInput"
             name="country"
-            placeholder="Country"
+            placeholder="Thành phố"
             onChange={handleChange}
             value={formData.country}
           />
@@ -126,19 +126,19 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             type="text"
             className="infoInput"
             name="relationship"
-            placeholder="Relationship Status"
+            placeholder="Mối quan hệ"
             onChange={handleChange}
             value={formData.relationship}
           />
         </div>
         <div>
-          Profile Image
+          Ảnh đại diện
           <input type="file" name="profileImage" onChange={onImageChange} />
-          Cover Image
+          Ảnh bìa
           <input type="file" name="coverImage" onChange={onImageChange} />
         </div>
         <button className="button infobutton" type="submit">
-          Update
+          Cập nhật
         </button>
       </form>
     </Modal>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Auth.css'
 import Logo from '../../img/logo.png'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,6 +16,10 @@ const Auth = () => {
     confirmpass: '',
   })
   const [confirmPass, setConfirmPass] = useState(true)
+  // Set title
+  useEffect(()=>{
+    isSignUp? document.title = 'TC - Đăng kí': document.title = 'TC - Đăng nhập'
+  }, [isSignUp])
   // Func
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value })
@@ -53,12 +57,12 @@ const Auth = () => {
       </div>
       <div className="a-right">
         <form action="" className="infoForm authForm" onSubmit={handleSubmit}>
-          <h3>{isSignUp ? 'Sign Up' : 'Login'}</h3>
+          <h3>{isSignUp ? 'Đăng kí' : 'Đăng nhập'}</h3>
           {isSignUp && (
             <div>
               <input
                 type="text"
-                placeholder="First Name"
+                placeholder="Họ đệm"
                 className="infoInput"
                 name="firstname"
                 onChange={handleChange}
@@ -66,7 +70,7 @@ const Auth = () => {
               />
               <input
                 type="text"
-                placeholder="Last Name"
+                placeholder="Tên"
                 className="infoInput"
                 name="lastname"
                 onChange={handleChange}
@@ -78,7 +82,7 @@ const Auth = () => {
             <input
               type="text"
               className="infoInput"
-              placeholder="Username"
+              placeholder="Tên đăng nhập"
               name="username"
               onChange={handleChange}
               value={data.username}
@@ -88,7 +92,7 @@ const Auth = () => {
             <input
               type="password"
               className="infoInput"
-              placeholder="Password"
+              placeholder="Mật khẩu"
               name="password"
               onChange={handleChange}
               value={data.password}
@@ -97,7 +101,7 @@ const Auth = () => {
               <input
                 type="password"
                 className="infoInput"
-                placeholder="Confirm Password"
+                placeholder="Xác nhận mật khẩu"
                 name="confirmpass"
                 onChange={handleChange}
                 value={data.confirmpass}
@@ -112,7 +116,7 @@ const Auth = () => {
               alignSelf: 'flex-end',
             }}
           >
-            * Confirm Password is not same
+            * Xác nhận mật khẩu không chính xác
           </span>
           <div>
             <span
@@ -123,8 +127,8 @@ const Auth = () => {
               }}
             >
               {isSignUp
-                ? 'Already have an account? Login'
-                : `Don't have an account? Sign Up`}
+                ? 'Đã có tài khoản? Đăng nhập'
+                : `Chưa có tài khoản? Đăng kí`}
             </span>
           </div>
           <button
@@ -132,7 +136,7 @@ const Auth = () => {
             type="submit"
             disabled={loading}
           >
-            {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Login'}
+            {loading ? 'Đang tải....' : isSignUp ? 'Đăng kí' : 'Đăng nhập'}
           </button>
         </form>
       </div>

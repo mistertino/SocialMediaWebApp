@@ -39,12 +39,12 @@ const ProfileCard = ({ location }) => {
         <div>
           <div className="follow">
             <span>{user.followers.length}</span>
-            <span>Followers</span>
+            <span>Người theo dõi</span>
           </div>
           <div className="vl"></div>
           <div className="follow">
             <span>{user.following.length}</span>
-            <span>Followings</span>
+            <span>Đang theo dõi</span>
           </div>
 
           {location === 'profilePage' && (
@@ -55,7 +55,7 @@ const ProfileCard = ({ location }) => {
                   <span>
                     {posts.filter((post) => post.userId === user._id).length}
                   </span>
-                  <span>Posts</span>
+                  <span>Bài viết</span>
                 </div>
               </div>
             </>
@@ -72,7 +72,7 @@ const ProfileCard = ({ location }) => {
             to={`/profile/${user._id}`}
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            My profile
+            Thông tin của bạn
           </Link>
         </span>
       )}

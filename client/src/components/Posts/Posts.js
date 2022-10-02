@@ -15,7 +15,7 @@ const Posts = () => {
   return (
     <div className="Posts">
       {loading
-        ? 'Loading post.....'
+        ? 'Đang tải bài viết......'
         : posts.map((post, id) => {
             return <Post post={post} key={id} />
           })}

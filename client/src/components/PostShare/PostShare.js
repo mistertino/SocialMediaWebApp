@@ -8,7 +8,7 @@ import { UilTimes } from '@iconscout/react-unicons'
 import { useDispatch, useSelector } from 'react-redux'
 import { uploadImage, uploadPost } from '../../action/UploadAction'
 
-const PostShare = () => {
+const PostShare = ({setModalOpened}) => {
   const loading = useSelector((state) => state.postReducer.uploading)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -22,6 +22,7 @@ const PostShare = () => {
   const reset = () => {
     setImage(null)
     desc.current.value = ''
+    setModalOpened(false)
   }
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -58,7 +59,7 @@ const PostShare = () => {
       <div className="">
         <input
           type="text"
-          placeholder="What do you thing?"
+          placeholder="Bạn đang nghĩ gì?"
           ref={desc}
           required
         />
@@ -68,13 +69,13 @@ const PostShare = () => {
             style={{ color: 'var(--photo)' }}
             onClick={() => imageRef.current.click()}
           >
-            <UilScenery /> Photo
+            <UilScenery /> Ảnh
           </div>
           <div className="option" style={{ color: 'var(--video)' }}>
             <UilPlayCircle /> Video
           </div>
           <div className="option" style={{ color: 'var(--location)' }}>
-            <UilLocationPoint /> Location
+            <UilLocationPoint /> Vị trí
           </div>
           <div className="option" style={{ color: 'var(--schedule)' }}>
             <UilSchedule /> Schedule
@@ -84,7 +85,7 @@ const PostShare = () => {
             onClick={handleSubmit}
             disabled={loading}
           >
-            {loading ? 'Uploading...' : 'Post'}
+            {loading ? 'Đang đăng...' : 'Đăng'}
           </button>
           <div style={{ display: 'none' }}>
             <input

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { followUser, unFollowUser } from '../../action/UserAction'
+import { Link } from 'react-router-dom'
 
 const User = ({ person }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -32,13 +33,23 @@ const User = ({ person }) => {
         />
         <div className="name">
           <span>
-            {person.firstname} {person.lastname}
+            <Link
+              to={`/profile/${person._id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              {person.firstname} {person.lastname}
+            </Link>
           </span>
           <span>@{person.username}</span>
         </div>
       </div>
-      <button className="button fc-button" onClick={handleFollow}>
-        {following ? 'Huỷ Theo Dõi' : 'Theo Dõi'}
+      <button
+        className={
+          following ? 'button fc-button unfollowbtn' : 'button fc-button'
+        }
+        onClick={handleFollow}
+      >
+        {following ? 'Bỏ Theo Dõi' : 'Theo Dõi'}
       </button>
     </div>
   )

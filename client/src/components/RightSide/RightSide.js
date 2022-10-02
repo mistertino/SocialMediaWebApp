@@ -59,7 +59,7 @@ const RightSide = () => {
               </Dropdown.Item>
               <Dropdown.Item>
                 <button className="button logout-button" onClick={handleLogOut}>
-                  Logout
+                  Đăng xuất
                 </button>
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -70,7 +70,7 @@ const RightSide = () => {
       <TrendCard />
 
       <button className="button s-button" onClick={() => setModalOpened(true)}>
-        Post
+        Đăng bài
       </button>
       <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />
     </div>

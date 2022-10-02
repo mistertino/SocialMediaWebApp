@@ -16,19 +16,20 @@ const InfoCard = () => {
   const [profileUser, setProfileUser] = useState({})
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
-
   useEffect(() => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id) {
         setProfileUser(user)
+        document.title = `${user.firstname} ${user.lastname} | TC`
       } else {
         const profileUser = await UserApi.getUser(profileUserId)
         console.log(profileUser.data)
         setProfileUser(profileUser.data)
+        document.title = `${profileUser.data.firstname} ${profileUser.data.lastname} | TC`
       }
     }
     fetchProfileUser()
-  }, [user])
+  }, [user, profileUserId])
   //Func
   const handleLogOut = () => {
     dispatch(logOut())
@@ -36,7 +37,7 @@ const InfoCard = () => {
   return (
     <div className="InfoCard">
       <div className="infoHead">
-        <h5>Thông tin người dùng</h5>
+        <h5>Thông tin</h5>
         {user._id === params.id ? (
           <div>
             <UilPen
@@ -75,7 +76,7 @@ const InfoCard = () => {
       </div>
 
       <button className="button logout-button" onClick={handleLogOut}>
-        Logout
+        Đăng xuất
       </button>
     </div>
   )
