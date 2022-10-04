@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './TrendCard.css'
-import { TrendData } from '../../Data/TrendData'
 import { getAllPosts } from '../../api/PostRequest'
 
 const TrendCard = () => {

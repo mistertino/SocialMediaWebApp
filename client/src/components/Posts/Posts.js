@@ -13,7 +13,7 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(getTimelinePosts(user._id))
-  }, [])
+  }, [posts.length])
   if (!posts) return 'Không có bài viết nào hiện tại!'
   if (params.id) {
     posts = posts.filter((post) => post.userId === params.id)
@@ -23,7 +23,7 @@ const Posts = () => {
       {loading
         ? 'Đang tải bài viết......'
         : posts.map((post, id) => {
-            return <Post post={post} key={id} />
+            return <Post post={post} posts={posts} key={id} />
           })}
     </div>
   )

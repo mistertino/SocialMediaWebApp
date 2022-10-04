@@ -33,7 +33,7 @@ const PostShare = ({setModalOpened}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const hastag = (desc.current.value).split('#')
+    const hastag = (desc.current.value).split('#', 10)
     const newPost = {
       userId: user._id,
       desc: desc.current.value,
