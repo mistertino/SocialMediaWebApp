@@ -9,6 +9,8 @@ const PostSchema = mongoose.Schema(
     desc: String,
     likes: [],
     image: String,
+    hastag: String,
+    comments: []
   },
   {
     timestamps: true,

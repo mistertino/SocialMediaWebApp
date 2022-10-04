@@ -6,11 +6,13 @@ import {
   likePost,
   updatePost,
   getTimelinePosts,
+  getAllPosts,
 } from '../Controller/PostController.js'
 
 const router = express.Router()
 
 router.post('/', createPost)
+router.get('/', getAllPosts)
 router.get('/:id', getPost)
 router.put('/:id', updatePost)
 router.delete('/:id', deletePost)

@@ -24,6 +24,16 @@ export const getPost = async (req, res) => {
   }
 }
 
+// Get all posts (Sort by likes)
+export const getAllPosts = async (req, res) => {
+  try {
+    const posts = await postModel.find().sort({ likes: -1 })
+    res.status(200).json(posts)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 // Update Post
 export const updatePost = async (req, res) => {
   const postId = req.params.id

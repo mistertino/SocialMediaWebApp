@@ -31,3 +31,20 @@
     height: 26px;
     cursor: pointer;
 }
+
+.user_post{
+display: flex;
+align-items: flex-start;
+gap: 10px;
+margin-bottom: 10px;
+}
+
+.user_post>img{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+}
+
+.user_post>span{
+    line-height: 2.5rem;
+}

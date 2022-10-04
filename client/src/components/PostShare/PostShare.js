@@ -33,9 +33,11 @@ const PostShare = ({setModalOpened}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    const hastag = (desc.current.value).split('#')
     const newPost = {
       userId: user._id,
       desc: desc.current.value,
+      hastag: hastag[1]
     }
     if (image) {
       const data = new FormData()

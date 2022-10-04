@@ -11,23 +11,19 @@ const ProfileCard = ({ location }) => {
   const params = useParams()
   const profileUserId = params.id
   const [profileUser, setProfileUser] = useState(user)
-  useEffect(
-    () => {
-      const fetchProfileUser = async () => {
-        if (profileUserId === user._id || profileUserId === undefined) {
-          setProfileUser(user)
-          console.log(profileUser)
-        } else {
-          const profileUser = await UserApi.getUser(profileUserId)
-          console.log(profileUser.data)
-          setProfileUser(profileUser.data)
-        }
+  useEffect(() => {
+    const fetchProfileUser = async () => {
+      if (profileUserId === user._id || profileUserId === undefined) {
+        setProfileUser(user)
+        // console.log(profileUser)
+      } else {
+        const profileUser = await UserApi.getUser(profileUserId)
+        // console.log(profileUser.data)
+        setProfileUser(profileUser.data)
       }
-      fetchProfileUser()
-    },
-    [params.id],
-    [profileUser],
-  )
+    }
+    fetchProfileUser()
+  }, [params.id])
   return (
     <div className="ProfileCard">
       <div className="ProfileImage">
