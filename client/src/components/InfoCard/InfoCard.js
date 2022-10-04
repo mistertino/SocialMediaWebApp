@@ -23,7 +23,6 @@ const InfoCard = () => {
         document.title = `${user.firstname} ${user.lastname} | TC`
       } else {
         const profileUser = await UserApi.getUser(profileUserId)
-        console.log(profileUser.data)
         setProfileUser(profileUser.data)
         document.title = `${profileUser.data.firstname} ${profileUser.data.lastname} | TC`
       }
@@ -75,7 +74,15 @@ const InfoCard = () => {
         <span>{profileUser.worksAt}</span>
       </div>
 
-      <button className="button logout-button" onClick={handleLogOut}>
+      <button
+        className="button logout-button"
+        onClick={handleLogOut}
+        style={
+          profileUserId !== user._id
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
+      >
         Đăng xuất
       </button>
     </div>

@@ -30,12 +30,13 @@ const Post = ({ post }) => {
         src={post.image ? process.env.REACT_APP_PUBLIC_FOLDER + post.image : ''}
         alt=""
       />
+      <span>{likes} Lượt thích</span>
+
       <div className="postReact">
         <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
         <img src={Comment} alt="" />
         <img src={Share} alt="" />
       </div>
-      <span>{likes} likes</span>
     </div>
   )
 }
