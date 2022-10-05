@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Post.css'
 import Like from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
-import Share from '../../img/share.png'
+import Option from '../../img/option.png'
 import Comment from '../../img/comment.png'
 import { useSelector } from 'react-redux'
 import { likePost } from '../../api/PostRequest'
@@ -64,7 +64,7 @@ const Post = ({ post , posts}) => {
       <div className="postReact">
         <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
         <img src={Comment} alt="" />
-        <img src={Share} alt="" />
+        <img src={Option} alt="" />
       </div>
     </div>
   )
