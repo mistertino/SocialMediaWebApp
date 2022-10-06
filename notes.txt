@@ -11,6 +11,8 @@
 		>>> npm install @mantine/core @mantine/hooks @emotion/react
 		>>> npm i redux redux-thunk react-redux
 		>>> npm i axios
+		>>> npm i timeago.js
+		>>> npm add react-input-emoji
 	- Tạo các Page chính:
 		- Tạo thư mục \client\src\pages\
 			- Tạo các page: Home, Profile, Auth

@@ -42,7 +42,9 @@ const RightSide = () => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-        <img src={Comment} alt="" />
+        <Link to="../chat">
+          <img src={Comment} alt="" />
+        </Link>
         <div className="dropdown">
           <Dropdown>
             <Dropdown.Toggle variant="success" id="setting-dropdown">
