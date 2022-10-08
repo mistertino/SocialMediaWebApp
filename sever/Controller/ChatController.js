@@ -1,6 +1,6 @@
 import chatModel from '../Models/chatModel.js'
 
-export const creatChat = async (req, res) => {
+export const createChat = async (req, res) => {
   const newChat = new chatModel({
     members: [req.body.senderId, req.body.receiverId],
   })

@@ -1,9 +1,13 @@
 import express from 'express'
-import { creatChat, userChats, findChat } from '../Controller/ChatController.js'
+import {
+  createChat,
+  userChats,
+  findChat,
+} from '../Controller/ChatController.js'
 
 const router = express.Router()
 
-router.post('/', creatChat)
+router.post('/', createChat)
 router.get('/:userId', userChats)
 router.get('/find/:firstId/:secondId', findChat)
 

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './ProfileCard.css'
 import { useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as UserApi from '../../api/UserRequest'
+import { createChat, findChat } from '../../api/ChatRequest'
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -10,6 +11,9 @@ const ProfileCard = ({ location }) => {
   const severPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const params = useParams()
   const profileUserId = params.id
+  const navigate = useNavigate()
+
+  // State
   const [profileUser, setProfileUser] = useState(user)
   useEffect(() => {
     const fetchProfileUser = async () => {
@@ -24,6 +28,20 @@ const ProfileCard = ({ location }) => {
     }
     fetchProfileUser()
   }, [params.id])
+
+  // Func
+  const handleSendMessage = async () => {
+    const userId = user._id
+    const { data } = await findChat(userId, profileUserId)
+    if (data === null) {
+      const data = {
+        senderId: userId,
+        receiverId: profileUserId,
+      }
+      await createChat(data)
+      navigate('../chat')
+    } else navigate('../chat')
+  }
   return (
     <div className="ProfileCard">
       <div className="ProfileImage">
@@ -97,7 +115,17 @@ const ProfileCard = ({ location }) => {
       </div>
 
       {location === 'profilePage' ? (
-        ''
+        <button
+          className="button send-button-user"
+          style={
+            user._id === profileUserId
+              ? { display: 'none' }
+              : { display: 'block' }
+          }
+          onClick={handleSendMessage}
+        >
+          Gửi tin nhắn
+        </button>
       ) : (
         <span>
           <Link
