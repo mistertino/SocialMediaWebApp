@@ -9,7 +9,7 @@ import { likePost } from '../../api/PostRequest'
 import { Link } from 'react-router-dom'
 import * as UserApi from '../../api/UserRequest'
 
-const Post = ({ post , posts}) => {
+const Post = ({ post, posts }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const severPublic = process.env.REACT_APP_PUBLIC_FOLDER
 

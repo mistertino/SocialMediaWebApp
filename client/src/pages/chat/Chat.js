@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { userChats } from '../../api/ChatRequest'
 import Conversation from '../../components/Conversation/Conversation'
 import LogoSearch from '../../components/LogoSearch/LogoSearch'
 import Home from '../../img/home.png'
 import Noti from '../../img/noti.png'
-import Comment from '../../img/comment.png'
+import Chaticon from '../../img/chat.png'
 import { UilSetting } from '@iconscout/react-unicons'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Link } from 'react-router-dom'
 import './Chat.css'
 import { logOut } from '../../action/AuthAction'
 import ChatBox from '../../components/ChatBox/ChatBox'
+import { io } from 'socket.io-client'
 const Chat = () => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.authReducer.authData)
+  const socket = useRef()
   // State
   const [chats, setChats] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
+  const [onlineUsers, setOnlineUsers] = useState([])
+  const [sendMessage, setSendMessage] = useState(null)
+  const [receivedMessage, setReceivedMessage] = useState(null)
+
   useEffect(() => {
     const getChats = async () => {
       try {
@@ -31,6 +37,37 @@ const Chat = () => {
     getChats()
   }, [user._id])
 
+  // Connect to Socket.io
+  useEffect(() => {
+    socket.current = io('ws://localhost:8800')
+    socket.current.emit('new-user-add', user._id)
+    socket.current.on('get-users', (users) => {
+      setOnlineUsers(users)
+    })
+  }, [user])
+
+  // Send Message to socket server
+  useEffect(() => {
+    if (sendMessage !== null) {
+      socket.current.emit('send-message', sendMessage)
+    }
+  }, [sendMessage])
+
+  // Get the message from socket server
+  useEffect(() => {
+    socket.current.on('recieve-message', (data) => {
+      console.log(data)
+      setReceivedMessage(data)
+    })
+  }, [])
+
+  // Func
+  const checkOnlineStatus = (chat) => {
+    const chatMember = chat.members.find((member) => member !== user._id)
+    const online = onlineUsers.find((user) => user.userId === chatMember)
+    return online ? true : false
+  }
+
   const handleLogOut = () => {
     dispatch(logOut())
   }
@@ -40,11 +77,15 @@ const Chat = () => {
       <div className="Left-side-chat">
         <LogoSearch />
         <div className="Chat-container">
-          <h2>Chats</h2>
+          <h2>Trò chuyện</h2>
           <div className="Chat-list">
             {chats.map((chat) => (
               <div onClick={() => setCurrentChat(chat)}>
-                <Conversation data={chat} currentUser={user._id} />
+                <Conversation
+                  data={chat}
+                  currentUser={user._id}
+                  online={checkOnlineStatus(chat)}
+                />
               </div>
             ))}
           </div>
@@ -75,7 +116,7 @@ const Chat = () => {
               </Dropdown>
             </div>
             <Link to="../chat">
-              <img src={Comment} alt="" />
+              <img src={Chaticon} alt="" />
             </Link>
             <div className="dropdown">
               <Dropdown>
@@ -105,7 +146,12 @@ const Chat = () => {
           </div>
         </div>
         {/* Chat body */}
-        <ChatBox chat={currentChat} currentUser={user._id} />
+        <ChatBox
+          chat={currentChat}
+          currentUser={user._id}
+          setSendMessage={setSendMessage}
+          receivedMessage={receivedMessage}
+        />
       </div>
     </div>
   )

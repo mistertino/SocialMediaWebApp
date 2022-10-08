@@ -49,7 +49,7 @@
 }
 
 .online-dot {
-  background-color: greenyellow;
+  background-color: rgb(47, 255, 75);
   border-radius: 50%;
   position: absolute;
   left: 2rem;

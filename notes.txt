@@ -13,6 +13,7 @@
 		>>> npm i axios
 		>>> npm i timeago.js
 		>>> npm add react-input-emoji
+		>>>  npm add socket.io-client
 	- Tạo các Page chính:
 		- Tạo thư mục \client\src\pages\
 			- Tạo các page: Home, Profile, Auth

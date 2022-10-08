@@ -62,9 +62,9 @@
   outline: none;
   flex: 1;
   font-size: 14px;
-  padding: 0px 15px 0px 15px;
+  padding: 15px 15px 15px 15px;
 }
-.chat-sender > div:nth-of-type(1) {
+/* .chat-sender > div:nth-of-type(1) {
   background: rgb(233, 233, 233);
   border-radius: 0.5rem;
   display: flex;
@@ -72,8 +72,12 @@
   justify-content: center;
   font-weight: bold;
   cursor: pointer;
-}
+} */
 .chat-sender > div {
   height: 70%;
   padding: 0px 15px 0px 15px;
+}
+
+.chat-sender > .send-button {
+  height: 2rem;
 }

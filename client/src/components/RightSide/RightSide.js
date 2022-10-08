@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './RightSide.css'
 import Home from '../../img/home.png'
 import Noti from '../../img/noti.png'
-import Comment from '../../img/comment.png'
+import Chat from '../../img/chat.png'
 import { UilSetting } from '@iconscout/react-unicons'
 import TrendCard from '../TrendCard/TrendCard'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -43,7 +43,11 @@ const RightSide = () => {
           </Dropdown>
         </div>
         <Link to="../chat">
-          <img src={Comment} alt="" />
+          <img
+            src={Chat}
+            alt=""
+            style={{ width: '1,5rem', height: '1,5rem' }}
+          />
         </Link>
         <div className="dropdown">
           <Dropdown>

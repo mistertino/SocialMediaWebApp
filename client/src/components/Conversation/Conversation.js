@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getUser } from '../../api/UserRequest'
 
-const Conversation = ({ data, currentUser }) => {
+const Conversation = ({ data, currentUser, online }) => {
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   //State
   const [userData, setUserData] = useState(null)
@@ -21,7 +21,7 @@ const Conversation = ({ data, currentUser }) => {
     <>
       <div className="follower conversation">
         <div>
-          <div className="online-dot"></div>
+          {online && <div className="online-dot"></div>}
           <img
             src={
               userData?.profilePicture
@@ -30,13 +30,13 @@ const Conversation = ({ data, currentUser }) => {
             }
             alt=""
             className="followerImage"
-            style={{ with: '50px', height: '50px', borderRadius: '50%' }}
+            style={{ width: '50px', height: '50px', borderRadius: '50%' }}
           />
           <div className="name" style={{ fontSize: '0.8rem' }}>
             <span>
               {userData?.firstname} {userData?.lastname}
             </span>
-            <span>Online</span>
+            <span>{online ? 'Trực tuyến' : 'Ngoại tuyến'}</span>
           </div>
         </div>
       </div>
