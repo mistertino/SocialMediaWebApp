@@ -7,6 +7,8 @@ import {
   updatePost,
   getTimelinePosts,
   getAllPosts,
+  addComment,
+  getComments,
 } from '../Controller/PostController.js'
 
 const router = express.Router()
@@ -18,5 +20,7 @@ router.put('/:id', updatePost)
 router.delete('/:id', deletePost)
 router.put('/:id/like', likePost)
 router.get('/:id/timeline', getTimelinePosts)
+router.put('/:id/comment', addComment)
+router.get('/:id/comment', getComments)
 
 export default router

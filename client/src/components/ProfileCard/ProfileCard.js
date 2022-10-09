@@ -19,7 +19,7 @@ const ProfileCard = ({ location }) => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id || profileUserId === undefined) {
         setProfileUser(user)
-        // console.log(profileUser)
+        console.log(profileUser)
       } else {
         const profileUser = await UserApi.getUser(profileUserId)
         // console.log(profileUser.data)
@@ -47,7 +47,11 @@ const ProfileCard = ({ location }) => {
       <div className="ProfileImage">
         <img
           src={
-            profileUser.coverPicture
+            user._id === params.id
+              ? user.coverPicture
+                ? severPublic + user.coverPicture
+                : severPublic + 'cover.jpg'
+              : profileUser.coverPicture
               ? severPublic + profileUser.coverPicture
               : severPublic + 'cover.jpg'
           }
@@ -60,7 +64,11 @@ const ProfileCard = ({ location }) => {
         />
         <img
           src={
-            profileUser.profilePicture
+            user._id === params.id
+              ? user.profilePicture
+                ? severPublic + user.profilePicture
+                : severPublic + 'user.png'
+              : profileUser.profilePicture
               ? severPublic + profileUser.profilePicture
               : severPublic + 'user.png'
           }
@@ -78,7 +86,9 @@ const ProfileCard = ({ location }) => {
         <div>
           <div className="follow">
             <span>
-              {profileUserId
+              {user._id === params.id
+                ? user.followers.length
+                : profileUserId
                 ? profileUser.followers.length
                 : user.followers.length}
             </span>
@@ -87,7 +97,9 @@ const ProfileCard = ({ location }) => {
           <div className="vl"></div>
           <div className="follow">
             <span>
-              {profileUserId
+              {user._id === params.id
+                ? user.following.length
+                : profileUserId
                 ? profileUser.following.length
                 : user.following.length}
             </span>

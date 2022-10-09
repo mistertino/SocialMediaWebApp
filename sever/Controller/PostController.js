@@ -119,3 +119,38 @@ export const getTimelinePosts = async (req, res) => {
     res.status(500).json(error)
   }
 }
+
+// Add comment
+export const addComment = async (req, res) => {
+  const postId = req.params.id
+  const { currentUserId, text } = req.body
+  try {
+    const post = await postModel.findById(postId)
+    await post.updateOne({
+      $push: {
+        comments: {
+          userId: currentUserId,
+          text: text,
+          date_added: Date.now(),
+        },
+      },
+    })
+    res.status(200).json({ userId: currentUserId, text: text })
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+// Get comments
+export const getComments = async (req, res) => {
+  const postId = req.params.id
+  try {
+    const comments = await postModel
+      .findById(postId)
+      .select('comments')
+      .sort({ date_added: -1 })
+    res.status(200).json(comments)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}

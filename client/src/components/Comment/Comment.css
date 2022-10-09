@@ -1,0 +1,8 @@
+.list-comments {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(240, 229, 229);
+  border-radius: 10px;
+  max-height: 20rem;
+  overflow: auto;
+}
