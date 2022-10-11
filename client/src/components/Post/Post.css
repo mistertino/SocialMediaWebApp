@@ -76,10 +76,16 @@
 }
 
 .list-comments {
-  display: flex;
-  flex-direction: column;
   background-color: rgb(243, 237, 237);
   border-radius: 10px;
   max-height: 25rem;
   overflow: auto;
+}
+
+.list-comments > div {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(202, 172, 200);
+  border-radius: 10px;
 }

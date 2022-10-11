@@ -16,15 +16,16 @@ export const registerUser = async (req, res) => {
     if (oldUser) {
       return res.status(400).json({ message: 'Username is already!' })
     }
-    const user = await newUser.save()
+    const userRegister = await newUser.save()
     const token = jwt.sign(
       {
-        username: user.username,
-        id: user._id,
+        username: userRegister.username,
+        id: userRegister._id,
       },
       process.env.JWT_KEY,
       { expiresIn: '1h' },
     )
+    const { password, ...user } = userRegister._doc
     res.status(200).json({ user, token })
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -34,21 +35,22 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { username, password } = req.body
   try {
-    const user = await userModel.findOne({ username: username })
-    if (user) {
+    const userLogin = await userModel.findOne({ username: username })
+    if (userLogin) {
       //compare password input with password in database
-      const verify = await bcrypt.compare(password, user.password)
+      const verify = await bcrypt.compare(password, userLogin.password)
       if (!verify) {
         res.status(400).json('Wrong password')
       } else {
         const token = jwt.sign(
           {
-            username: user.username,
-            id: user._id,
+            username: userLogin.username,
+            id: userLogin._id,
           },
           process.env.JWT_KEY,
           { expiresIn: '1h' },
         )
+        const { password, ...user } = userLogin._doc
         res.status(200).json({ user, token })
       }
     } else res.status(404).json('Username not found')

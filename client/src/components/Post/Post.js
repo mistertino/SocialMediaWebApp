@@ -95,6 +95,8 @@ const Post = ({ post, posts }) => {
         <img src={CommentIcon} alt="" onClick={handleOpenComment} />
         <img src={Option} alt="" />
       </div>
+
+      {/* Open Comments */}
       {openComments && (
         <div className="comment-container">
           <div className="user-input-conment">

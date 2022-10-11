@@ -14,7 +14,7 @@ const Comment = ({ comment, comments }) => {
     getUserComment()
   }, [])
   return (
-    <>
+    <div>
       <span style={{ color: 'black', margin: '10px' }}>
         <Link
           to={`/profile/${userComment._id}`}
@@ -40,7 +40,7 @@ const Comment = ({ comment, comments }) => {
         </Link>
       </span>
       <span style={{ margin: '0 10px 10px 20px' }}>{comment.text}</span>
-    </>
+    </div>
   )
 }
 

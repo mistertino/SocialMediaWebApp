@@ -42,8 +42,8 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   }, [chat])
 
   //Func
-  const handleChange = (newMessage) => {
-    setNewMessage(newMessage)
+  const handleChange = (e) => {
+    setNewMessage(e.target.value)
   }
 
   const handleSend = async (e) => {
@@ -132,7 +132,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
             {/* chat sender */}
             <div className="chat-sender">
               {/* <div>+</div> */}
-              <InputEmoji
+              <input
                 value={newMessage}
                 onChange={handleChange}
                 placeholder="Nhập tin nhắn"
