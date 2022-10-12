@@ -3,11 +3,14 @@ import './Auth.css'
 import Logo from '../../img/logo.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { logIn, signUp } from '../../action/AuthAction'
+import { Alert } from 'react-bootstrap'
 const Auth = () => {
   const dispatch = useDispatch()
+  const alert = useSelector((state) => state.authReducer.alert)
   const loading = useSelector((state) => state.authReducer.loading)
   // State
   const [isSignUp, setIsSignUp] = useState(false)
+  const [alertMessage, setAlerMessage] = useState(alert)
   const [data, setData] = useState({
     firstname: '',
     lastname: '',
@@ -17,8 +20,10 @@ const Auth = () => {
   })
   const [confirmPass, setConfirmPass] = useState(true)
   // Set title
-  useEffect(()=>{
-    isSignUp? document.title = 'TC - Đăng kí': document.title = 'TC - Đăng nhập'
+  useEffect(() => {
+    isSignUp
+      ? (document.title = 'TC - Đăng kí')
+      : (document.title = 'TC - Đăng nhập')
   }, [isSignUp])
   // Func
   const handleChange = (e) => {
@@ -34,6 +39,7 @@ const Auth = () => {
     } else {
       dispatch(logIn(data))
     }
+    setAlerMessage(alert)
   }
 
   const resetForm = () => {
@@ -58,6 +64,9 @@ const Auth = () => {
       <div className="a-right">
         <form action="" className="infoForm authForm" onSubmit={handleSubmit}>
           <h3>{isSignUp ? 'Đăng kí' : 'Đăng nhập'}</h3>
+          {alertMessage === null ? null : (
+            <Alert variant="danger">{alert}</Alert>
+          )}
           {isSignUp && (
             <div>
               <input
@@ -123,6 +132,7 @@ const Auth = () => {
               style={{ fontSize: '12px', cursor: 'pointer' }}
               onClick={() => {
                 setIsSignUp((prev) => !prev)
+                setAlerMessage(null)
                 resetForm()
               }}
             >
