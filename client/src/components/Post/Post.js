@@ -5,23 +5,33 @@ import NotLike from '../../img/notlike.png'
 import Option from '../../img/option.png'
 import CommentIcon from '../../img/comment.png'
 import Comment from '../Comment/Comment'
-import { useSelector } from 'react-redux'
-import { addComment, getComments, likePost } from '../../api/PostRequest'
+import { useDispatch, useSelector } from 'react-redux'
+import { addComment, likePost } from '../../api/PostRequest'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/UserRequest'
+import { deletePost, updatePost } from '../../action/PostAction'
 
 const Post = ({ post, posts }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
+  const { updating } = useSelector((state) => state.postReducer)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const comment = useRef()
-
+  const dispatch = useDispatch()
   // State
   const [liked, setLiked] = useState(post.likes.includes(user._id))
   const [likes, setLikes] = useState(post.likes.length)
   const [userPost, setUserPost] = useState({})
   const [openComments, setOpenComments] = useState(false)
-  const [comments, setComments] = useState([])
+  const [openOption, setOpenOption] = useState(false)
+  const [comments, setComments] = useState(post.comments)
+  const [profileShow, setProfileShow] = useState(false)
+  const [update, setUpdate] = useState(false)
+  const [desc, setDesc] = useState(post.desc)
   //Func
+  const handleOpenOption = () => {
+    setOpenOption((prev) => !prev)
+  }
+
   const handleOpenComment = () => {
     setOpenComments((prev) => !prev)
   }
@@ -43,6 +53,19 @@ const Post = ({ post, posts }) => {
     }
   }
 
+  const handleDelete = () => {
+    dispatch(deletePost(post._id, user._id))
+  }
+
+  const handleUpdate = () => {
+    dispatch(updatePost(post._id, user._id, desc))
+    setUpdate(false)
+  }
+
+  const handleChange = (e) => {
+    setDesc(e.target.value)
+  }
+
   // Get info User
   useEffect(() => {
     const getUserPost = async () => {
@@ -51,17 +74,47 @@ const Post = ({ post, posts }) => {
     }
     getUserPost()
   }, [posts])
-  // Get comments
-  useEffect(() => {
-    const getCommentsPost = async () => {
-      const comments = await getComments(post._id)
-      setComments(comments.data.comments)
-    }
-    getCommentsPost()
-  }, [comments])
+
   return (
     <div className="Post">
       <div className="detail">
+        <div
+          className="dropdown-profile-user"
+          style={profileShow ? { display: 'block' } : { display: 'none' }}
+        >
+          <div className="user">
+            <img
+              src={
+                userPost.profilePicture
+                  ? serverPublic + userPost.profilePicture
+                  : serverPublic + 'user.png'
+              }
+              alt=""
+            />
+            <span>
+              <Link
+                to={`/profile/${userPost._id}`}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <b>
+                  {userPost.firstname} {userPost.lastname}
+                </b>
+              </Link>
+            </span>
+          </div>
+          <div className="info">
+            <b>Sống tại: </b>
+            <span>{userPost.livesin}</span>
+          </div>
+          <div className="info">
+            <b>Làm việc tại: </b>
+            <span>{userPost.worksAt}</span>
+          </div>
+          <div className="info">
+            <b>Mối quan hệ: </b>
+            <span>{userPost.relationship}</span>
+          </div>
+        </div>
         <div className="user_post">
           <img
             src={
@@ -71,7 +124,10 @@ const Post = ({ post, posts }) => {
             }
             alt=""
           />
-          <span>
+          <span
+            onMouseEnter={() => setProfileShow(true)}
+            onMouseLeave={() => setProfileShow(false)}
+          >
             <Link
               to={`/profile/${userPost._id}`}
               style={{ textDecoration: 'none', color: 'black' }}
@@ -82,8 +138,30 @@ const Post = ({ post, posts }) => {
             </Link>
           </span>
         </div>
-        <span>{post.desc}</span>
       </div>
+      {update ? (
+        <div className="desc">
+          <input type="text" value={desc} onChange={handleChange} />
+          <div className="button-update">
+            <button
+              onClick={() => {
+                setUpdate(false)
+                setDesc(post.desc)
+              }}
+            >
+              Huỷ
+            </button>
+            <button onClick={handleUpdate}>Cập nhật</button>
+          </div>
+        </div>
+      ) : (
+        <span>{post.desc}</span>
+      )}
+      {post.hastag && (
+        <span>
+          <b style={{ color: 'purple' }}>#{post.hastag}</b>
+        </span>
+      )}
       <img
         src={post.image ? process.env.REACT_APP_PUBLIC_FOLDER + post.image : ''}
         alt=""
@@ -93,7 +171,23 @@ const Post = ({ post, posts }) => {
       <div className="postReact">
         <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
         <img src={CommentIcon} alt="" onClick={handleOpenComment} />
-        <img src={Option} alt="" />
+        {post.userId === user._id ? (
+          <img src={Option} alt="" onClick={handleOpenOption} />
+        ) : null}
+        <ul
+          className="dropdown-option"
+          style={openOption ? { display: 'block' } : { display: 'none' }}
+        >
+          <li
+            onClick={() => {
+              setOpenOption(false)
+              setUpdate(true)
+            }}
+          >
+            Sửa bài viết
+          </li>
+          <li onClick={handleDelete}>Xoá bài viết</li>
+        </ul>
       </div>
 
       {/* Open Comments */}
@@ -116,7 +210,7 @@ const Post = ({ post, posts }) => {
             />
           </div>
           <div className="list-comments">
-            {comments.map((comment) => {
+            {comments?.map((comment) => {
               return (
                 <Comment
                   comment={comment}

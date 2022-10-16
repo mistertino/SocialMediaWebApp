@@ -19,7 +19,6 @@ const ProfileCard = ({ location }) => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id || profileUserId === undefined) {
         setProfileUser(user)
-        console.log(profileUser)
       } else {
         const profileUser = await UserApi.getUser(profileUserId)
         // console.log(profileUser.data)

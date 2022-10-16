@@ -42,8 +42,9 @@ export const updatePost = async (req, res) => {
     const post = await postModel.findById(postId)
     if (post.userId === currentUserId) {
       await post.updateOne({ $set: req.body })
-      res.status(200).json('Post Updated')
-    } else res.status(403).json('This is not your post')
+      const postUpdated = await postModel.findById(postId)
+      res.status(200).json(postUpdated)
+    } else res.status(403).json('UPDATE FAIL: This is not your post')
   } catch (error) {
     res.status(500).json(error)
   }
@@ -58,7 +59,7 @@ export const deletePost = async (req, res) => {
     if (post.userId === currentUserId) {
       await post.deleteOne()
       res.status(200).json('Deleted Post')
-    } else res.status(403).json('This is not your post')
+    } else res.status(403).json('DELETE FAIL:  This is not your post')
   } catch (error) {
     res.status(500).json(error)
   }

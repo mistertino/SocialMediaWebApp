@@ -8,7 +8,7 @@ import { UilTimes } from '@iconscout/react-unicons'
 import { useDispatch, useSelector } from 'react-redux'
 import { uploadImage, uploadPost } from '../../action/UploadAction'
 
-const PostShare = ({setModalOpened}) => {
+const PostShare = ({ setModalOpened }) => {
   const loading = useSelector((state) => state.postReducer.uploading)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -33,11 +33,11 @@ const PostShare = ({setModalOpened}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const hastag = (desc.current.value).split('#', 10)
+    const hastag = desc.current.value.split('#', 10)
     const newPost = {
       userId: user._id,
-      desc: desc.current.value,
-      hastag: hastag[1]
+      desc: hastag[0],
+      hastag: hastag[1],
     }
     if (image) {
       const data = new FormData()
@@ -57,7 +57,14 @@ const PostShare = ({setModalOpened}) => {
 
   return (
     <div className="PostShare">
-      <img src={user.profilePicture? serverPublic + user.profilePicture: serverPublic + 'user.png'} alt="" />
+      <img
+        src={
+          user.profilePicture
+            ? serverPublic + user.profilePicture
+            : serverPublic + 'user.png'
+        }
+        alt=""
+      />
       <div className="">
         <input
           type="text"

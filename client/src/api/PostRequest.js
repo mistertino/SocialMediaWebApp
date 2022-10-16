@@ -9,3 +9,9 @@ export const getAllPosts = () => API.get('/post')
 export const getComments = (id) => API.get(`/post/${id}/comment`)
 export const addComment = (id, userId, text) =>
   API.put(`/post/${id}/comment`, { currentUserId: userId, text: text })
+export const deletePost = (postId, userId) => {
+  API.delete(`/post/${postId}`, { data: { currentUserId: userId } })
+}
+
+export const updatePost = (id, userId, desc) =>
+  API.put(`/post/${id}`, { currentUserId: userId, desc: desc })
