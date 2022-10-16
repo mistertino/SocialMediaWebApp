@@ -61,6 +61,13 @@
   color: #fff;
 }
 
+.Post > .desc > .button-update > button:nth-of-type(2):hover {
+  border: 2px solid var(--purple);
+  background: #fff;
+  color: var(--purple);
+  padding: 8px;
+}
+
 .dropdown-profile-user > .user > img {
   width: 3.5rem;
   height: 3.5rem;

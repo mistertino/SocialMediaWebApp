@@ -151,7 +151,9 @@ const Post = ({ post, posts }) => {
             >
               Huỷ
             </button>
-            <button onClick={handleUpdate}>Cập nhật</button>
+            <button onClick={handleUpdate}>
+              {updating ? 'Đang cập nhật...' : 'Cập nhật'}
+            </button>
           </div>
         </div>
       ) : (
@@ -168,27 +170,29 @@ const Post = ({ post, posts }) => {
       />
       <span>{likes} Lượt thích</span>
 
-      <div className="postReact">
-        <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
-        <img src={CommentIcon} alt="" onClick={handleOpenComment} />
-        {post.userId === user._id ? (
-          <img src={Option} alt="" onClick={handleOpenOption} />
-        ) : null}
-        <ul
-          className="dropdown-option"
-          style={openOption ? { display: 'block' } : { display: 'none' }}
-        >
-          <li
-            onClick={() => {
-              setOpenOption(false)
-              setUpdate(true)
-            }}
+      {update ? null : (
+        <div className="postReact">
+          <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
+          <img src={CommentIcon} alt="" onClick={handleOpenComment} />
+          {post.userId === user._id ? (
+            <img src={Option} alt="" onClick={handleOpenOption} />
+          ) : null}
+          <ul
+            className="dropdown-option"
+            style={openOption ? { display: 'block' } : { display: 'none' }}
           >
-            Sửa bài viết
-          </li>
-          <li onClick={handleDelete}>Xoá bài viết</li>
-        </ul>
-      </div>
+            <li
+              onClick={() => {
+                setOpenOption(false)
+                setUpdate(true)
+              }}
+            >
+              Sửa bài viết
+            </li>
+            <li onClick={handleDelete}>Xoá bài viết</li>
+          </ul>
+        </div>
+      )}
 
       {/* Open Comments */}
       {openComments && (
