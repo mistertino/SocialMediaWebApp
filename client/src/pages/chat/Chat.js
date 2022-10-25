@@ -8,7 +8,7 @@ import Noti from '../../img/noti.png'
 import Chaticon from '../../img/chat.png'
 import { UilSetting } from '@iconscout/react-unicons'
 import Dropdown from 'react-bootstrap/Dropdown'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './Chat.css'
 import { logOut } from '../../action/AuthAction'
 import ChatBox from '../../components/ChatBox/ChatBox'
@@ -17,6 +17,7 @@ const Chat = () => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.authReducer.authData)
   const socket = useRef()
+  const location = useLocation()
   // State
   const [chats, setChats] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
@@ -30,7 +31,9 @@ const Chat = () => {
       try {
         const { data } = await userChats(user._id)
         setChats(data)
-        console.log(data)
+        if (location?.state.chat !== null) {
+          setCurrentChat(location.state.chat)
+        }
       } catch (error) {
         console.log(error)
       }

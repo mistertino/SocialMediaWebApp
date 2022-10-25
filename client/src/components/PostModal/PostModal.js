@@ -60,9 +60,11 @@ const PostModal = ({
       onClose={() => setModalOpened(false)}
     >
       <div className="container">
+        {/* Left side */}
         <div className="left-side">
           <img src={post.image ? serverPublic + post.image : ''} alt="" />
         </div>
+        {/* Right side */}
         <div className="right-side">
           <div className="post-header">
             <div className="user_post">
@@ -116,7 +118,7 @@ const PostModal = ({
                   onKeyDown={handleComment}
                 />
               </div>
-              <div className="list-comments">
+              <div className="list-comments list-comments-modal">
                 {comments?.map((comment) => {
                   return (
                     <Comment

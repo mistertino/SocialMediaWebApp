@@ -176,7 +176,10 @@ const Post = ({ post, posts }) => {
         style={{ cursor: 'pointer' }}
         src={post.image ? serverPublic + post.image : ''}
         alt=""
-        onClick={() => setModalOpened(true)}
+        onClick={() => {
+          setOpenComments(false)
+          setModalOpened(true)
+        }}
       />
       <div className="lenght-react">
         <span>{likes} Lượt thích</span>

@@ -28,13 +28,13 @@ const ResultItem = ({ result }) => {
     const userId = user._id
     const { data } = await findChat(userId, result._id)
     if (data === null) {
-      const data = {
+      const newChat = {
         senderId: userId,
         receiverId: result._id,
       }
-      await createChat(data)
-      navigate('../chat')
-    } else navigate('../chat')
+      await createChat(newChat)
+      navigate('../chat', { state: { chat: data } })
+    } else navigate('../chat', { state: { chat: data } })
   }
 
   return (

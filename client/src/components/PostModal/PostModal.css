@@ -18,6 +18,7 @@
   width: 100%;
   object-fit: contain;
   border-radius: 10px;
+  max-height: 600px;
 }
 
 .container > .right-side {
@@ -25,4 +26,13 @@
   flex-direction: column;
   gap: 1rem;
   width: 30%;
+  max-height: 600px;
+}
+
+.list-comments-modal {
+  max-height: 20rem;
+}
+
+.post-comment {
+  min-height: 30rem;
 }

@@ -33,13 +33,13 @@ const ProfileCard = ({ location }) => {
     const userId = user._id
     const { data } = await findChat(userId, profileUserId)
     if (data === null) {
-      const data = {
+      const newChat = {
         senderId: userId,
         receiverId: profileUserId,
       }
-      await createChat(data)
-      navigate('../chat')
-    } else navigate('../chat')
+      const { data } = await createChat(newChat)
+      navigate('../chat', { state: { chat: data } })
+    } else navigate('../chat', { state: { chat: data } })
   }
   return (
     <div className="ProfileCard">
