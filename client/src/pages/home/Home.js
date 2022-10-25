@@ -6,13 +6,13 @@ import RightSide from '../../components/RightSide/RightSide'
 
 const Home = () => {
   // Set title
-  useEffect(()=>{
+  useEffect(() => {
     document.title = 'TC - Home'
   })
   return (
     <div className="Home">
-      <ProfileSide />
-      <PostSide  location = 'homePage'/>
+      <ProfileSide location="homePage" />
+      <PostSide location="homePage" />
       <RightSide />
     </div>
   )

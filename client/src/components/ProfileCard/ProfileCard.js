@@ -58,7 +58,7 @@ const ProfileCard = ({ location }) => {
           style={
             location === 'profilePage'
               ? { maxHeight: '15rem' }
-              : { maxHeight: '12rem' }
+              : { maxHeight: '8rem' }
           }
         />
         <img
@@ -76,7 +76,10 @@ const ProfileCard = ({ location }) => {
       </div>
 
       <div className="profileName">
-        <span>{profileUser.firstname + ' ' + profileUser.lastname}</span>
+        <span>
+          {user._id === params.id ? user.firstname : profileUser.firstname}{' '}
+          {user._id === params.id ? user.lastname : profileUser.lastname}
+        </span>
         <span>{profileUser.about ? profileUser.about : ''}</span>
       </div>
 

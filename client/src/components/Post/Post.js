@@ -6,39 +6,44 @@ import Option from '../../img/option.png'
 import CommentIcon from '../../img/comment.png'
 import Comment from '../Comment/Comment'
 import { useDispatch, useSelector } from 'react-redux'
-import { addComment, likePost } from '../../api/PostRequest'
+import { addComment, getComments, likePost } from '../../api/PostRequest'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/UserRequest'
 import { deletePost, updatePost } from '../../action/PostAction'
+import PostModal from '../PostModal/PostModal'
 
 const Post = ({ post, posts }) => {
+  const myPost = useRef(null)
   const { user } = useSelector((state) => state.authReducer.authData)
   const { updating } = useSelector((state) => state.postReducer)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const comment = useRef()
   const dispatch = useDispatch()
+  // const lenght = post.comments.length
   // State
   const [liked, setLiked] = useState(post.likes.includes(user._id))
   const [likes, setLikes] = useState(post.likes.length)
   const [userPost, setUserPost] = useState({})
+  const [lcomments, setLComments] = useState(0)
   const [openComments, setOpenComments] = useState(false)
   const [openOption, setOpenOption] = useState(false)
-  const [comments, setComments] = useState(post.comments)
+  const [comments, setComments] = useState([])
   const [profileShow, setProfileShow] = useState(false)
   const [update, setUpdate] = useState(false)
   const [desc, setDesc] = useState(post.desc)
-  //Func
-  const handleOpenOption = () => {
-    setOpenOption((prev) => !prev)
-  }
+  const [modalOpened, setModalOpened] = useState(false)
 
-  const handleOpenComment = () => {
-    setOpenComments((prev) => !prev)
-  }
+  //Func
   const handleLike = () => {
     likePost(post._id, user._id)
     setLiked((prev) => !prev)
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1)
+  }
+
+  const openComment = async () => {
+    setOpenComments((prev) => !prev)
+    const comments = await getComments(post._id)
+    setComments(comments.data)
   }
 
   const handleComment = async (e) => {
@@ -47,7 +52,7 @@ const Post = ({ post, posts }) => {
       if (text !== '') {
         const newComment = await addComment(post._id, user._id, text)
         // console.log(newComment)
-        setComments([...comments, newComment.data])
+        setComments([newComment.data, ...comments])
         comment.current.value = ''
       }
     }
@@ -76,7 +81,7 @@ const Post = ({ post, posts }) => {
   }, [posts])
 
   return (
-    <div className="Post">
+    <div className="Post" ref={myPost}>
       <div className="detail">
         <div
           className="dropdown-profile-user"
@@ -125,6 +130,9 @@ const Post = ({ post, posts }) => {
             alt=""
           />
           <span
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+            }}
             onMouseEnter={() => setProfileShow(true)}
             onMouseLeave={() => setProfileShow(false)}
           >
@@ -165,17 +173,26 @@ const Post = ({ post, posts }) => {
         </span>
       )}
       <img
-        src={post.image ? process.env.REACT_APP_PUBLIC_FOLDER + post.image : ''}
+        style={{ cursor: 'pointer' }}
+        src={post.image ? serverPublic + post.image : ''}
         alt=""
+        onClick={() => setModalOpened(true)}
       />
-      <span>{likes} Lượt thích</span>
+      <div className="lenght-react">
+        <span>{likes} Lượt thích</span>
+        <span>{lcomments} Lượt bình luận</span>
+      </div>
 
       {update ? null : (
         <div className="postReact">
           <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
-          <img src={CommentIcon} alt="" onClick={handleOpenComment} />
+          <img src={CommentIcon} alt="" onClick={openComment} />
           {post.userId === user._id ? (
-            <img src={Option} alt="" onClick={handleOpenOption} />
+            <img
+              src={Option}
+              alt=""
+              onClick={() => setOpenOption((prev) => !prev)}
+            />
           ) : null}
           <ul
             className="dropdown-option"
@@ -185,6 +202,7 @@ const Post = ({ post, posts }) => {
               onClick={() => {
                 setOpenOption(false)
                 setUpdate(true)
+                myPost.current.scrollIntoView({ behavior: 'smooth' })
               }}
             >
               Sửa bài viết
@@ -226,6 +244,17 @@ const Post = ({ post, posts }) => {
           </div>
         </div>
       )}
+      <PostModal
+        modalOpened={modalOpened}
+        setModalOpened={setModalOpened}
+        post={post}
+        userPost={userPost}
+        user={user}
+        liked={liked}
+        setLiked={setLiked}
+        likes={likes}
+        handleLike={handleLike}
+      />
     </div>
   )
 }

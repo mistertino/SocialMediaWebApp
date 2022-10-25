@@ -1,11 +1,11 @@
-.FollowerCard {
+.FollowerCard > .user {
   width: 100%;
   border-radius: 0.7rem;
   gap: 1rem;
   display: flex;
   flex-direction: column;
   font-size: 13px;
-  max-height: 20rem;
+  max-height: 15rem;
   overflow: auto;
 }
 

@@ -18,11 +18,13 @@ const FollowerCard = () => {
   return (
     <div className="FollowerCard">
       <h5>Những người bạn có thể biết.</h5>
-      {persons.map((person, id) => {
-        if (person._id !== user._id) {
-          return <User person={person} key={id} />
-        }
-      })}
+      <div className="user">
+        {persons.map((person, id) => {
+          if (person._id !== user._id) {
+            return <User person={person} key={id} />
+          }
+        })}
+      </div>
     </div>
   )
 }

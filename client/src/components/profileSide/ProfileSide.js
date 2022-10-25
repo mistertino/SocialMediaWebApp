@@ -4,12 +4,12 @@ import LogoSearch from '../LogoSearch/LogoSearch'
 import ProfileCard from '../ProfileCard/ProfileCard'
 import FollowerCard from '../FollowerCard/FollowerCard'
 
-const ProfileSide = () => {
+const ProfileSide = ({ location }) => {
   return (
     <div className="ProfileSide">
       <LogoSearch />
-      <ProfileCard location = 'homePage'/>
-      <FollowerCard />
+      <ProfileCard location="homePage" />
+      {location === 'homePage' ? <FollowerCard /> : ''}
     </div>
   )
 }

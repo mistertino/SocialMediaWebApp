@@ -42,6 +42,28 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   }, [chat])
 
   //Func
+  const enterKeySend = async (e) => {
+    if (e.key === 'Enter') {
+      const message = {
+        senderId: currentUser,
+        text: newMessage,
+        chatId: chat._id,
+      }
+      const receiverId = chat.members.find((id) => id !== currentUser)
+      // send message to socket server
+      setSendMessage({ ...message, receiverId })
+
+      // Send message to database
+      try {
+        const { data } = await addMessage(message)
+        setMessages([...messages, data])
+        setNewMessage('')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
   const handleChange = (e) => {
     setNewMessage(e.target.value)
   }
@@ -136,6 +158,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                 value={newMessage}
                 onChange={handleChange}
                 placeholder="Nhập tin nhắn"
+                onKeyDown={enterKeySend}
               />
               <div className="send-button button" onClick={handleSend}>
                 Gửi

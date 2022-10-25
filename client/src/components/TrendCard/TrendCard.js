@@ -7,7 +7,6 @@ const TrendCard = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const { data } = await getAllPosts()
-      console.log(data)
       setPosts(data)
     }
     fetchPosts()

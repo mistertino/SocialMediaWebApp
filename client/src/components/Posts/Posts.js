@@ -14,10 +14,13 @@ const Posts = () => {
   useEffect(() => {
     dispatch(getTimelinePosts(user._id))
   }, [posts.length])
+
   if (!posts) return 'Không có bài viết nào hiện tại!'
+
   if (params.id) {
     posts = posts.filter((post) => post.userId === params.id)
   }
+
   return (
     <div className="Posts">
       {loading

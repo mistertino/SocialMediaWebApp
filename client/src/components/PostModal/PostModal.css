@@ -1,0 +1,28 @@
+.mantine-Modal-modal {
+  background-color: rgb(252, 252, 252);
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  gap: 2rem;
+  max-height: 600px;
+}
+
+.container > .left-side {
+  display: flex;
+  width: 70%;
+}
+
+.container > .left-side > img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.container > .right-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 30%;
+}

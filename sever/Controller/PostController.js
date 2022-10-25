@@ -113,7 +113,7 @@ export const getTimelinePosts = async (req, res) => {
       currentUserPosts
         .concat(...postUserFollowing[0].postUserFollowing)
         .sort((a, b) => {
-          return new Date(b.createdAt) - new Date(a.createdAt)
+          return new Date(b.updatedAt) - new Date(a.updatedAt)
         }),
     )
   } catch (error) {
@@ -125,6 +125,7 @@ export const getTimelinePosts = async (req, res) => {
 export const addComment = async (req, res) => {
   const postId = req.params.id
   const { currentUserId, text } = req.body
+  const datecmt = new Date(Date.now())
   try {
     const post = await postModel.findById(postId)
     await post.updateOne({
@@ -132,7 +133,7 @@ export const addComment = async (req, res) => {
         comments: {
           userId: currentUserId,
           text: text,
-          date_added: Date.now(),
+          date_added: datecmt,
         },
       },
     })
@@ -146,10 +147,12 @@ export const addComment = async (req, res) => {
 export const getComments = async (req, res) => {
   const postId = req.params.id
   try {
-    const comments = await postModel
-      .findById(postId)
-      .select('comments')
-      .sort({ date_added: -1 })
+    const { comments } = await postModel.findById(postId) //await postModel.findById(postId) nó ra object chưa comments mà nên { comments } như này là lấy comments trong object { } đó vâng :), cạu out nhe dạ
+
+    comments.sort((a, b) => {
+      return new Date(b.date_added) - new Date(a.date_added)
+    })
+
     res.status(200).json(comments)
   } catch (error) {
     res.status(500).json(error)

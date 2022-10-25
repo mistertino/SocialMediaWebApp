@@ -1,0 +1,38 @@
+.search-result {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-result > img {
+  width: 30rem;
+}
+
+.search-result > span {
+  margin-top: 1rem;
+  color: var(--purple);
+  font-size: larger;
+}
+
+.result {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  align-items: center;
+  overflow: auto;
+  max-height: 100vh;
+}
+
+.result > img {
+  width: 15%;
+}
+
+.result > b {
+  text-align: center;
+  color: var(--purple);
+  font-size: larger;
+  margin-bottom: 2rem;
+}
