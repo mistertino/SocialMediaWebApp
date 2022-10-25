@@ -24,7 +24,7 @@ const Post = ({ post, posts }) => {
   const [liked, setLiked] = useState(post.likes.includes(user._id))
   const [likes, setLikes] = useState(post.likes.length)
   const [userPost, setUserPost] = useState({})
-  const [lcomments, setLComments] = useState(0)
+  const [lcomments, setLComments] = useState(post?.comments?.length)
   const [openComments, setOpenComments] = useState(false)
   const [openOption, setOpenOption] = useState(false)
   const [comments, setComments] = useState([])
@@ -53,6 +53,7 @@ const Post = ({ post, posts }) => {
         const newComment = await addComment(post._id, user._id, text)
         // console.log(newComment)
         setComments([newComment.data, ...comments])
+        setLComments((prev) => prev + 1)
         comment.current.value = ''
       }
     }
@@ -177,6 +178,7 @@ const Post = ({ post, posts }) => {
         src={post.image ? serverPublic + post.image : ''}
         alt=""
         onClick={() => {
+          openComment()
           setOpenComments(false)
           setModalOpened(true)
         }}
@@ -257,6 +259,11 @@ const Post = ({ post, posts }) => {
         setLiked={setLiked}
         likes={likes}
         handleLike={handleLike}
+        comments={comments}
+        setComments={setComments}
+        setLComments={setLComments}
+        handleComment={handleComment}
+        lcomments={lcomments}
       />
     </div>
   )

@@ -36,3 +36,17 @@
 .post-comment {
   min-height: 30rem;
 }
+
+.postReact > .like > img {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.postReact > .comment > img {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  margin-right: 10px;
+}

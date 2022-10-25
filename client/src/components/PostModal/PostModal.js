@@ -17,12 +17,17 @@ const PostModal = ({
   liked,
   handleLike,
   likes,
+  comments,
+  setComments,
+  lcomments,
+  setLComments,
 }) => {
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const theme = useMantineTheme()
   const comment = useRef()
   //state
-  const [comments, setComments] = useState([])
+  // const [comments, setComments] = useState([])
+  // const [lcomments, setLComments] = useState(post?.comments?.length)
 
   //Func
   const handleComment = async (e) => {
@@ -32,18 +37,19 @@ const PostModal = ({
         const newComment = await addComment(post._id, user._id, text)
         // console.log(newComment)
         setComments([newComment.data, ...comments])
+        setLComments((prev) => prev + 1)
         comment.current.value = ''
       }
     }
   }
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      const comments = await getComments(post._id)
-      setComments(comments.data)
-    }
-    fetchComments()
-  }, [])
+  // useEffect(() => {
+  //   const fetchComments = async () => {
+  //     const comments = await getComments(post._id)
+  //     setComments(comments.data)
+  //   }
+  //   fetchComments()
+  // }, [])
   return (
     <Modal
       centered
@@ -97,8 +103,14 @@ const PostModal = ({
             )}
           </div>
           <div className="postReact">
-            <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
-            <span>{likes} Lượt thích</span>
+            <div className="like">
+              <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
+              <span>{likes} Lượt thích</span>
+            </div>
+            <div className="comment">
+              <img src={CommentIcon} alt="" />
+              <span>{lcomments} Lượt bình luận</span>
+            </div>
           </div>
           <div className="post-comment">
             <div className="comment-container">
