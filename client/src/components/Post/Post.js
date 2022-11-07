@@ -12,25 +12,27 @@ import { getUser } from '../../api/UserRequest'
 import { deletePost, updatePost } from '../../action/PostAction'
 import PostModal from '../PostModal/PostModal'
 
-const Post = ({ post, posts }) => {
+const Post = ({ post, posts, location }) => {
+  // console.log(post)
   const myPost = useRef(null)
   const { user } = useSelector((state) => state.authReducer.authData)
   const { updating } = useSelector((state) => state.postReducer)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const comment = useRef()
   const dispatch = useDispatch()
-  // const lenght = post.comments.length
   // State
-  const [liked, setLiked] = useState(post.likes.includes(user._id))
-  const [likes, setLikes] = useState(post.likes.length)
+  const [liked, setLiked] = useState(post?.likes?.includes(user._id))
+  const [likes, setLikes] = useState(post?.likes?.length)
   const [userPost, setUserPost] = useState({})
   const [lcomments, setLComments] = useState(post?.comments?.length)
-  const [openComments, setOpenComments] = useState(false)
+  const [openComments, setOpenComments] = useState(
+    location === 'viewPost' ? true : false,
+  )
   const [openOption, setOpenOption] = useState(false)
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState(post?.comments)
   const [profileShow, setProfileShow] = useState(false)
   const [update, setUpdate] = useState(false)
-  const [desc, setDesc] = useState(post.desc)
+  const [desc, setDesc] = useState(post?.desc)
   const [modalOpened, setModalOpened] = useState(false)
 
   //Func
@@ -43,6 +45,8 @@ const Post = ({ post, posts }) => {
   const openComment = async () => {
     setOpenComments((prev) => !prev)
     const comments = await getComments(post._id)
+    // dispatch(getComments(post._id))
+    // console.log(1)
     setComments(comments.data)
   }
 
@@ -75,11 +79,11 @@ const Post = ({ post, posts }) => {
   // Get info User
   useEffect(() => {
     const getUserPost = async () => {
-      const userPost = await getUser(post.userId)
+      const userPost = await getUser(post?.userId)
       setUserPost(userPost.data)
     }
     getUserPost()
-  }, [posts])
+  }, [post])
 
   return (
     <div className="Post" ref={myPost}>
@@ -166,16 +170,17 @@ const Post = ({ post, posts }) => {
           </div>
         </div>
       ) : (
-        <span>{post.desc}</span>
+        <span>{post?.desc}</span>
       )}
-      {post.hastag && (
+      {post?.hastag && (
         <span>
           <b style={{ color: 'purple' }}>#{post.hastag}</b>
         </span>
       )}
+
       <img
         style={{ cursor: 'pointer' }}
-        src={post.image ? serverPublic + post.image : ''}
+        src={post?.image ? serverPublic + post?.image : ''}
         alt=""
         onClick={() => {
           openComment()
@@ -192,7 +197,7 @@ const Post = ({ post, posts }) => {
         <div className="postReact">
           <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
           <img src={CommentIcon} alt="" onClick={openComment} />
-          {post.userId === user._id ? (
+          {post?.userId === user._id ? (
             <img
               src={Option}
               alt=""
@@ -249,6 +254,7 @@ const Post = ({ post, posts }) => {
           </div>
         </div>
       )}
+
       <PostModal
         modalOpened={modalOpened}
         setModalOpened={setModalOpened}

@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Modal, useMantineTheme } from '@mantine/core'
 import './PostModal.css'
 import { Link } from 'react-router-dom'
-import { addComment, getComments } from '../../api/PostRequest'
+import { addComment } from '../../api/PostRequest'
 import Comment from '../Comment/Comment'
 import Like from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
 import CommentIcon from '../../img/comment.png'
+import ScrollContainer from 'react-indiana-drag-scroll'
+import { UilSearchMinus, UilSearchPlus } from '@iconscout/react-unicons'
 
 const PostModal = ({
   modalOpened,
@@ -25,9 +27,8 @@ const PostModal = ({
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const theme = useMantineTheme()
   const comment = useRef()
-  //state
-  // const [comments, setComments] = useState([])
-  // const [lcomments, setLComments] = useState(post?.comments?.length)
+  // State
+  const [zoomamount, setZoomamount] = useState(1)
 
   //Func
   const handleComment = async (e) => {
@@ -43,13 +44,16 @@ const PostModal = ({
     }
   }
 
-  // useEffect(() => {
-  //   const fetchComments = async () => {
-  //     const comments = await getComments(post._id)
-  //     setComments(comments.data)
-  //   }
-  //   fetchComments()
-  // }, [])
+  const zoom = (el) => {
+    if (el.type === 'in') {
+      setZoomamount((prev) => prev + 0.1)
+    } else {
+      if (zoomamount > 1) {
+        setZoomamount((prev) => prev - 0.1)
+      }
+    }
+  }
+
   return (
     <Modal
       centered
@@ -61,90 +65,107 @@ const PostModal = ({
       }
       overlayOpacity={0.55}
       overlayBlur={3}
-      size="90%"
+      size="100%"
       opened={modalOpened}
-      onClose={() => setModalOpened(false)}
+      onClose={() => {
+        setModalOpened(false)
+        setZoomamount(1)
+      }}
     >
-      <div className="container">
-        {/* Left side */}
-        <div className="left-side">
-          <img src={post.image ? serverPublic + post.image : ''} alt="" />
+      {/* <div className="container"> */}
+      {/* Left side */}
+      <div className="left-side">
+        <div className="set-zoom">
+          <UilSearchPlus onClick={() => zoom({ type: 'in' })} />
+          <UilSearchMinus onClick={() => zoom({ type: 'out' })} />
         </div>
-        {/* Right side */}
-        <div className="right-side">
-          <div className="post-header">
-            <div className="user_post">
+        <ScrollContainer className="grabbercontainer" hideScrollbars={true}>
+          <img
+            style={{
+              width: 100 * zoomamount + '%',
+              height: 100 * zoomamount + '%',
+            }}
+            src={post.image ? serverPublic + post.image : ''}
+            alt=""
+          />
+        </ScrollContainer>
+      </div>
+
+      {/* Right side */}
+      <div className="right-side">
+        <div className="post-header">
+          <div className="user_post">
+            <img
+              src={
+                userPost.profilePicture
+                  ? serverPublic + userPost.profilePicture
+                  : serverPublic + 'user.png'
+              }
+              alt=""
+            />
+            <span>
+              <Link
+                to={`/profile/${userPost._id}`}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <b>
+                  {userPost.firstname} {userPost.lastname}
+                </b>
+              </Link>
+            </span>
+          </div>
+          <div className="desc">
+            <span>{post.desc}</span>
+          </div>
+          {post.hastag && (
+            <span>
+              <b style={{ color: 'purple' }}>#{post.hastag}</b>
+            </span>
+          )}
+        </div>
+        <div className="postReact">
+          <div className="like">
+            <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
+            <span>{likes} Lượt thích</span>
+          </div>
+          <div className="comment">
+            <img src={CommentIcon} alt="" />
+            <span>{lcomments} Lượt bình luận</span>
+          </div>
+        </div>
+        <div className="post-comment">
+          <div className="comment-container">
+            <div className="user-input-conment">
               <img
                 src={
-                  userPost.profilePicture
-                    ? serverPublic + userPost.profilePicture
+                  user.profilePicture
+                    ? serverPublic + user.profilePicture
                     : serverPublic + 'user.png'
                 }
                 alt=""
               />
-              <span>
-                <Link
-                  to={`/profile/${userPost._id}`}
-                  style={{ textDecoration: 'none', color: 'black' }}
-                >
-                  <b>
-                    {userPost.firstname} {userPost.lastname}
-                  </b>
-                </Link>
-              </span>
+              <input
+                type="text"
+                placeholder="Viết bình luận...."
+                ref={comment}
+                onKeyDown={handleComment}
+              />
             </div>
-            <div className="desc">
-              <span>{post.desc}</span>
-            </div>
-            {post.hastag && (
-              <span>
-                <b style={{ color: 'purple' }}>#{post.hastag}</b>
-              </span>
-            )}
-          </div>
-          <div className="postReact">
-            <div className="like">
-              <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
-              <span>{likes} Lượt thích</span>
-            </div>
-            <div className="comment">
-              <img src={CommentIcon} alt="" />
-              <span>{lcomments} Lượt bình luận</span>
-            </div>
-          </div>
-          <div className="post-comment">
-            <div className="comment-container">
-              <div className="user-input-conment">
-                <img
-                  src={
-                    user.profilePicture
-                      ? serverPublic + user.profilePicture
-                      : serverPublic + 'user.png'
-                  }
-                  alt=""
-                />
-                <input
-                  type="text"
-                  placeholder="Viết bình luận...."
-                  ref={comment}
-                  onKeyDown={handleComment}
-                />
-              </div>
-              <div className="list-comments list-comments-modal">
-                {comments?.map((comment) => {
-                  return (
-                    <Comment
-                      comment={comment}
-                      comments={comments}
-                      userPost={userPost}
-                    />
-                  )
-                })}
-              </div>
+            <div className="list-comments list-comments-modal">
+              {comments?.map((comment) => {
+                return (
+                  <Comment
+                    comment={comment}
+                    comments={comments}
+                    userPost={userPost}
+                  />
+                )
+              })}
             </div>
           </div>
         </div>
       </div>
+      {/* </div> */}
     </Modal>
   )
 }

@@ -4,5 +4,5 @@
   grid-template-columns: 19rem auto 20rem;
   gap: 1rem;
   min-height: 100vh;
-  max-height: 100vh;
+  /* max-height: 100vh; */
 }

@@ -1,0 +1,8 @@
+.notify-item {
+  margin: 10px;
+  background-color: rgb(236, 205, 232);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}

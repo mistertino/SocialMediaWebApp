@@ -17,9 +17,67 @@
   height: 1.5rem;
 }
 
+.navIcon > .notifycations {
+  position: relative;
+  /* cursor: pointer; */
+}
+
+.navIcon > .notifycations > .dot {
+  position: absolute;
+  top: 0px;
+  right: -3px;
+  border-radius: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: red;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.navIcon > .notifycations > img {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+.navIcon > .notifycations > .notify-container {
+  display: flex;
+  position: absolute;
+  width: 18rem;
+  max-height: 20rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  top: 45px;
+  right: -170px;
+  overflow: auto;
+  align-items: center;
+}
+
 .navIcon > a > img {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.navIcon > .setting {
+  position: relative;
+  cursor: pointer;
+}
+
+.navIcon > .setting > .setting-container {
+  position: absolute;
+  background-color: #fff;
+  padding: 15px;
+  top: 40px;
+  right: -48px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  width: auto;
+}
+
+.navIcon > .setting > .setting-container > .setting-items {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
 .dropdown {

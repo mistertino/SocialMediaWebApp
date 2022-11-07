@@ -5,6 +5,7 @@ const authReducer = (
     error: false,
     updateLoading: false,
     alert: null,
+    notifyLoading: false,
   },
   action,
 ) => {
@@ -23,6 +24,7 @@ const authReducer = (
       }
     case 'AUTH_FAIL':
       return { ...state, loading: false, error: true, alert: action.data }
+
     // Update info user
     case 'UPDATE_USER_START':
       return { ...state, updateLoading: true, error: false }
@@ -36,6 +38,7 @@ const authReducer = (
       }
     case 'UPDATE_USER_FAIL':
       return { ...state, updateLoading: false, error: true }
+
     // Follow User
     case 'FOLLOW_USER':
       return {
@@ -63,6 +66,39 @@ const authReducer = (
           },
         },
       }
+
+    // Notify
+    case 'GET_NOTIFY_START':
+      return { ...state, notifyLoading: true, error: false }
+    case 'GET_NOTIFY_SUCCESS':
+      return {
+        ...state,
+        authData: {
+          ...state.authData,
+          user: { ...state.authData.user, notifications: action.data },
+        },
+        notifyLoading: false,
+        error: false,
+      }
+    case 'GET_NOTIFY_FAIL':
+      return { ...state, notifyLoading: false, error: true }
+
+    case 'REMOVE_NOTIFY':
+      return {
+        ...state,
+        authData: {
+          ...state.authData,
+          user: {
+            ...state.authData.user,
+            notifications: [
+              ...state.authData.user.notifications.filter(
+                (notify) => notify.notifyId !== action.data,
+              ),
+            ],
+          },
+        },
+      }
+
     // Log Out
     case 'LOG_OUT':
       localStorage.clear()

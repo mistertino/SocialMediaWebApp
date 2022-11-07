@@ -8,7 +8,7 @@ const ProfileSide = ({ location }) => {
   return (
     <div className="ProfileSide">
       <LogoSearch />
-      <ProfileCard location="homePage" />
+      {location !== 'viewPost' ? <ProfileCard location="homePage" /> : ''}
       {location === 'homePage' ? <FollowerCard /> : ''}
     </div>
   )

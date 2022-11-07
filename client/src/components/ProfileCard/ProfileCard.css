@@ -9,6 +9,7 @@
   max-height: 35rem;
   width: 100%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  margin: 3px;
 }
 
 .ProfileImage {
@@ -17,11 +18,56 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+.image-popup {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.image-popup > .set-zoom {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.image-popup > .set-zoom > svg {
+  cursor: pointer;
+  color: purple;
+  margin: 5px;
+  width: 2rem;
+  height: 2rem;
+  padding: 5px;
+  border-radius: 5px;
+  opacity: 0.3;
+}
+
+.image-popup > .set-zoom > svg:hover {
+  background: purple;
+  color: #fff;
+  opacity: 0.7;
+}
+
+.grabbercontainer {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  max-height: 100vh;
+  cursor: grab;
+  justify-self: center;
+}
+
+.grabbercontainer > img {
+  object-fit: contain;
 }
 
 .ProfileImage > img:nth-of-type(1) {
   width: 100%;
   object-fit: fill;
+  min-height: 8rem;
 }
 
 .ProfileImage > img:nth-of-type(2) {

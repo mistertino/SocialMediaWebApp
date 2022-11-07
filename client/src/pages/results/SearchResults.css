@@ -26,6 +26,10 @@
   max-height: 100vh;
 }
 
+.result::-webkit-scrollbar {
+  display: none;
+}
+
 .result > img {
   width: 15%;
 }

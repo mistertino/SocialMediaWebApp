@@ -12,7 +12,7 @@ const Comment = ({ comment, comments }) => {
       setUserComment(userComment.data)
     }
     getUserComment()
-  }, [])
+  }, [comments])
   return (
     <div>
       <span style={{ color: 'black', margin: '10px' }}>

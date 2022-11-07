@@ -12,12 +12,13 @@ function ShareModal({ modalOpened, setModalOpened }) {
           : theme.colors.gray[2]
       }
       overlayOpacity={0.55}
+      overflow="inside"
       overlayBlur={3}
       size="55%"
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
-     <PostShare setModalOpened={setModalOpened}/>
+      <PostShare setModalOpened={setModalOpened} />
     </Modal>
   )
 }

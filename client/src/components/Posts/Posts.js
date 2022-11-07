@@ -4,6 +4,8 @@ import Post from '../Post/Post'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTimelinePosts } from '../../action/PostAction'
 import { useParams } from 'react-router-dom'
+import LazyLoad from 'react-lazyload'
+import Spinner from 'react-bootstrap/Spinner'
 
 const Posts = () => {
   const params = useParams()
@@ -15,21 +17,38 @@ const Posts = () => {
     dispatch(getTimelinePosts(user._id))
   }, [posts.length])
 
-  if (!posts) return 'Không có bài viết nào hiện tại!'
-
   if (params.id) {
     posts = posts.filter((post) => post.userId === params.id)
   }
 
-  return (
-    <div className="Posts">
-      {loading
-        ? 'Đang tải bài viết......'
-        : posts.map((post, id) => {
-            return <Post post={post} posts={posts} key={id} />
-          })}
-    </div>
-  )
+  if (!posts) return 'Không có bài viết nào hiện tại!'
+  else
+    return (
+      <div className="Posts">
+        {loading ? (
+          <div className="loading">
+            <Spinner animation="border" />
+            <span style={{ color: 'purple' }}>Đang tải bài viết....</span>
+          </div>
+        ) : (
+          posts.map((post, id) => (
+            <LazyLoad
+              key={post._id}
+              height={50}
+              offset={[-50, 50]}
+              placeholder={
+                <div className="loading">
+                  <Spinner animation="border" />
+                  <span style={{ color: 'purple' }}>Đang tải bài viết....</span>
+                </div>
+              }
+            >
+              <Post post={post} posts={posts} key={id} />
+            </LazyLoad>
+          ))
+        )}
+      </div>
+    )
 }
 
 export default Posts

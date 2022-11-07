@@ -23,6 +23,10 @@
   overflow: scroll;
 }
 
+.Chat-container::-webkit-scrollbar {
+  display: none;
+}
+
 .Chat-list {
   display: flex;
   flex-direction: column;

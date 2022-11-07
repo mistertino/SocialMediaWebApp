@@ -1,6 +1,7 @@
 import postModel from '../Models/postModel.js'
 import userModel from '../Models/userModel.js'
 import mongoose from 'mongoose'
+import { v4 as uuidv4 } from 'uuid'
 
 // Create Post
 export const createPost = async (req, res) => {
@@ -73,6 +74,20 @@ export const likePost = async (req, res) => {
     const post = await postModel.findById(postId)
     if (!post.likes.includes(currentUserId)) {
       await post.updateOne({ $push: { likes: currentUserId } })
+      // push notify to author user
+      const user = await userModel.findById(post.userId)
+      if (currentUserId !== post.userId) {
+        await user.updateOne({
+          $push: {
+            notifications: {
+              notifyId: uuidv4(),
+              userId: currentUserId,
+              postId: postId,
+              type: 'like',
+            },
+          },
+        })
+      }
       res.status(200).json('Post liked')
     } else {
       await post.updateOne({ $pull: { likes: currentUserId } })
@@ -137,6 +152,20 @@ export const addComment = async (req, res) => {
         },
       },
     })
+    // push notify to author user
+    const user = await userModel.findById(post.userId)
+    if (currentUserId !== post.userId) {
+      await user.updateOne({
+        $push: {
+          notifications: {
+            notifyId: uuidv4(),
+            userId: currentUserId,
+            postId: postId,
+            type: 'comment',
+          },
+        },
+      })
+    }
     res.status(200).json({ userId: currentUserId, text: text })
   } catch (error) {
     res.status(500).json(error)

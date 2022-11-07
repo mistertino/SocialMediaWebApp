@@ -1,3 +1,7 @@
+.FollowerCard {
+  width: 100%;
+}
+
 .FollowerCard > .user {
   width: 100%;
   border-radius: 0.7rem;
@@ -7,6 +11,10 @@
   font-size: 13px;
   max-height: 15rem;
   overflow: auto;
+}
+
+.user::-webkit-scrollbar {
+  display: none;
 }
 
 .follower {
@@ -31,6 +39,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  max-width: 100px;
+  overflow: hidden;
 }
 
 .name > span:nth-of-type(1) {

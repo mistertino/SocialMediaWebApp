@@ -20,3 +20,20 @@ export const unFollowUser = (id, data) => async (dispatch) => {
   dispatch({ type: 'UNFOLLOW_USER', data: id })
   UserApi.unFollowUser(id, data)
 }
+
+export const getNotify = (id) => async (dispatch) => {
+  dispatch({ type: 'GET_NOTIFY_START' })
+  try {
+    const { data } = await UserApi.getNotify(id)
+    console.log(data)
+    dispatch({ type: 'GET_NOTIFY_SUCCESS', data: data })
+  } catch (error) {
+    console.log(error)
+    dispatch({ type: 'GET_NOTIFY_FAIL' })
+  }
+}
+
+export const removeNotify = (id, userId) => async (dispatch) => {
+  dispatch({ type: 'REMOVE_NOTIFY', data: id })
+  UserApi.removeNotify(id, userId)
+}

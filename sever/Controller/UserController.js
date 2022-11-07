@@ -56,7 +56,8 @@ export const updateUser = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
-  } else res.status(403).json('Access Denied! You can update your own profile')
+  } else
+    res.status(403).json('Access Denied! You can`t update your own profile')
 }
 
 //delete User
@@ -71,7 +72,8 @@ export const deleteUser = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
-  } else res.status(403).json('Access Denied! You can delete your own profile')
+  } else
+    res.status(403).json('Access Denied! You can`t delete your own profile')
 }
 
 // follow User
@@ -118,5 +120,28 @@ export const unFollowUser = async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: error.message })
     }
+  }
+}
+
+export const getNotify = async (req, res) => {
+  const id = req.params.id
+  try {
+    const { notifications } = await userModel.findById(id)
+    res.status(200).json(notifications)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+export const removeNotify = async (req, res) => {
+  const { userId, notifyId } = req.body
+  try {
+    const notifyUser = await userModel.findById(userId)
+    await notifyUser.updateOne({
+      $pull: { notifications: { notifyId: notifyId } },
+    })
+    res.status(200).json('removed notify')
+  } catch (error) {
+    res.status(500).json({ message: error.message })
   }
 }

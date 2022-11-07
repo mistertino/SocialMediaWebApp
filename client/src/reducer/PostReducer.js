@@ -58,6 +58,7 @@ const postReducer = (
       }
     case 'UPDATE_POST_FAIL':
       return { ...state, updating: false, error: true }
+
     default:
       return state
   }

@@ -5,6 +5,8 @@
   background-color: var(--cardColor);
   border-radius: 1rem;
   gap: 1rem;
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
+  margin: 3px;
 }
 
 .Post > .detail {
@@ -177,11 +179,26 @@
 }
 
 .list-comments {
-  background-color: rgb(245, 238, 238);
+  background-color: rgb(255, 255, 255);
   border-radius: 10px;
   max-height: 25rem;
   overflow: auto;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
+}
+
+.list-comments::-webkit-scrollbar {
+  width: 10px;
+}
+
+.list-comments::-webkit-scrollbar-thumb {
+  background: var(--buttonBg);
+  border-radius: 10px;
+}
+
+.list-comments::-webkit-scrollbar-track {
+  background: #f5d8f2;
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
 }
 
 .list-comments > div {
