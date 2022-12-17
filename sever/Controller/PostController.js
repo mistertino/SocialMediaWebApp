@@ -2,13 +2,46 @@ import postModel from '../Models/postModel.js'
 import userModel from '../Models/userModel.js'
 import mongoose from 'mongoose'
 import { v4 as uuidv4 } from 'uuid'
+import cloudinary from '../cloudinary/cloudinary.js'
 
 // Create Post
 export const createPost = async (req, res) => {
-  const newPost = new postModel(req.body)
+  const { userId, desc, image, video, hastags, status } = req.body
   try {
-    await newPost.save()
-    res.status(200).json(newPost)
+    if (video) {
+      const result = await cloudinary.uploader.upload(video, {
+        resource_type: 'video',
+        upload_preset: 'upload_video_unsigned',
+        allowed_formats: ['mp4', 'mkv'],
+      })
+      const newPost = new postModel({
+        userId,
+        desc,
+        hastags,
+        status,
+        video: { public_id: result.public_id, url: result.secure_url },
+      })
+      await newPost.save()
+      res.status(200).json(newPost)
+    } else if (image) {
+      const result = await cloudinary.uploader.upload(image, {
+        upload_preset: 'upload_image_unsigned',
+        allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif'],
+      })
+      const newPost = new postModel({
+        userId,
+        desc,
+        hastags,
+        status,
+        image: { public_id: result.public_id, url: result.secure_url },
+      })
+      await newPost.save()
+      res.status(200).json(newPost)
+    } else {
+      const newPost = new postModel(req.body)
+      await newPost.save()
+      res.status(200).json(newPost)
+    }
   } catch (error) {
     res.status(500).json(error)
   }
@@ -176,13 +209,27 @@ export const addComment = async (req, res) => {
 export const getComments = async (req, res) => {
   const postId = req.params.id
   try {
-    const { comments } = await postModel.findById(postId) //await postModel.findById(postId) nó ra object chưa comments mà nên { comments } như này là lấy comments trong object { } đó vâng :), cạu out nhe dạ
+    const { comments } = await postModel.findById(postId)
 
     comments.sort((a, b) => {
       return new Date(b.date_added) - new Date(a.date_added)
     })
 
     res.status(200).json(comments)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+// Get post last week
+export const getPostLastWeek = async (req, res) => {
+  try {
+    const posts = await postModel.find({
+      timestamp: {
+        $gte: new Date(new Date(Date.now()) - 7 * 60 * 60 * 24 * 1000),
+      },
+    })
+    res.status(200).json(posts)
   } catch (error) {
     res.status(500).json(error)
   }

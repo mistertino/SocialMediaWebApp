@@ -3,16 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userChats } from '../../api/ChatRequest'
 import Conversation from '../../components/Conversation/Conversation'
 import LogoSearch from '../../components/LogoSearch/LogoSearch'
-import Home from '../../img/home.png'
-import Noti from '../../img/noti.png'
-import Chaticon from '../../img/chat.png'
-import { UilSetting } from '@iconscout/react-unicons'
-import Dropdown from 'react-bootstrap/Dropdown'
-import { Link, useLocation } from 'react-router-dom'
+
+import { useLocation } from 'react-router-dom'
 import './Chat.css'
 import { logOut } from '../../action/AuthAction'
 import ChatBox from '../../components/ChatBox/ChatBox'
 import { io } from 'socket.io-client'
+import Navbar from '../../components/Navbar/Navbar'
 const Chat = () => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -72,9 +69,6 @@ const Chat = () => {
     return online ? true : false
   }
 
-  const handleLogOut = () => {
-    dispatch(logOut())
-  }
   return (
     <div className="Chat">
       {/* Left Side */}
@@ -100,54 +94,7 @@ const Chat = () => {
       <div className="Right-side-chat">
         <div style={{ width: '20rem', alignSelf: 'flex-end' }}>
           {/* Navicon */}
-          <div className="navIcon">
-            <Link to="../home">
-              <img src={Home} alt="" />
-            </Link>
-
-            <div className="dropdown">
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="setting-dropdown">
-                  <img
-                    src={Noti}
-                    alt=""
-                    style={{ height: '1.5rem', width: '1.5rem' }}
-                  />
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item>My Notify</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-            <Link to="../chat">
-              <img src={Chaticon} alt="" />
-            </Link>
-            <div className="dropdown">
-              <Dropdown>
-                <Dropdown.Toggle variant="success" id="setting-dropdown">
-                  <UilSetting />
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item>
-                    <Link
-                      to={`/profile/${user._id}`}
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      {user.firstname} {user.lastname}
-                    </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                    <button
-                      className="button logout-button"
-                      onClick={handleLogOut}
-                    >
-                      Đăng xuất
-                    </button>
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
-          </div>
+          <Navbar />
         </div>
         {/* Chat body */}
         <ChatBox

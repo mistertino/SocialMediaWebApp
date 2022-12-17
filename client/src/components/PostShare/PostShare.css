@@ -23,8 +23,30 @@
   gap: 1rem;
 }
 
-.PostShare > div > input {
+.PostShare > div > .input-desc {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+
+.PostShare > div > .input-desc > .emoji-container {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  z-index: 1;
+}
+
+.PostShare > div > .input-desc > svg {
+  color: purple;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.PostShare > div > .input-desc > input {
   background-color: var(--inputColor);
+  width: 100%;
   border-radius: 10px;
   padding: 10px;
   font-size: 17px;
@@ -76,6 +98,30 @@
 .previewImage > img {
   width: 100%;
   max-height: 800px;
-  object-fit: cover;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+.previewVideo {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.previewVideo > svg {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  z-index: 1;
+}
+
+.previewVideo > svg:hover {
+  cursor: pointer;
+}
+
+.previewVideo > video {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
   border-radius: 0.5rem;
 }

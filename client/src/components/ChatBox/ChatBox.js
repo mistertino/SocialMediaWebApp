@@ -3,7 +3,9 @@ import './ChatBox.css'
 import { addMessage, getMesssages } from '../../api/MessageRequest'
 import { getUser } from '../../api/UserRequest'
 import { format } from 'timeago.js'
-import InputEmoji from 'react-input-emoji'
+import Picker from 'emoji-picker-react'
+import { UilSmile } from '@iconscout/react-unicons'
+
 const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const scroll = useRef()
@@ -12,6 +14,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   const [userData, setUserData] = useState(null)
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState('')
+  const [showPicker, setShowPicker] = useState(false)
 
   // fetching data for header
   useEffect(() => {
@@ -42,6 +45,11 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   }, [chat])
 
   //Func
+  const onEmojiClick = (emojiObject) => {
+    setNewMessage((message) => message + emojiObject.emoji)
+    setShowPicker(false)
+  }
+
   const enterKeySend = async (e) => {
     if (e.key === 'Enter') {
       const message = {
@@ -154,12 +162,27 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
             {/* chat sender */}
             <div className="chat-sender">
               {/* <div>+</div> */}
+
               <input
                 value={newMessage}
                 onChange={handleChange}
                 placeholder="Nhập tin nhắn"
                 onKeyDown={enterKeySend}
               />
+              {showPicker && (
+                <div className="emoji-container">
+                  <Picker
+                    pickerStyle={{ width: '100%' }}
+                    onEmojiClick={onEmojiClick}
+                  />
+                </div>
+              )}
+              <UilSmile
+                onClick={() => setShowPicker((prev) => !prev)}
+                style={({ color: 'purple' }, { cursor: 'pointer' })}
+              />
+              {/* <div onClick={() => setShowPicker((prev) => !prev)}>emoji</div> */}
+
               <div className="send-button button" onClick={handleSend}>
                 Gửi
               </div>

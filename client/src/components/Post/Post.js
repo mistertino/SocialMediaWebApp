@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import './Post.css'
 import Like from '../../img/like.png'
 import NotLike from '../../img/notlike.png'
-import Option from '../../img/option.png'
-import CommentIcon from '../../img/comment.png'
+// import Option from '../../img/option.png'
+// import CommentIcon from '../../img/comment.png'
 import Comment from '../Comment/Comment'
 import { useDispatch, useSelector } from 'react-redux'
 import { addComment, getComments, likePost } from '../../api/PostRequest'
@@ -11,6 +11,10 @@ import { Link } from 'react-router-dom'
 import { getUser } from '../../api/UserRequest'
 import { deletePost, updatePost } from '../../action/PostAction'
 import PostModal from '../PostModal/PostModal'
+import { UilCommentAltNotes } from '@iconscout/react-unicons'
+import { UilEllipsisH } from '@iconscout/react-unicons'
+import { UilSmile } from '@iconscout/react-unicons'
+import Picker from 'emoji-picker-react'
 
 const Post = ({ post, posts, location }) => {
   // console.log(post)
@@ -18,12 +22,12 @@ const Post = ({ post, posts, location }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const { updating } = useSelector((state) => state.postReducer)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
-  const comment = useRef()
   const dispatch = useDispatch()
   // State
   const [liked, setLiked] = useState(post?.likes?.includes(user._id))
   const [likes, setLikes] = useState(post?.likes?.length)
   const [userPost, setUserPost] = useState({})
+  const [newComment, setNewComment] = useState('')
   const [lcomments, setLComments] = useState(post?.comments?.length)
   const [openComments, setOpenComments] = useState(
     location === 'viewPost' ? true : false,
@@ -34,6 +38,7 @@ const Post = ({ post, posts, location }) => {
   const [update, setUpdate] = useState(false)
   const [desc, setDesc] = useState(post?.desc)
   const [modalOpened, setModalOpened] = useState(false)
+  const [showPicker, setShowPicker] = useState(false)
 
   //Func
   const handleLike = () => {
@@ -46,21 +51,27 @@ const Post = ({ post, posts, location }) => {
     setOpenComments((prev) => !prev)
     const comments = await getComments(post._id)
     // dispatch(getComments(post._id))
-    // console.log(1)
     setComments(comments.data)
+  }
+
+  const handleCommentChange = (e) => {
+    setNewComment(e.target.value)
   }
 
   const handleComment = async (e) => {
     if (e.key === 'Enter') {
-      const text = comment.current.value
-      if (text !== '') {
-        const newComment = await addComment(post._id, user._id, text)
-        // console.log(newComment)
-        setComments([newComment.data, ...comments])
+      if (newComment !== '') {
+        const Comment = await addComment(post._id, user._id, newComment)
+        setComments([Comment.data, ...comments])
         setLComments((prev) => prev + 1)
-        comment.current.value = ''
+        setNewComment('')
       }
     }
+  }
+
+  const onEmojiClick = (emojiObject) => {
+    setNewComment((comment) => comment + emojiObject.emoji)
+    setShowPicker(false)
   }
 
   const handleDelete = () => {
@@ -87,6 +98,7 @@ const Post = ({ post, posts, location }) => {
 
   return (
     <div className="Post" ref={myPost}>
+      {/* User post */}
       <div className="detail">
         <div
           className="dropdown-profile-user"
@@ -143,15 +155,49 @@ const Post = ({ post, posts, location }) => {
           >
             <Link
               to={`/profile/${userPost._id}`}
-              style={{ textDecoration: 'none', color: 'black' }}
+              style={{
+                textDecoration: 'none',
+                color: 'black',
+                marginRight: '5px',
+              }}
             >
               <b>
                 {userPost.firstname} {userPost.lastname}
               </b>
             </Link>
+            {post.status && (
+              <>
+                {post.status === 'funny' && (
+                  <label>đang cảm thấy vui vẻ &#128515;</label>
+                )}
+                {post.status === 'humor' && (
+                  <label>đang cảm thấy hài hước &#128514;</label>
+                )}
+                {post.status === 'happy' && (
+                  <label>đang cảm thấy hạnh phúc &#128522;</label>
+                )}
+                {post.status === 'inlove' && (
+                  <label>đang cảm thấy đáng yêu &#128525;</label>
+                )}
+                {post.status === 'angry' && (
+                  <label>đang cảm thấy tức giận &#128548;</label>
+                )}
+                {post.status === 'sad' && (
+                  <label>đang cảm thấy buồn &#128546;</label>
+                )}
+                {post.status === 'scary' && (
+                  <label>đang cảm thấy đáng sợ &#128561;</label>
+                )}
+                {post.status === 'suprise' && (
+                  <label>đang cảm thấy ngạc nhiên &#128562;</label>
+                )}
+              </>
+            )}
           </span>
         </div>
       </div>
+
+      {/* If handle update */}
       {update ? (
         <div className="desc">
           <input type="text" value={desc} onChange={handleChange} />
@@ -172,38 +218,56 @@ const Post = ({ post, posts, location }) => {
       ) : (
         <span>{post?.desc}</span>
       )}
-      {post?.hastag && (
-        <span>
-          <b style={{ color: 'purple' }}>#{post.hastag}</b>
-        </span>
+      <div style={{ display: 'flex' }}>
+        {post?.hastags &&
+          post.hastags.map((hastag) => (
+            <span>
+              <b style={{ color: 'purple', cursor: 'pointer' }}>{hastag} </b>
+            </span>
+          ))}
+      </div>
+
+      {/* Image */}
+      {post?.image && (
+        <div className="img-box">
+          <img
+            style={{ cursor: 'pointer' }}
+            src={post?.image?.url}
+            alt=""
+            onClick={() => {
+              openComment()
+              setOpenComments(false)
+              setModalOpened(true)
+            }}
+          />
+        </div>
       )}
 
-      <img
-        style={{ cursor: 'pointer' }}
-        src={post?.image ? serverPublic + post?.image : ''}
-        alt=""
-        onClick={() => {
-          openComment()
-          setOpenComments(false)
-          setModalOpened(true)
-        }}
-      />
+      {/* Video */}
+      {post?.video && (
+        <div className="video-box">
+          <video src={post?.video?.url} controls></video>
+        </div>
+      )}
       <div className="lenght-react">
         <span>{likes} Lượt thích</span>
         <span>{lcomments} Lượt bình luận</span>
       </div>
 
+      {/* Update */}
       {update ? null : (
         <div className="postReact">
           <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
-          <img src={CommentIcon} alt="" onClick={openComment} />
+          <UilCommentAltNotes onClick={openComment} />
+          {/* <img src={CommentIcon} alt="" onClick={openComment} /> */}
           {post?.userId === user._id ? (
-            <img
-              src={Option}
-              alt=""
-              onClick={() => setOpenOption((prev) => !prev)}
-            />
-          ) : null}
+            <UilEllipsisH onClick={() => setOpenOption((prev) => !prev)} />
+          ) : // <img
+          //   src={Option}
+          //   alt=""
+
+          // />
+          null}
           <ul
             className="dropdown-option"
             style={openOption ? { display: 'block' } : { display: 'none' }}
@@ -237,9 +301,19 @@ const Post = ({ post, posts, location }) => {
             <input
               type="text"
               placeholder="Viết bình luận...."
-              ref={comment}
+              value={newComment}
+              onChange={handleCommentChange}
               onKeyDown={handleComment}
             />
+            {showPicker && (
+              <div className="emoji-container">
+                <Picker
+                  pickerStyle={{ width: '100%' }}
+                  onEmojiClick={onEmojiClick}
+                />
+              </div>
+            )}
+            <UilSmile onClick={() => setShowPicker((prev) => !prev)} />
           </div>
           <div className="list-comments">
             {comments?.map((comment) => {

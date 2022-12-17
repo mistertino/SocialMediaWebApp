@@ -19,7 +19,7 @@ function App() {
         dispatch(getNotify(user?.user._id))
         console.log(123)
       }
-    }, 60000)
+    }, 30000)
   }, [user?.user.notifications.length])
   return (
     <div className="App">

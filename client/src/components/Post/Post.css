@@ -77,11 +77,28 @@
   margin: 10px;
 }
 
-.Post > img {
+.Post .img-box,
+.Post .video-box {
+  width: 100%;
+  text-align: center;
+}
+
+.Post img {
   width: 100%;
   max-height: 40rem;
   object-fit: contain;
   border-radius: 0.5rem;
+  max-width: 80%;
+}
+
+.Post video {
+  width: 100%;
+  max-height: 40rem;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  /* background-color: rgba(233, 221, 232, 0.7); */
+  max-width: 80%;
 }
 
 /* .Post > .detail > .user_post :hover .dropdown-profile-user {
@@ -105,6 +122,13 @@
   width: 26px;
   height: 26px;
   cursor: pointer;
+}
+
+.postReact > svg {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  color: #771d85;
 }
 
 .postReact > .dropdown-option {
@@ -154,12 +178,19 @@
 }
 
 .user-input-conment {
+  position: relative;
   display: flex;
   gap: 1rem;
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.user-input-conment > .emoji-container {
+  position: absolute;
+  top: 55px;
+  right: 0;
 }
 
 .user-input-conment > input {
@@ -170,6 +201,14 @@
   font-size: 15px;
   border: none;
   outline: none;
+}
+
+.user-input-conment > svg {
+  color: purple;
+  width: 1, 5rem;
+  height: 1, 5rem;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 .user-input-conment > img {

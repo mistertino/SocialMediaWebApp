@@ -9,6 +9,8 @@ import NotLike from '../../img/notlike.png'
 import CommentIcon from '../../img/comment.png'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import { UilSearchMinus, UilSearchPlus } from '@iconscout/react-unicons'
+import { UilSmile } from '@iconscout/react-unicons'
+import Picker from 'emoji-picker-react'
 
 const PostModal = ({
   modalOpened,
@@ -26,20 +28,32 @@ const PostModal = ({
 }) => {
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const theme = useMantineTheme()
+  const [newComment, setNewComment] = useState('')
+  const [showPicker, setShowPicker] = useState(false)
+
   const comment = useRef()
   // State
   const [zoomamount, setZoomamount] = useState(1)
 
   //Func
+
+  const handleCommentChange = (e) => {
+    setNewComment(e.target.value)
+  }
+
+  const onEmojiClick = (emojiObject) => {
+    setNewComment((comment) => comment + emojiObject.emoji)
+    setShowPicker(false)
+  }
+
   const handleComment = async (e) => {
     if (e.key === 'Enter') {
-      const text = comment.current.value
-      if (text !== '') {
-        const newComment = await addComment(post._id, user._id, text)
+      if (newComment !== '') {
+        const Comment = await addComment(post._id, user._id, newComment)
         // console.log(newComment)
-        setComments([newComment.data, ...comments])
+        setComments([Comment.data, ...comments])
         setLComments((prev) => prev + 1)
-        comment.current.value = ''
+        setNewComment('')
       }
     }
   }
@@ -85,7 +99,7 @@ const PostModal = ({
               width: 100 * zoomamount + '%',
               height: 100 * zoomamount + '%',
             }}
-            src={post.image ? serverPublic + post.image : ''}
+            src={post?.image?.url}
             alt=""
           />
         </ScrollContainer>
@@ -115,9 +129,9 @@ const PostModal = ({
             </span>
           </div>
           <div className="desc">
-            <span>{post.desc}</span>
+            <span>{post?.desc}</span>
           </div>
-          {post.hastag && (
+          {post?.hastag && (
             <span>
               <b style={{ color: 'purple' }}>#{post.hastag}</b>
             </span>
@@ -147,9 +161,19 @@ const PostModal = ({
               <input
                 type="text"
                 placeholder="Viết bình luận...."
-                ref={comment}
+                value={newComment}
+                onChange={handleCommentChange}
                 onKeyDown={handleComment}
               />
+              {showPicker && (
+                <div className="emoji-container">
+                  <Picker
+                    pickerStyle={{ width: '100%' }}
+                    onEmojiClick={onEmojiClick}
+                  />
+                </div>
+              )}
+              <UilSmile onClick={() => setShowPicker((prev) => !prev)} />
             </div>
             <div className="list-comments list-comments-modal">
               {comments?.map((comment) => {

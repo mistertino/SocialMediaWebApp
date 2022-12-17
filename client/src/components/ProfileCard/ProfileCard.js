@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import './ProfileCard.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import * as UserApi from '../../api/UserRequest'
 import { createChat, findChat } from '../../api/ChatRequest'
 import { Modal } from '@mantine/core'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import { UilSearchMinus, UilSearchPlus } from '@iconscout/react-unicons'
+import { followUser, unFollowUser } from '../../action/UserAction'
+import FollowModal from '../FollowModal/FollowModal'
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const { posts } = useSelector((state) => state.postReducer)
+  const dispatch = useDispatch()
   const severPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const params = useParams()
   const profileUserId = params.id
@@ -19,8 +22,13 @@ const ProfileCard = ({ location }) => {
   // State
   const [profileUser, setProfileUser] = useState(user)
   const [openModalImage, setOpenModalImage] = useState(false)
+  const [openModalFollow, setOpenModalFollow] = useState(false)
+  const [type, setType] = useState()
   const [image, setImage] = useState()
   const [zoomamount, setZoomamount] = useState(1)
+  const [following, setFollowing] = useState(
+    profileUser.followers.includes(user._id),
+  )
 
   useEffect(() => {
     const fetchProfileUser = async () => {
@@ -30,12 +38,20 @@ const ProfileCard = ({ location }) => {
         const profileUser = await UserApi.getUser(profileUserId)
         // console.log(profileUser.data)
         setProfileUser(profileUser.data)
+        setFollowing(profileUser.data.followers.includes(user._id))
       }
     }
     fetchProfileUser()
   }, [params.id])
 
   // Func
+  const handleFollow = () => {
+    following
+      ? dispatch(unFollowUser(profileUserId, user))
+      : dispatch(followUser(profileUserId, user))
+    setFollowing((prev) => !prev)
+  }
+
   const handleSendMessage = async () => {
     const userId = user._id
     const { data } = await findChat(userId, profileUserId)
@@ -128,7 +144,14 @@ const ProfileCard = ({ location }) => {
         <div className="followStatus">
           <hr />
           <div>
-            <div className="follow">
+            <div
+              className="follow"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                setOpenModalFollow(true)
+                setType('followers')
+              }}
+            >
               <span>
                 {user._id === params.id
                   ? user.followers.length
@@ -139,7 +162,14 @@ const ProfileCard = ({ location }) => {
               <span>Người theo dõi</span>
             </div>
             <div className="vl"></div>
-            <div className="follow">
+            <div
+              className="follow"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                setOpenModalFollow(true)
+                setType('following')
+              }}
+            >
               <span>
                 {user._id === params.id
                   ? user.following.length
@@ -171,17 +201,32 @@ const ProfileCard = ({ location }) => {
         </div>
 
         {location === 'profilePage' ? (
-          <button
-            className="button send-button-user"
-            style={
-              user._id === profileUserId
-                ? { display: 'none' }
-                : { display: 'block' }
-            }
-            onClick={handleSendMessage}
-          >
-            Gửi tin nhắn
-          </button>
+          <div className="action-user">
+            <button
+              className={
+                following ? 'button fc-button unfollowbtn' : 'button fc-button'
+              }
+              style={
+                user._id === profileUserId
+                  ? { display: 'none' }
+                  : { display: 'block' }
+              }
+              onClick={handleFollow}
+            >
+              {following ? 'Bỏ Theo Dõi' : 'Theo Dõi'}
+            </button>
+            <button
+              className="button send-button-user"
+              style={
+                user._id === profileUserId
+                  ? { display: 'none' }
+                  : { display: 'block' }
+              }
+              onClick={handleSendMessage}
+            >
+              Gửi tin nhắn
+            </button>
+          </div>
         ) : (
           <span>
             <Link
@@ -194,7 +239,7 @@ const ProfileCard = ({ location }) => {
         )}
       </div>
 
-      {/* Modal */}
+      {/* Modal Image */}
       <Modal
         opened={openModalImage}
         onClose={() => {
@@ -222,6 +267,14 @@ const ProfileCard = ({ location }) => {
           </ScrollContainer>
         </div>
       </Modal>
+
+      {/* Modal Follow */}
+      <FollowModal
+        openModalFollow={openModalFollow}
+        setOpenModalFollow={setOpenModalFollow}
+        type={type}
+        profileUser={profileUser}
+      />
     </>
   )
 }

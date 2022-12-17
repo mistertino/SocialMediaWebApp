@@ -8,9 +8,16 @@ const PostSchema = mongoose.Schema(
     },
     desc: String,
     likes: [],
-    image: String,
-    video: String,
-    hastag: String,
+    image: {
+      public_id: { type: String },
+      url: { type: String },
+    },
+    video: {
+      public_id: { type: String },
+      url: { type: String },
+    },
+    hastags: [],
+    status: String,
     comments: { type: Array },
   },
   {

@@ -1,8 +1,27 @@
 .Home {
   position: relative;
   display: grid;
-  grid-template-columns: 19rem auto 20rem;
+  grid-template-columns: 1fr 3fr 1fr;
   gap: 1rem;
   min-height: 100vh;
   /* max-height: 100vh; */
+}
+
+@media screen and (max-width: 992px) {
+  .Home {
+    grid-template-columns: 1fr;
+  }
+
+  .ProfileSide {
+    display: none;
+  }
+
+  .RightSide {
+    grid-row: 1/-1;
+  }
+
+  .RightSide .TrendCard,
+  .RightSide .s-button {
+    display: none;
+  }
 }

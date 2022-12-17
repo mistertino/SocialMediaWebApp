@@ -58,6 +58,7 @@
   max-height: 100vh;
   cursor: grab;
   justify-self: center;
+  display: flex;
 }
 
 .grabbercontainer > img {
@@ -149,4 +150,12 @@
   margin-bottom: 1rem;
   width: 25%;
   height: 3rem;
+}
+
+.action-user {
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 15px;
 }

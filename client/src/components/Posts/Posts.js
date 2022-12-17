@@ -14,8 +14,10 @@ const Posts = () => {
   let { posts, loading } = useSelector((state) => state.postReducer)
 
   useEffect(() => {
+    if (params.id) {
+    }
     dispatch(getTimelinePosts(user._id))
-  }, [posts.length])
+  }, [posts.length, params.id])
 
   if (params.id) {
     posts = posts.filter((post) => post.userId === params.id)

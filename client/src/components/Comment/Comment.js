@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/UserRequest'
 const Comment = ({ comment, comments }) => {

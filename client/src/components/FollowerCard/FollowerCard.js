@@ -24,7 +24,8 @@ const FollowerCard = ({ location }) => {
       >
         {persons.map((person, id) => {
           if (person._id !== user._id) {
-            return <User person={person} key={id} />
+            if (!person.followers.includes(user._id))
+              return <User person={person} key={id} />
           }
         })}
       </div>
