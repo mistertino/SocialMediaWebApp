@@ -1,0 +1,61 @@
+-- Deploy sever: (HEROKU)
+	- Truy Cập : heroku.com
+	- Tạo tài khoản + add thẻ visa
+	
+	-Tạo app mới trên heroku: ( Option: Node)
+	
+	- Tạo biến môi trường: Tab Setting -> Config vars (các biến tại file .env)
+	
+	- Tại thư mực ./server
+		- Tạo file Procfile (ko đuôi):
+			web: npm run start
+	
+	- Tại package.json:
+		 "scripts": {
+		"start": "node index",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"server": "nodemon index"
+		},
+		
+	- Cài heroku CLI tại: https://devcenter.heroku.com/articles/heroku-command-line
+	
+	- Chạy cmd tại file server:
+		$ cd my-project/
+		$ git init
+		$ heroku git:remote -a tambv-social-socket
+
+		$ git add .
+		$ git commit -am "make it better"
+		$ git push heroku master
+			- Để push code nodeJs lên heroku
+			
+	- Resources > Eco Dynos (Change Dyno Type) > bật trả tiền mới có thể deploy (Lỗi H14)
+	
+	- Nếu gặp lỗi H10 sửa PORT như sau :
+		app.listen(process.env.PORT || 5000, () =>
+		  console.log(
+			`Connected to MongoDB - Sever on localhost:${process.env.PORT}`,
+		  ),
+		  
+	- Lưu ý: Kiểm tra tại file package.json phần "dependencies" phải đủ hết các gói đã cài đặt trong chương trình
+	
+-- Deploy Client (NETLIFY):
+	- truy cập netlify.com -> Tạo tài khoản
+	
+	- Thay đổi url local của sever thành url heroku vừa tạo
+	
+	- Tại thư mục ./client
+		- lệnh: npm run build
+				-> Tạo ra thư mực ./client/build
+	
+	Site -> Kéo thả thư mực build vừa tạo vào khu vực deploy -> Chờ tạo ra domain (có thể thay đổi domain)
+	
+	- Lưu ý: Deploy thành công -> Ctrl + F5: Nếu có lỗi Not Found thỳ sửa như sau:
+			- Tại ./client/public/ tạo file _redirects với nội dung: /*    /index.html  200
+				- Build lại: npm run build -> Deploy lại lên netlify
+				
+-- Deploy Socket (HEROKU):
+	- Làm tương tự server
+	- Thay url tại client: nếu ở client là ws://localhost:8800 -> vẫn bỏ ws:// thay bằng url được tạo khi deploy lên heroku
+		
+				
