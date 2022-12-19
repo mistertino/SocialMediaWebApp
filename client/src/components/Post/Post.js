@@ -15,13 +15,13 @@ import { UilCommentAltNotes } from '@iconscout/react-unicons'
 import { UilEllipsisH } from '@iconscout/react-unicons'
 import { UilSmile } from '@iconscout/react-unicons'
 import Picker from 'emoji-picker-react'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const Post = ({ post, posts, location }) => {
   // console.log(post)
   const myPost = useRef(null)
   const { user } = useSelector((state) => state.authReducer.authData)
   const { updating } = useSelector((state) => state.postReducer)
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const dispatch = useDispatch()
   // State
   const [liked, setLiked] = useState(post?.likes?.includes(user._id))
@@ -108,8 +108,8 @@ const Post = ({ post, posts, location }) => {
             <img
               src={
                 userPost.profilePicture
-                  ? serverPublic + userPost.profilePicture
-                  : serverPublic + 'user.png'
+                  ? PUBLIC_FOLDER + userPost.profilePicture
+                  : PUBLIC_FOLDER + 'user.png'
               }
               alt=""
             />
@@ -141,8 +141,8 @@ const Post = ({ post, posts, location }) => {
           <img
             src={
               userPost.profilePicture
-                ? serverPublic + userPost.profilePicture
-                : serverPublic + 'user.png'
+                ? PUBLIC_FOLDER + userPost.profilePicture
+                : PUBLIC_FOLDER + 'user.png'
             }
             alt=""
           />
@@ -293,8 +293,8 @@ const Post = ({ post, posts, location }) => {
             <img
               src={
                 user.profilePicture
-                  ? serverPublic + user.profilePicture
-                  : serverPublic + 'user.png'
+                  ? PUBLIC_FOLDER + user.profilePicture
+                  : PUBLIC_FOLDER + 'user.png'
               }
               alt=""
             />

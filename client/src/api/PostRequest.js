@@ -1,6 +1,7 @@
 import axios from 'axios'
+import { URL_SERVER } from '../constants/constants'
 
-const API = axios.create({ baseURL: 'http://localhost:5000' })
+const API = axios.create({ baseURL: URL_SERVER })
 
 export const getPost = (id) => API.get(`/post/${id}`)
 export const getTimlinePosts = (id) => API.get(`/post/${id}/timeline`)

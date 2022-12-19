@@ -11,13 +11,13 @@ import Chat from '../../img/chat.png'
 import { UilSetting } from '@iconscout/react-unicons'
 import { Modal, useMantineTheme } from '@mantine/core'
 import { UilEye } from '@iconscout/react-unicons'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const Navbar = () => {
   const theme = useMantineTheme()
   const dispatch = useDispatch()
   const error = useSelector((state) => state.authReducer)
   const { user } = useSelector((state) => state.authReducer.authData)
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
   const [openNotify, setOpenNotify] = useState(false)
@@ -127,8 +127,8 @@ const Navbar = () => {
               <img
                 src={
                   user.profilePicture
-                    ? serverPublic + user.profilePicture
-                    : serverPublic + 'user.png'
+                    ? PUBLIC_FOLDER + user.profilePicture
+                    : PUBLIC_FOLDER + 'user.png'
                 }
                 alt=""
                 style={{

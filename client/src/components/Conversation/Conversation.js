@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { getUser } from '../../api/UserRequest'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const Conversation = ({ data, currentUser, online }) => {
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   //State
   const [userData, setUserData] = useState(null)
   useEffect(() => {
@@ -25,8 +25,8 @@ const Conversation = ({ data, currentUser, online }) => {
           <img
             src={
               userData?.profilePicture
-                ? serverPublic + userData.profilePicture
-                : serverPublic + 'user.png'
+                ? PUBLIC_FOLDER + userData.profilePicture
+                : PUBLIC_FOLDER + 'user.png'
             }
             alt=""
             className="followerImage"

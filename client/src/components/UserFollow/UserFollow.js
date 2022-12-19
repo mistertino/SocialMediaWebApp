@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { getUser } from '../../api/UserRequest'
 import { Link, useNavigate } from 'react-router-dom'
 import './UserFollow.css'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const UserFollow = ({ userId, setOpenModalFollow }) => {
   const [user, setUser] = useState()
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const navigate = useNavigate()
   useEffect(() => {
     const fetchUser = async () => {
@@ -19,8 +19,8 @@ const UserFollow = ({ userId, setOpenModalFollow }) => {
       <img
         src={
           user?.profilePicture
-            ? serverPublic + user?.profilePicture
-            : serverPublic + 'user.png'
+            ? PUBLIC_FOLDER + user?.profilePicture
+            : PUBLIC_FOLDER + 'user.png'
         }
         alt=""
         className="followerImg"

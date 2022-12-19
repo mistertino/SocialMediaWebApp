@@ -5,11 +5,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { followUser, unFollowUser } from '../../action/UserAction'
 import { createChat, findChat } from '../../api/ChatRequest'
 import './ResultItem.css'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const ResultItem = ({ result }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const dispatch = useDispatch()
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const navigate = useNavigate()
   //State
   const [following, setFollowing] = useState(
@@ -43,8 +43,8 @@ const ResultItem = ({ result }) => {
         <img
           src={
             result.profilePicture
-              ? serverPublic + result.profilePicture
-              : serverPublic + 'user.png'
+              ? PUBLIC_FOLDER + result.profilePicture
+              : PUBLIC_FOLDER + 'user.png'
           }
           alt=""
         />

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/UserRequest'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 const Comment = ({ comment, comments }) => {
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   // State
   const [userComment, setUserComment] = useState({})
   // Get user
@@ -23,8 +23,8 @@ const Comment = ({ comment, comments }) => {
           <img
             src={
               userComment.profilePicture
-                ? serverPublic + userComment.profilePicture
-                : serverPublic + 'user.png'
+                ? PUBLIC_FOLDER + userComment.profilePicture
+                : PUBLIC_FOLDER + 'user.png'
             }
             alt=""
             style={{

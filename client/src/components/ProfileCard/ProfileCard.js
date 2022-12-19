@@ -9,12 +9,12 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import { UilSearchMinus, UilSearchPlus } from '@iconscout/react-unicons'
 import { followUser, unFollowUser } from '../../action/UserAction'
 import FollowModal from '../FollowModal/FollowModal'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const { posts } = useSelector((state) => state.postReducer)
   const dispatch = useDispatch()
-  const severPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const params = useParams()
   const profileUserId = params.id
   const navigate = useNavigate()
@@ -82,11 +82,11 @@ const ProfileCard = ({ location }) => {
             src={
               user._id === params.id
                 ? user.coverPicture
-                  ? severPublic + user.coverPicture
-                  : severPublic + 'cover.jpg'
+                  ? PUBLIC_FOLDER + user.coverPicture
+                  : PUBLIC_FOLDER + 'cover.jpg'
                 : profileUser.coverPicture
-                ? severPublic + profileUser.coverPicture
-                : severPublic + 'cover.jpg'
+                ? PUBLIC_FOLDER + profileUser.coverPicture
+                : PUBLIC_FOLDER + 'cover.jpg'
             }
             alt=""
             style={
@@ -99,11 +99,11 @@ const ProfileCard = ({ location }) => {
               setImage(
                 user._id === params.id
                   ? user.coverPicture
-                    ? severPublic + user.coverPicture
-                    : severPublic + 'cover.jpg'
+                    ? PUBLIC_FOLDER + user.coverPicture
+                    : PUBLIC_FOLDER + 'cover.jpg'
                   : profileUser.coverPicture
-                  ? severPublic + profileUser.coverPicture
-                  : severPublic + 'cover.jpg',
+                  ? PUBLIC_FOLDER + profileUser.coverPicture
+                  : PUBLIC_FOLDER + 'cover.jpg',
               )
             }}
           />
@@ -111,11 +111,11 @@ const ProfileCard = ({ location }) => {
             src={
               user._id === params.id
                 ? user.profilePicture
-                  ? severPublic + user.profilePicture
-                  : severPublic + 'user.png'
+                  ? PUBLIC_FOLDER + user.profilePicture
+                  : PUBLIC_FOLDER + 'user.png'
                 : profileUser.profilePicture
-                ? severPublic + profileUser.profilePicture
-                : severPublic + 'user.png'
+                ? PUBLIC_FOLDER + profileUser.profilePicture
+                : PUBLIC_FOLDER + 'user.png'
             }
             alt=""
             onClick={() => {
@@ -123,11 +123,11 @@ const ProfileCard = ({ location }) => {
               setImage(
                 user._id === params.id
                   ? user.profilePicture
-                    ? severPublic + user.profilePicture
-                    : severPublic + 'user.png'
+                    ? PUBLIC_FOLDER + user.profilePicture
+                    : PUBLIC_FOLDER + 'user.png'
                   : profileUser.profilePicture
-                  ? severPublic + profileUser.profilePicture
-                  : severPublic + 'user.png',
+                  ? PUBLIC_FOLDER + profileUser.profilePicture
+                  : PUBLIC_FOLDER + 'user.png',
               )
             }}
           />

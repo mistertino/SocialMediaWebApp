@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { followUser, unFollowUser } from '../../action/UserAction'
 import { Link } from 'react-router-dom'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const User = ({ person }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
   const dispatch = useDispatch()
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   // State
   const [following, setFollowing] = useState(
     person.followers.includes(user._id),
@@ -25,8 +25,8 @@ const User = ({ person }) => {
         <img
           src={
             person.profilePicture
-              ? serverPublic + person.profilePicture
-              : serverPublic + 'user.png'
+              ? PUBLIC_FOLDER + person.profilePicture
+              : PUBLIC_FOLDER + 'user.png'
           }
           alt=""
           className="followerImg"

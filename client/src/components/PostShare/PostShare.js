@@ -10,10 +10,10 @@ import { uploadPost } from '../../action/UploadAction'
 import { Collapse } from '@mantine/core'
 import { Radio } from '@mantine/core'
 import Picker from 'emoji-picker-react'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const PostShare = ({ setModalOpened }) => {
   const uploading = useSelector((state) => state.postReducer.uploading)
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const { user } = useSelector((state) => state.authReducer.authData)
   // const desc = useRef()
   const imageRef = useRef()
@@ -43,6 +43,7 @@ const PostShare = ({ setModalOpened }) => {
   const onEmojiClick = (emojiObject) => {
     setDesc((desc) => desc + emojiObject.emoji)
     setShowPicker(false)
+    console.log(PUBLIC_FOLDER)
   }
 
   const onImageChange = (event) => {
@@ -104,8 +105,8 @@ const PostShare = ({ setModalOpened }) => {
       <img
         src={
           user.profilePicture
-            ? serverPublic + user.profilePicture
-            : serverPublic + 'user.png'
+            ? PUBLIC_FOLDER + user.profilePicture
+            : PUBLIC_FOLDER + 'user.png'
         }
         alt=""
       />

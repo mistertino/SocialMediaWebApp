@@ -11,6 +11,7 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import { UilSearchMinus, UilSearchPlus } from '@iconscout/react-unicons'
 import { UilSmile } from '@iconscout/react-unicons'
 import Picker from 'emoji-picker-react'
+import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const PostModal = ({
   modalOpened,
@@ -26,7 +27,6 @@ const PostModal = ({
   lcomments,
   setLComments,
 }) => {
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   const theme = useMantineTheme()
   const [newComment, setNewComment] = useState('')
   const [showPicker, setShowPicker] = useState(false)
@@ -112,8 +112,8 @@ const PostModal = ({
             <img
               src={
                 userPost.profilePicture
-                  ? serverPublic + userPost.profilePicture
-                  : serverPublic + 'user.png'
+                  ? PUBLIC_FOLDER + userPost.profilePicture
+                  : PUBLIC_FOLDER + 'user.png'
               }
               alt=""
             />
@@ -153,8 +153,8 @@ const PostModal = ({
               <img
                 src={
                   user.profilePicture
-                    ? serverPublic + user.profilePicture
-                    : serverPublic + 'user.png'
+                    ? PUBLIC_FOLDER + user.profilePicture
+                    : PUBLIC_FOLDER + 'user.png'
                 }
                 alt=""
               />
