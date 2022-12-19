@@ -6,6 +6,7 @@ const authReducer = (
     updateLoading: false,
     alert: null,
     notifyLoading: false,
+    alertUpdate: null,
   },
   action,
 ) => {
@@ -27,7 +28,7 @@ const authReducer = (
 
     // Update info user
     case 'UPDATE_USER_START':
-      return { ...state, updateLoading: true, error: false }
+      return { ...state, updateLoading: true, error: false, alertUpdate: null }
     case 'UPDATE_USER_SUCCESS':
       localStorage.setItem('profile', JSON.stringify({ ...action?.data }))
       return {
@@ -35,9 +36,15 @@ const authReducer = (
         updateLoading: false,
         authData: action.data,
         error: false,
+        alertUpdate: null,
       }
     case 'UPDATE_USER_FAIL':
-      return { ...state, updateLoading: false, error: true }
+      return {
+        ...state,
+        updateLoading: false,
+        error: true,
+        alertUpdate: action.data,
+      }
 
     // Follow User
     case 'FOLLOW_USER':

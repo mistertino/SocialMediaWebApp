@@ -20,7 +20,7 @@ function App() {
         console.log(123)
       }
     }, 30000)
-  }, [user?.user.notifications.length])
+  }, [user?.user?.notifications?.length])
   return (
     <div className="App">
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>

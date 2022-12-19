@@ -1,23 +1,65 @@
 import React, { useState } from 'react'
+import './Navbar.css'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logOut } from '../../action/AuthAction'
 import NotifyItem from '../NotifyItem/NotifyItem'
-import { getNotify } from '../../action/UserAction'
+import { getNotify, updateUser } from '../../action/UserAction'
 import Home from '../../img/home.png'
 import Noti from '../../img/noti.png'
 import Chat from '../../img/chat.png'
 import { UilSetting } from '@iconscout/react-unicons'
+import { Modal, useMantineTheme } from '@mantine/core'
+import { UilEye } from '@iconscout/react-unicons'
 
 const Navbar = () => {
+  const theme = useMantineTheme()
   const dispatch = useDispatch()
+  const error = useSelector((state) => state.authReducer)
   const { user } = useSelector((state) => state.authReducer.authData)
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
   const [openNotify, setOpenNotify] = useState(false)
   const [openSetting, setOpenSetting] = useState(false)
+  const [confirm, setConfirm] = useState(true)
+  const [hidenCurrentPass, setHidenCurrentPass] = useState(true)
+  const [hidenNewPass, setHidenNewPass] = useState(true)
+  const [hidenConfirmPass, setHidenConfirmPass] = useState(true)
+
+  const [formData, setFormData] = useState({
+    _id: user._id,
+    oldPassword: '',
+    password: '',
+    confirmPass: '',
+  })
+
   //Func
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value })
+  }
+
+  const reset = () => {
+    setFormData({
+      _id: user._id,
+      oldPassword: '',
+      password: '',
+      confirmPass: '',
+    })
+    setConfirm(true)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    if (formData.password === formData.confirmPass) {
+      if (!error) {
+        dispatch(updateUser(user._id, formData))
+        reset()
+        setModalOpened(false)
+      } else alert('Mật khẩu hiện tại không đúng')
+    } else setConfirm(false)
+  }
+
   const handleLogOut = () => {
     dispatch(logOut())
   }
@@ -100,13 +142,83 @@ const Navbar = () => {
                 {user.firstname} {user.lastname}
               </span>
             </Link>
-
+            <span onClick={() => setModalOpened(true)}>Đổi mật khẩu</span>
             <button className="button logout-button" onClick={handleLogOut}>
               Đăng xuất
             </button>
           </div>
         </div>
       </div>
+      <Modal
+        overlayColor={
+          theme.colorScheme === 'dark'
+            ? theme.colors.dark[9]
+            : theme.colors.gray[2]
+        }
+        overlayOpacity={0.55}
+        overlayBlur={3}
+        size="35%"
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+      >
+        <div>
+          <form action="" className="form-change-pass" onSubmit={handleSubmit}>
+            <h3>Đổi mật khẩu</h3>
+            <div>
+              <div className="input-password">
+                <input
+                  type={hidenCurrentPass ? 'password' : 'text'}
+                  className="infoInput"
+                  value={formData.oldPassword}
+                  name="oldPassword"
+                  onChange={handleChange}
+                  placeholder="Mật khẩu hiện tại"
+                  required
+                />
+                <UilEye onClick={() => setHidenCurrentPass((prev) => !prev)} />
+              </div>
+
+              <div className="input-password">
+                <input
+                  type={hidenNewPass ? 'password' : 'text'}
+                  className="infoInput"
+                  value={formData.password}
+                  name="password"
+                  onChange={handleChange}
+                  placeholder="Mật khẩu mới"
+                  required
+                />
+                <UilEye onClick={() => setHidenNewPass((prev) => !prev)} />
+              </div>
+              <div className="input-password">
+                <input
+                  type={hidenConfirmPass ? 'password' : 'text'}
+                  className="infoInput"
+                  value={formData.confirmPass}
+                  name="confirmPass"
+                  onChange={handleChange}
+                  placeholder="Xác nhận mật khẩu mới"
+                  required
+                />
+                <UilEye onClick={() => setHidenConfirmPass((prev) => !prev)} />
+              </div>
+            </div>
+            <span
+              style={{
+                display: confirm ? 'none' : 'block',
+                color: 'red',
+                fontSize: '12px',
+                alignSelf: 'flex-end',
+              }}
+            >
+              * Xác nhận mật khẩu không chính xác
+            </span>
+            <button className="button change-pass-button" type="submit">
+              Xác nhận
+            </button>
+          </form>
+        </div>
+      </Modal>
     </div>
   )
 }

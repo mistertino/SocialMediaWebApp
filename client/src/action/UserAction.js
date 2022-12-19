@@ -8,7 +8,8 @@ export const updateUser = (id, formData) => async (dispatch) => {
     dispatch({ type: 'UPDATE_USER_SUCCESS', data: data })
   } catch (error) {
     console.log(error)
-    dispatch({ type: 'UPDATE_USER_FAIL' })
+    const data = error.response.data
+    dispatch({ type: 'UPDATE_USER_FAIL', data: data })
   }
 }
 
