@@ -14,6 +14,7 @@
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
+  object-fit: cover;
 }
 
 .PostShare > div {
@@ -124,4 +125,32 @@
   max-height: 500px;
   object-fit: contain;
   border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 992px) {
+  .PostShare {
+    width: 97%;
+  }
+  .PostShare > div > .input-desc > input {
+    width: 70%;
+  }
+
+  .PostShare > div > .input-desc > .emoji-container {
+    right: -14px;
+  }
+
+  .PostShare > div > .input-desc > input::placeholder {
+    font-size: 80%;
+  }
+  .EmojiPickerReact {
+    width: 275px !important;
+  }
+
+  .postOption {
+    flex-direction: column;
+    margin-left: -60px;
+  }
+  .ps-button {
+    padding: 10px 5px;
+  }
 }

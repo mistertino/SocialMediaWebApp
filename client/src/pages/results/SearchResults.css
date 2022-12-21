@@ -40,3 +40,15 @@
   font-size: larger;
   margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 992px) {
+  .search-result > img {
+    width: 100%;
+  }
+  .result > img {
+    display: none;
+  }
+  .container {
+    flex-direction: column;
+  }
+}

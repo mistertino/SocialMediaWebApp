@@ -77,3 +77,18 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (max-width: 992px) {
+  .Auth > .a-left {
+    display: none;
+  }
+
+  .authForm > div {
+    flex-direction: column;
+    height: auto;
+  }
+  .infoForm > div {
+    flex-direction: column;
+    height: auto;
+  }
+}

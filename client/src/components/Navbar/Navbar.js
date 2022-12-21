@@ -70,9 +70,10 @@ const Navbar = () => {
   }
   return (
     <div className="navIcon">
-      <Link to="../home">
+      <a href="../home">
         <img src={Home} alt="" />
-      </Link>
+      </a>
+
       <div className="notifycations">
         <img src={Noti} alt="" onClick={handleOpenNotify} />
         <div

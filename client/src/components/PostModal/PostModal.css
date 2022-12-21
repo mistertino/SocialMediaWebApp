@@ -61,7 +61,7 @@
 
 .left-side > .grabbercontainer > img {
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 10px;
   max-height: 100vh;
 }
@@ -95,4 +95,33 @@
   height: 26px;
   cursor: pointer;
   margin-right: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .mantine-Modal-body {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .left-side {
+    width: unset;
+    margin-right: unset;
+  }
+  .right-side {
+    display: grid;
+    width: 100%;
+  }
+  .postReact {
+    zoom: 80%;
+  }
+  .user-input-conment {
+    margin-bottom: unset;
+  }
+  .mantine-Modal-modal {
+    height: auto;
+    width: 100%;
+  }
+  .post-comment {
+    min-height: unset;
+    height: auto;
+  }
 }

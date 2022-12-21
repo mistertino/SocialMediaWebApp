@@ -67,7 +67,6 @@
 }
 
 .chat-sender > input {
-  height: 70%;
   background-color: rgb(236, 236, 236);
   border-radius: 0.5rem;
   border: none;
@@ -91,5 +90,12 @@
 }
 
 .chat-sender > .send-button {
-  height: 2rem;
+  height: 3rem;
+}
+
+@media screen and (max-width: 768px) {
+  .chat-sender {
+    gap: 0.5rem;
+    padding: 0.8rem 0.8rem 1.5rem 0.8rem;
+  }
 }

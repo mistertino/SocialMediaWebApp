@@ -1,7 +1,7 @@
 .Home {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 3.5fr 1fr;
   gap: 1rem;
   min-height: 100vh;
   /* max-height: 100vh; */
@@ -12,7 +12,12 @@
     grid-template-columns: 1fr;
   }
 
-  .ProfileSide {
+  /* .ProfileSide {
+    display: none;
+  } */
+
+  .ProfileSide > .FollowerCard,
+  .ProfileSide > .ProfileCard {
     display: none;
   }
 

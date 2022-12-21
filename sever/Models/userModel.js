@@ -23,12 +23,10 @@ const UserSchema = mongoose.Schema(
       default: false,
     },
     profilePicture: {
-      public_id: { type: String },
-      url: { type: String },
+      type: String,
     },
     coverPicture: {
-      public_id: { type: String },
-      url: { type: String },
+      type: String,
     },
     about: String,
     livesin: String,

@@ -68,16 +68,25 @@
   background-color: #fff;
   padding: 15px;
   top: 40px;
-  right: -48px;
+  right: -31px;
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  width: auto;
+  width: 15rem;
 }
 
 .navIcon > .setting > .setting-container > .setting-items {
   display: flex;
   flex-direction: column;
   gap: 7px;
+}
+
+.setting-items > a {
+  text-align: left !important;
+}
+
+.setting-items > span {
+  text-align: right;
+  margin-right: 0.5rem;
 }
 
 .dropdown {

@@ -137,7 +137,7 @@
   position: absolute;
   list-style-type: none;
   top: -118px;
-  right: 57px;
+  right: 105px;
   min-width: 160px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -166,6 +166,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .user_post > span {
@@ -191,6 +192,7 @@
   position: absolute;
   top: 55px;
   right: 0;
+  z-index: 1000;
 }
 
 .user-input-conment > input {
@@ -205,8 +207,8 @@
 
 .user-input-conment > svg {
   color: purple;
-  width: 1, 5rem;
-  height: 1, 5rem;
+  width: 2.5rem;
+  height: 1.5rem;
   margin-top: 10px;
   cursor: pointer;
 }
@@ -251,4 +253,18 @@
 
 .lenght-react > span {
   margin: 10px;
+}
+
+@media screen and (max-width: 992px) {
+  .Post img {
+    max-width: 100%;
+  }
+  .postReact > .dropdown-option {
+    right: 21px;
+  }
+  .user-input-conment .emoji-container {
+    right: 14px;
+    zoom: 85%;
+    top: 75px;
+  }
 }
