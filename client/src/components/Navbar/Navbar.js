@@ -16,7 +16,7 @@ import { PUBLIC_FOLDER } from '../../constants/constants'
 const Navbar = () => {
   const theme = useMantineTheme()
   const dispatch = useDispatch()
-  const error = useSelector((state) => state.authReducer)
+  let error = useSelector((state) => state.authReducer)
   const { user } = useSelector((state) => state.authReducer.authData)
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
@@ -49,11 +49,11 @@ const Navbar = () => {
     setConfirm(true)
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
     if (formData.password === formData.confirmPass) {
+      dispatch(updateUser(user._id, formData))
       if (!error) {
-        dispatch(updateUser(user._id, formData))
         reset()
         setModalOpened(false)
       } else alert('Mật khẩu hiện tại không đúng')
