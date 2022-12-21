@@ -1,9 +1,9 @@
 import * as PostApi from '../api/PostRequest'
 
-export const getTimelinePosts = (id) => async (dispatch) => {
+export const getTimelinePosts = (id, page) => async (dispatch) => {
   dispatch({ type: 'GET_POST_START' })
   try {
-    const { data } = await PostApi.getTimlinePosts(id)
+    const { data } = await PostApi.getTimlinePosts(id, page)
     dispatch({ type: 'GET_POST_SUCCESS', data: data })
   } catch (error) {
     dispatch({ type: 'GET_POST_FAIL' })

@@ -4,7 +4,8 @@ import { URL_SERVER } from '../constants/constants'
 const API = axios.create({ baseURL: URL_SERVER })
 
 export const getPost = (id) => API.get(`/post/${id}`)
-export const getTimlinePosts = (id) => API.get(`/post/${id}/timeline`)
+export const getTimlinePosts = (id, page) =>
+  API.get(`/post/${id}/${page}/timeline`)
 export const likePost = (id, userId) =>
   API.put(`/post/${id}/like`, { currentUserId: userId })
 export const getAllPosts = () => API.get('/post')

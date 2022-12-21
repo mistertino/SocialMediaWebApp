@@ -133,13 +133,17 @@ export const likePost = async (req, res) => {
 
 // Get Post of user following
 export const getTimelinePosts = async (req, res) => {
-  const currentUserId = req.params.id
+  const { id: idReq, page: pageReq } = req.params
+  const page = pageReq == '0' ? 1 : pageReq
+  const limit = 2
   try {
-    const currentUserPosts = await postModel.find({ userId: currentUserId })
+    console.log(typeof page)
+    console.log(page)
+    const currentUserPosts = await postModel.find({ userId: idReq })
     const postUserFollowing = await userModel.aggregate([
       {
         $match: {
-          _id: new mongoose.Types.ObjectId(currentUserId),
+          _id: new mongoose.Types.ObjectId(idReq),
         },
       },
       {
@@ -157,13 +161,14 @@ export const getTimelinePosts = async (req, res) => {
         },
       },
     ])
-    res.status(200).json(
-      currentUserPosts
-        .concat(...postUserFollowing[0].postUserFollowing)
-        .sort((a, b) => {
-          return new Date(b.updatedAt) - new Date(a.updatedAt)
-        }),
-    )
+
+    const listPosts = currentUserPosts
+      .concat(...postUserFollowing[0].postUserFollowing)
+      .sort((a, b) => {
+        return new Date(b.updatedAt) - new Date(a.updatedAt)
+      })
+
+    res.status(200).json(listPosts.slice(page * limit, page * limit + limit))
   } catch (error) {
     res.status(500).json(error)
   }
