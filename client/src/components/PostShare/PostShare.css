@@ -1,6 +1,6 @@
 .PostShare {
   display: flex;
-  width: 100%;
+  width: 99.5%;
   gap: 1rem;
   background-color: var(--cardColor);
   padding: 1rem;

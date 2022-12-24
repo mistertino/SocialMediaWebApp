@@ -32,6 +32,7 @@ const Comment = ({ comment, comments }) => {
               height: '1.5rem',
               borderRadius: '50%',
               marginRight: '5px',
+              objectFit: 'cover',
             }}
           />
           <b>

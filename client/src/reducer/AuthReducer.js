@@ -3,6 +3,7 @@ const authReducer = (
     authData: null,
     loading: false,
     error: false,
+    updateError: false,
     updateLoading: false,
     alert: null,
     notifyLoading: false,
@@ -28,21 +29,25 @@ const authReducer = (
 
     // Update info user
     case 'UPDATE_USER_START':
-      return { ...state, updateLoading: true, error: false, alertUpdate: null }
+      return {
+        ...state,
+        updateLoading: true,
+        alertUpdate: null,
+      }
     case 'UPDATE_USER_SUCCESS':
       localStorage.setItem('profile', JSON.stringify({ ...action?.data }))
       return {
         ...state,
         updateLoading: false,
         authData: action.data,
-        error: false,
+        updateError: false,
         alertUpdate: null,
       }
     case 'UPDATE_USER_FAIL':
       return {
         ...state,
         updateLoading: false,
-        error: true,
+        updateError: true,
         alertUpdate: action.data,
       }
 
@@ -78,15 +83,18 @@ const authReducer = (
     case 'GET_NOTIFY_START':
       return { ...state, notifyLoading: true, error: false }
     case 'GET_NOTIFY_SUCCESS':
-      return {
-        ...state,
-        authData: {
-          ...state.authData,
-          user: { ...state.authData.user, notifications: action.data },
-        },
-        notifyLoading: false,
-        error: false,
+      if (localStorage.getItem('store') !== null) {
+        return {
+          ...state,
+          authData: {
+            ...state.authData,
+            user: { ...state.authData.user, notifications: action.data },
+          },
+          notifyLoading: false,
+          error: false,
+        }
       }
+
     case 'GET_NOTIFY_FAIL':
       return { ...state, notifyLoading: false, error: true }
 

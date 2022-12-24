@@ -3,7 +3,7 @@
   gap: 0.75rem;
 }
 
-.LogoSearch > img {
+.LogoSearch > a > img {
   width: 50px;
   height: 45px;
 }
@@ -20,6 +20,7 @@
   background-color: transparent;
   border: none;
   outline: none;
+  width: 100%;
 }
 
 .s-icon {

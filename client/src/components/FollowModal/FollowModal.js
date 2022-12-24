@@ -19,6 +19,7 @@ const FollowModal = ({
       opened={openModalFollow}
       onClose={() => setOpenModalFollow(false)}
       overflow="inside"
+      title={type === 'following' ? 'Đang theo dõi' : 'Người theo dõi'}
     >
       <div className="user-container" style={{ width: '100%' }}>
         {type === 'following' &&

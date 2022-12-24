@@ -9,7 +9,7 @@ const Hastag = ({ hastag, listHastags }) => {
     listHastags.forEach((item) => {
       if (item === hastag) {
         console.log(item)
-        setCount(count + 1)
+        setCount((prev) => prev + 1)
       }
     })
   }, [])

@@ -2,4 +2,9 @@
   display: flex;
   width: 100%;
   cursor: pointer;
+  gap: 1em;
+}
+
+.user-item > .name {
+  max-width: unset;
 }

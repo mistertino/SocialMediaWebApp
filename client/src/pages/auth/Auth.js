@@ -19,6 +19,12 @@ const Auth = () => {
     confirmpass: '',
   })
   const [confirmPass, setConfirmPass] = useState(true)
+  useEffect(() => {
+    localStorage.clear()
+  }, [])
+  useEffect(() => {
+    setAlerMessage(alert)
+  }, [alert])
   // Set title
   useEffect(() => {
     isSignUp
@@ -39,7 +45,6 @@ const Auth = () => {
     } else {
       dispatch(logIn(data))
     }
-    setAlerMessage(alert)
   }
 
   const resetForm = () => {
@@ -64,18 +69,17 @@ const Auth = () => {
       <div className="a-right">
         <form action="" className="infoForm authForm" onSubmit={handleSubmit}>
           <h3>{isSignUp ? 'Đăng kí' : 'Đăng nhập'}</h3>
-          {alertMessage === null ? null : (
-            <Alert variant="danger">{alert}</Alert>
-          )}
+          {alertMessage !== null && <Alert variant="danger">{alert}</Alert>}
           {isSignUp && (
             <div>
               <input
                 type="text"
-                placeholder="Họ đệm"
+                placeholder="Họ"
                 className="infoInput"
                 name="firstname"
                 onChange={handleChange}
                 value={data.firstname}
+                required
               />
               <input
                 type="text"
@@ -84,6 +88,7 @@ const Auth = () => {
                 name="lastname"
                 onChange={handleChange}
                 value={data.lastname}
+                required
               />
             </div>
           )}
@@ -91,10 +96,11 @@ const Auth = () => {
             <input
               type="text"
               className="infoInput"
-              placeholder="Tên đăng nhập"
+              placeholder="Email"
               name="username"
               onChange={handleChange}
               value={data.username}
+              required
             />
           </div>
           <div>
@@ -105,6 +111,7 @@ const Auth = () => {
               name="password"
               onChange={handleChange}
               value={data.password}
+              required
             />
             {isSignUp && (
               <input
@@ -114,6 +121,7 @@ const Auth = () => {
                 name="confirmpass"
                 onChange={handleChange}
                 value={data.confirmpass}
+                required
               />
             )}
           </div>
@@ -146,7 +154,13 @@ const Auth = () => {
             type="submit"
             disabled={loading}
           >
-            {loading ? 'Đang tải....' : isSignUp ? 'Đăng kí' : 'Đăng nhập'}
+            {loading
+              ? isSignUp
+                ? 'Đăng kí...'
+                : 'Đăng nhập...'
+              : isSignUp
+              ? 'Đăng kí'
+              : 'Đăng nhập'}
           </button>
         </form>
       </div>

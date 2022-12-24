@@ -72,6 +72,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       size="55%"
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
+      overflow="inside"
     >
       <form action="" className="infoForm" onSubmit={handleSubmit}>
         <h3>Thông tin của bạn</h3>

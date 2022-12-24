@@ -109,24 +109,26 @@ const PostModal = ({
       <div className="right-side">
         <div className="post-header">
           <div className="user_post">
-            <img
-              src={
-                userPost.profilePicture
-                  ? PUBLIC_FOLDER + userPost.profilePicture
-                  : PUBLIC_FOLDER + 'user.png'
-              }
-              alt=""
-            />
-            <span>
-              <Link
-                to={`/profile/${userPost._id}`}
-                style={{ textDecoration: 'none', color: 'black' }}
-              >
-                <b>
-                  {userPost.firstname} {userPost.lastname}
-                </b>
-              </Link>
-            </span>
+            <div>
+              <img
+                src={
+                  userPost.profilePicture
+                    ? PUBLIC_FOLDER + userPost.profilePicture
+                    : PUBLIC_FOLDER + 'user.png'
+                }
+                alt=""
+              />
+              <span>
+                <Link
+                  to={`/profile/${userPost._id}`}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <b>
+                    {userPost.firstname} {userPost.lastname}
+                  </b>
+                </Link>
+              </span>
+            </div>
           </div>
           <div className="desc">
             <span>{post?.desc}</span>
