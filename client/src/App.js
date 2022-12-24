@@ -8,19 +8,30 @@ import Chat from './pages/chat/Chat'
 import SearchResults from './pages/results/SearchResults'
 import PostView from './pages/views/PostView'
 import { getNotify } from './action/UserAction'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.authReducer.authData)
   // console.log(user)
   useEffect(() => {
-    setInterval(() => {
+    const Intv = setInterval(() => {
       if (user) {
         dispatch(getNotify(user?.user._id))
-        console.log(123)
+        console.log(123, user)
       }
     }, 30000)
-  }, [user?.user?.notifications?.length])
+  }, [user])
+
+  // setInterval(
+  //   useCallback(() => {
+  //     if (user) {
+  //       dispatch(getNotify(user?.user._id))
+  //       console.log(123, user)
+  //     }
+  //   }),
+  //   3000,
+  // )
+
   return (
     <div className="App">
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>

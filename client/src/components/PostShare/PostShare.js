@@ -76,28 +76,31 @@ const PostShare = ({ setModalOpened }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    opened === false && setStatus()
-    let hastags = []
-    const listText = desc.split(' ', 10)
-    listText.map((text) => {
-      if (text.includes('#')) {
-        hastags.push(text)
+    if (desc !== '') {
+      opened === false && setStatus()
+      let hastags = []
+      const listText = desc.split(' ', 10)
+      listText.map((text) => {
+        if (text.includes('#')) {
+          hastags.push(text)
+        }
+      })
+      const newPost = {
+        userId: user._id,
+        desc: desc,
+        hastags: hastags,
+        status: status,
       }
-    })
-    const newPost = {
-      userId: user._id,
-      desc: desc,
-      hastags: hastags,
-      status: status,
+      if (video) {
+        newPost.video = video
+      }
+      if (image) {
+        newPost.image = image
+      }
+      dispatch(uploadPost(newPost))
+      reset()
     }
-    if (video) {
-      newPost.video = video
-    }
-    if (image) {
-      newPost.image = image
-    }
-    dispatch(uploadPost(newPost))
-    reset()
+    alert('Nhập nội dung bài viết')
   }
 
   return (
@@ -117,7 +120,6 @@ const PostShare = ({ setModalOpened }) => {
             value={desc}
             placeholder="Bạn đang nghĩ gì?"
             onChange={handleChange}
-            // ref={desc}
             required
           />
           {showPicker && (

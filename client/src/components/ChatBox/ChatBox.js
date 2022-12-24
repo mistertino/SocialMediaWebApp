@@ -77,23 +77,25 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   }
 
   const handleSend = async (e) => {
-    e.preventDefault()
-    const message = {
-      senderId: currentUser,
-      text: newMessage,
-      chatId: chat._id,
-    }
-    const receiverId = chat.members.find((id) => id !== currentUser)
-    // send message to socket server
-    setSendMessage({ ...message, receiverId })
+    if (newMessage !== '') {
+      e.preventDefault()
+      const message = {
+        senderId: currentUser,
+        text: newMessage,
+        chatId: chat._id,
+      }
+      const receiverId = chat.members.find((id) => id !== currentUser)
+      // send message to socket server
+      setSendMessage({ ...message, receiverId })
 
-    // Send message to database
-    try {
-      const { data } = await addMessage(message)
-      setMessages([...messages, data])
-      setNewMessage('')
-    } catch (error) {
-      console.log(error)
+      // Send message to database
+      try {
+        const { data } = await addMessage(message)
+        setMessages([...messages, data])
+        setNewMessage('')
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 

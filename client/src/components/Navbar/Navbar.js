@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Navbar.css'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,12 +12,15 @@ import { UilSetting } from '@iconscout/react-unicons'
 import { Modal, useMantineTheme } from '@mantine/core'
 import { UilEye } from '@iconscout/react-unicons'
 import { PUBLIC_FOLDER } from '../../constants/constants'
+import { Alert } from 'react-bootstrap'
 
 const Navbar = () => {
   const theme = useMantineTheme()
   const dispatch = useDispatch()
-  let error = useSelector((state) => state.authReducer)
-  const { user } = useSelector((state) => state.authReducer.authData)
+  const {
+    updateError,
+    authData: { user },
+  } = useSelector((state) => state.authReducer)
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
   const [openNotify, setOpenNotify] = useState(false)
@@ -33,6 +36,22 @@ const Navbar = () => {
     password: '',
     confirmPass: '',
   })
+
+  // useEffect(() => {
+  //   const Intv = setInterval(() => {
+  //     if (user) {
+  //       dispatch(getNotify(user._id))
+  //       console.log(123, user)
+  //     }
+  //   }, 30000)
+  // }, [])
+
+  useEffect(() => {
+    if (!updateError) {
+      reset()
+      setModalOpened(false)
+    }
+  }, [updateError])
 
   //Func
   const handleChange = (event) => {
@@ -53,10 +72,6 @@ const Navbar = () => {
     event.preventDefault()
     if (formData.password === formData.confirmPass) {
       dispatch(updateUser(user._id, formData))
-      if (!error) {
-        reset()
-        setModalOpened(false)
-      } else alert('Mật khẩu hiện tại không đúng')
     } else setConfirm(false)
   }
 
@@ -70,7 +85,7 @@ const Navbar = () => {
   }
   return (
     <div className="navIcon">
-      <a href="../home">
+      <a href="/home">
         <img src={Home} alt="" />
       </a>
 
@@ -161,10 +176,14 @@ const Navbar = () => {
         size="35%"
         opened={modalOpened}
         onClose={() => setModalOpened(false)}
+        overflow="inside"
       >
         <div>
           <form action="" className="form-change-pass" onSubmit={handleSubmit}>
             <h3>Đổi mật khẩu</h3>
+            {updateError && (
+              <Alert variant="danger">Mật khẩu cũ không đúng</Alert>
+            )}
             <div>
               <div className="input-password">
                 <input

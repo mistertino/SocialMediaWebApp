@@ -157,20 +157,30 @@
 
 .user_post {
   display: flex;
-  align-items: flex-start;
   gap: 10px;
   margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.user_post > img {
+.user_post > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.user_post > div > img {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.user_post > span {
+.user_post > div > span {
   line-height: 2.5rem;
+}
+.user_post > span {
+  color: var(--gray);
+  font-size: 13px;
 }
 
 .comment-container {
@@ -217,6 +227,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .list-comments {
@@ -266,5 +277,8 @@
     right: 14px;
     zoom: 85%;
     top: 75px;
+  }
+  .user_post > div > span {
+    line-height: unset;
   }
 }

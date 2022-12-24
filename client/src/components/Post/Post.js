@@ -15,6 +15,7 @@ import { UilCommentAltNotes } from '@iconscout/react-unicons'
 import { UilEllipsisH } from '@iconscout/react-unicons'
 import { UilSmile } from '@iconscout/react-unicons'
 import Picker from 'emoji-picker-react'
+import { format } from 'timeago.js'
 import { PUBLIC_FOLDER } from '../../constants/constants'
 
 const Post = ({ post, posts, location }) => {
@@ -138,62 +139,65 @@ const Post = ({ post, posts, location }) => {
           </div>
         </div>
         <div className="user_post">
-          <img
-            src={
-              userPost.profilePicture
-                ? PUBLIC_FOLDER + userPost.profilePicture
-                : PUBLIC_FOLDER + 'user.png'
-            }
-            alt=""
-          />
-          <span
-            onClick={() => {
-              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-            }}
-            onMouseEnter={() => setProfileShow(true)}
-            onMouseLeave={() => setProfileShow(false)}
-          >
-            <Link
-              to={`/profile/${userPost._id}`}
-              style={{
-                textDecoration: 'none',
-                color: 'black',
-                marginRight: '5px',
+          <div className="">
+            <img
+              src={
+                userPost.profilePicture
+                  ? PUBLIC_FOLDER + userPost.profilePicture
+                  : PUBLIC_FOLDER + 'user.png'
+              }
+              alt=""
+            />
+            <span
+              onClick={() => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
               }}
+              onMouseEnter={() => setProfileShow(true)}
+              onMouseLeave={() => setProfileShow(false)}
             >
-              <b>
-                {userPost.firstname} {userPost.lastname}
-              </b>
-            </Link>
-            {post.status && (
-              <>
-                {post.status === 'funny' && (
-                  <label>đang cảm thấy vui vẻ &#128515;</label>
-                )}
-                {post.status === 'humor' && (
-                  <label>đang cảm thấy hài hước &#128514;</label>
-                )}
-                {post.status === 'happy' && (
-                  <label>đang cảm thấy hạnh phúc &#128522;</label>
-                )}
-                {post.status === 'inlove' && (
-                  <label>đang cảm thấy đáng yêu &#128525;</label>
-                )}
-                {post.status === 'angry' && (
-                  <label>đang cảm thấy tức giận &#128548;</label>
-                )}
-                {post.status === 'sad' && (
-                  <label>đang cảm thấy buồn &#128546;</label>
-                )}
-                {post.status === 'scary' && (
-                  <label>đang cảm thấy đáng sợ &#128561;</label>
-                )}
-                {post.status === 'suprise' && (
-                  <label>đang cảm thấy ngạc nhiên &#128562;</label>
-                )}
-              </>
-            )}
-          </span>
+              <Link
+                to={`/profile/${userPost._id}`}
+                style={{
+                  textDecoration: 'none',
+                  color: 'black',
+                  marginRight: '5px',
+                }}
+              >
+                <b>
+                  {userPost.firstname} {userPost.lastname}
+                </b>
+              </Link>
+              {post.status && (
+                <>
+                  {post.status === 'funny' && (
+                    <label>đang cảm thấy vui vẻ &#128515;</label>
+                  )}
+                  {post.status === 'humor' && (
+                    <label>đang cảm thấy hài hước &#128514;</label>
+                  )}
+                  {post.status === 'happy' && (
+                    <label>đang cảm thấy hạnh phúc &#128522;</label>
+                  )}
+                  {post.status === 'inlove' && (
+                    <label>đang cảm thấy đáng yêu &#128525;</label>
+                  )}
+                  {post.status === 'angry' && (
+                    <label>đang cảm thấy tức giận &#128548;</label>
+                  )}
+                  {post.status === 'sad' && (
+                    <label>đang cảm thấy buồn &#128546;</label>
+                  )}
+                  {post.status === 'scary' && (
+                    <label>đang cảm thấy đáng sợ &#128561;</label>
+                  )}
+                  {post.status === 'suprise' && (
+                    <label>đang cảm thấy ngạc nhiên &#128562;</label>
+                  )}
+                </>
+              )}
+            </span>
+          </div>
+          <span>{format(post.createdAt, 'vi')}</span>
         </div>
       </div>
 
