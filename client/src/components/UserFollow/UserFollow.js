@@ -19,7 +19,7 @@ const UserFollow = ({ userId, setOpenModalFollow }) => {
       <img
         src={
           user?.profilePicture
-            ? PUBLIC_FOLDER + user?.profilePicture
+            ? user?.profilePicture.url
             : PUBLIC_FOLDER + 'user.png'
         }
         alt=""

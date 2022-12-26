@@ -23,7 +23,7 @@ const Comment = ({ comment, comments }) => {
           <img
             src={
               userComment.profilePicture
-                ? PUBLIC_FOLDER + userComment.profilePicture
+                ? userComment.profilePicture.url
                 : PUBLIC_FOLDER + 'user.png'
             }
             alt=""

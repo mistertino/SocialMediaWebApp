@@ -25,7 +25,7 @@ const Conversation = ({ data, currentUser, online }) => {
           <img
             src={
               userData?.profilePicture
-                ? PUBLIC_FOLDER + userData.profilePicture
+                ? userData.profilePicture.url
                 : PUBLIC_FOLDER + 'user.png'
             }
             alt=""

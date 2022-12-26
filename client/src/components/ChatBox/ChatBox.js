@@ -122,7 +122,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                   <img
                     src={
                       userData?.profilePicture
-                        ? PUBLIC_FOLDER + userData.profilePicture
+                        ? userData.profilePicture.url
                         : PUBLIC_FOLDER + 'user.png'
                     }
                     alt=""

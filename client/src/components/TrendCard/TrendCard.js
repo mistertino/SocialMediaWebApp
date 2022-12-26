@@ -13,6 +13,7 @@ const TrendCard = () => {
       let listHastags = []
       // create new array field hastags of posts
       const listPost = data.map((post) => post.hastags)
+      console.log(listPost)
       // get hastag in all posts then push to new array
       listPost.forEach((hastags) => {
         hastags.forEach((hastag) => {
@@ -28,10 +29,9 @@ const TrendCard = () => {
     }
     fetchPosts()
   }, [])
-  console.log(listHastags)
-  console.log(listHastagsNoduplicate)
   return (
     <div className="TrendCard">
+      <h5>Thịnh Hành</h5>
       {listHastagsNoduplicate.map((hastag) => (
         <Hastag hastag={hastag} listHastags={listHastags} />
       ))}

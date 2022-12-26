@@ -10,6 +10,7 @@ import {
   addComment,
   getComments,
   getPostLastWeek,
+  getPostForHastag,
 } from '../Controller/PostController.js'
 
 const router = express.Router()
@@ -17,6 +18,7 @@ const router = express.Router()
 router.post('/', createPost)
 router.get('/', getAllPosts)
 router.get('/lastweek', getPostLastWeek)
+router.get('/:hastag', getPostForHastag)
 router.get('/:id', getPost)
 router.put('/:id', updatePost)
 router.delete('/:id', deletePost)

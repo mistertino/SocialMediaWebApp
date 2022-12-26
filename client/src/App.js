@@ -9,18 +9,19 @@ import SearchResults from './pages/results/SearchResults'
 import PostView from './pages/views/PostView'
 import { getNotify } from './action/UserAction'
 import { useCallback, useEffect } from 'react'
+import PostsResult from './pages/results/PostsResult'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.authReducer.authData)
   // console.log(user)
-  useEffect(() => {
-    const Intv = setInterval(() => {
-      if (user) {
-        dispatch(getNotify(user?.user._id))
-        console.log(123, user)
-      }
-    }, 30000)
-  }, [user])
+  // useEffect(() => {
+  //   const Intv = setInterval(() => {
+  //     if (user) {
+  //       dispatch(getNotify(user?.user._id))
+  //       console.log(123, user)
+  //     }
+  //   }, 30000)
+  // }, [user])
 
   // setInterval(
   //   useCallback(() => {
@@ -48,6 +49,10 @@ function App() {
         <Route
           path="/view/post/:id"
           element={user ? <PostView /> : <Navigate to="../auth" />}
+        />
+        <Route
+          path="/posts/result"
+          element={user ? <PostsResult /> : <Navigate to="../auth" />}
         />
         <Route
           path="/search/result"

@@ -9,7 +9,7 @@ import './SearchResults.css'
 
 const SearchResults = () => {
   const location = useLocation()
-  const results = location.state.results
+  const results = location?.state?.results
 
   // Set title
   useEffect(() => {

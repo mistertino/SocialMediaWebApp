@@ -43,7 +43,6 @@ const PostShare = ({ setModalOpened }) => {
   const onEmojiClick = (emojiObject) => {
     setDesc((desc) => desc + emojiObject.emoji)
     setShowPicker(false)
-    console.log(PUBLIC_FOLDER)
   }
 
   const onImageChange = (event) => {
@@ -79,15 +78,16 @@ const PostShare = ({ setModalOpened }) => {
     if (desc !== '') {
       opened === false && setStatus()
       let hastags = []
+      let newDesc = ''
       const listText = desc.split(' ', 10)
       listText.map((text) => {
         if (text.includes('#')) {
-          hastags.push(text)
-        }
+          hastags.push(text.slice(1))
+        } else newDesc = newDesc + text
       })
       const newPost = {
         userId: user._id,
-        desc: desc,
+        desc: newDesc,
         hastags: hastags,
         status: status,
       }
@@ -108,7 +108,7 @@ const PostShare = ({ setModalOpened }) => {
       <img
         src={
           user.profilePicture
-            ? PUBLIC_FOLDER + user.profilePicture
+            ? user.profilePicture.url
             : PUBLIC_FOLDER + 'user.png'
         }
         alt=""

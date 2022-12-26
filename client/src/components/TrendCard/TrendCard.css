@@ -11,6 +11,11 @@
   overflow: hidden;
 }
 
+.TrendCard > h5 {
+  color: purple;
+  font-weight: bold;
+}
+
 .trend {
   display: flex;
   flex-direction: column;

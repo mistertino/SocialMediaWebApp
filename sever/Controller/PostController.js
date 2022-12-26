@@ -47,6 +47,19 @@ export const createPost = async (req, res) => {
   }
 }
 
+// Get post for hastags
+export const getPostForHastag = async (req, res) => {
+  const hastag = req.params.hastag
+  console.log(hastag)
+  try {
+    const posts = await postModel.find()
+    const postsForTag = posts.filter((post) => post.hastags.includes(hastag))
+    res.status(200).json(postsForTag)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 // Get Post
 export const getPost = async (req, res) => {
   const postId = req.params.id

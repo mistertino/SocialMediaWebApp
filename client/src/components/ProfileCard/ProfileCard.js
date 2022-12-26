@@ -82,10 +82,10 @@ const ProfileCard = ({ location }) => {
             src={
               user._id === params.id
                 ? user.coverPicture
-                  ? PUBLIC_FOLDER + user.coverPicture
+                  ? user.coverPicture.url
                   : PUBLIC_FOLDER + 'cover.jpg'
                 : profileUser.coverPicture
-                ? PUBLIC_FOLDER + profileUser.coverPicture
+                ? profileUser.coverPicture.url
                 : PUBLIC_FOLDER + 'cover.jpg'
             }
             alt=""
@@ -99,10 +99,10 @@ const ProfileCard = ({ location }) => {
               setImage(
                 user._id === params.id
                   ? user.coverPicture
-                    ? PUBLIC_FOLDER + user.coverPicture
+                    ? user.coverPicture.url
                     : PUBLIC_FOLDER + 'cover.jpg'
                   : profileUser.coverPicture
-                  ? PUBLIC_FOLDER + profileUser.coverPicture
+                  ? profileUser.coverPicture.url
                   : PUBLIC_FOLDER + 'cover.jpg',
               )
             }}
@@ -111,10 +111,10 @@ const ProfileCard = ({ location }) => {
             src={
               user._id === params.id
                 ? user.profilePicture
-                  ? PUBLIC_FOLDER + user.profilePicture
+                  ? user.profilePicture.url
                   : PUBLIC_FOLDER + 'user.png'
                 : profileUser.profilePicture
-                ? PUBLIC_FOLDER + profileUser.profilePicture
+                ? profileUser.profilePicture.url
                 : PUBLIC_FOLDER + 'user.png'
             }
             alt=""
@@ -123,10 +123,10 @@ const ProfileCard = ({ location }) => {
               setImage(
                 user._id === params.id
                   ? user.profilePicture
-                    ? PUBLIC_FOLDER + user.profilePicture
+                    ? user.profilePicture.url
                     : PUBLIC_FOLDER + 'user.png'
                   : profileUser.profilePicture
-                  ? PUBLIC_FOLDER + profileUser.profilePicture
+                  ? profileUser.profilePicture.url
                   : PUBLIC_FOLDER + 'user.png',
               )
             }}

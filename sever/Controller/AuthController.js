@@ -2,6 +2,17 @@ import userModel from '../Models/userModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+export const activeUser = async (req, res) => {
+  const username = params.userId
+  const hash = params.hash
+  const user = await userModel.find({ username: username })
+  const verify = bcrypt.compare(user.username, hash)
+  if (verify) {
+    await user.updateOne({ active: true })
+    res.status(200).json(user)
+  }
+}
+
 export const registerUser = async (req, res) => {
   // hash password before save
   const salt = await bcrypt.genSalt(10)

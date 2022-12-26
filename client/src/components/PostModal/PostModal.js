@@ -113,7 +113,7 @@ const PostModal = ({
               <img
                 src={
                   userPost.profilePicture
-                    ? PUBLIC_FOLDER + userPost.profilePicture
+                    ? userPost.profilePicture.url
                     : PUBLIC_FOLDER + 'user.png'
                 }
                 alt=""
@@ -155,7 +155,7 @@ const PostModal = ({
               <img
                 src={
                   user.profilePicture
-                    ? PUBLIC_FOLDER + user.profilePicture
+                    ? user.profilePicture.url
                     : PUBLIC_FOLDER + 'user.png'
                 }
                 alt=""

@@ -24,10 +24,12 @@ const UserSchema = mongoose.Schema(
       default: false,
     },
     profilePicture: {
-      type: String,
+      public_id: { type: String },
+      url: { type: String },
     },
     coverPicture: {
-      type: String,
+      public_id: { type: String },
+      url: { type: String },
     },
     about: String,
     livesin: String,
@@ -37,6 +39,7 @@ const UserSchema = mongoose.Schema(
     followers: [],
     following: [],
     notifications: [],
+    active: { type: Boolean, default: false },
   },
   { timestamps: true },
 )

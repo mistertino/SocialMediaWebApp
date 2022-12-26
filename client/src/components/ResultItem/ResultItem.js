@@ -43,7 +43,7 @@ const ResultItem = ({ result }) => {
         <img
           src={
             result.profilePicture
-              ? PUBLIC_FOLDER + result.profilePicture
+              ? result.profilePicture.url
               : PUBLIC_FOLDER + 'user.png'
           }
           alt=""
