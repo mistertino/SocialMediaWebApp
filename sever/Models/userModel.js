@@ -18,7 +18,6 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    emailAddress: { type: String, required: true },
     isAdmin: {
       type: Boolean,
       default: false,
@@ -39,6 +38,7 @@ const UserSchema = mongoose.Schema(
     followers: [],
     following: [],
     notifications: [],
+    hashedEmail: {},
     active: { type: Boolean, default: false },
   },
   { timestamps: true },

@@ -10,6 +10,7 @@ import PostView from './pages/views/PostView'
 import { getNotify } from './action/UserAction'
 import { useCallback, useEffect } from 'react'
 import PostsResult from './pages/results/PostsResult'
+import VerifyAccount from './pages/auth/VerifyAccount'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.authReducer.authData)
@@ -32,43 +33,124 @@ function App() {
   //   }),
   //   3000,
   // )
-
+  console.log(user)
   return (
     <div className="App">
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>
       <div className="blur" style={{ top: '36%', left: ' -8rem' }}></div>
       <Routes>
+        <Route path="/active" element={<VerifyAccount />} />
         <Route
           path="/"
-          element={user ? <Navigate to="home" /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user.user.active ? (
+                <Navigate to="home" />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/home"
-          element={user ? <Home /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user.user.active ? (
+                <Home />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/view/post/:id"
-          element={user ? <PostView /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user.user.active ? (
+                <PostView />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/posts/result"
-          element={user ? <PostsResult /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user.user.active ? (
+                <PostsResult />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/search/result"
-          element={user ? <SearchResults /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user.user.active ? (
+                <SearchResults />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/auth"
-          element={user ? <Navigate to="../home" /> : <Auth />}
+          element={
+            user ? (
+              user.user.active ? (
+                <Navigate to="home" />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Auth />
+            )
+          }
         />
         <Route
           path="/profile/:id"
-          element={user ? <Profile /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user.user.active ? (
+                <Profile />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/chat"
-          element={user ? <Chat /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user.user.active ? (
+                <Chat />
+              ) : (
+                <Navigate to="../active" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
       </Routes>
     </div>

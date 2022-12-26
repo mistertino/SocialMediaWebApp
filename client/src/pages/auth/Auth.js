@@ -94,7 +94,7 @@ const Auth = () => {
           )}
           <div>
             <input
-              type="email"
+              type={isSignUp ? 'email' : 'text'}
               className="infoInput"
               placeholder="Email"
               name="username"

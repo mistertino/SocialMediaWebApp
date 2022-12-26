@@ -1,6 +1,36 @@
 import userModel from '../Models/userModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
+
+const algorithm = 'aes-256-cbc' //Using AES encryption
+const key = Buffer.alloc(32)
+key.write('tc', 'utf-8')
+const iv = Buffer.alloc(16)
+iv.write('media', 'utf-8')
+// console.log(key)
+// console.log(iv)
+//Encrypting text
+function encrypt(text) {
+  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv)
+  let encrypted = cipher.update(text)
+  encrypted = Buffer.concat([encrypted, cipher.final()])
+  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') }
+}
+
+// Decrypting text
+function decrypt(text) {
+  let iv = Buffer.from(text.iv, 'hex')
+  let encryptedText = Buffer.from(text.encryptedData, 'hex')
+  let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv)
+  let decrypted = decipher.update(encryptedText)
+  decrypted = Buffer.concat([decrypted, decipher.final()])
+  return decrypted.toString()
+}
+
+// var hw = encrypt('Welcome to Tutorials Point...')
+// console.log(hw)
+// console.log(decrypt(hw))
 
 export const activeUser = async (req, res) => {
   const username = params.userId
@@ -18,6 +48,9 @@ export const registerUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10)
   const hashedPass = await bcrypt.hash(req.body.password, salt)
   req.body.password = hashedPass
+  // Hash Email
+  const hashedEmail = encrypt(req.body.username)
+  req.body.hashedEmail = hashedEmail
   //Create new document
   const newUser = new userModel(req.body)
   const { username } = req.body
@@ -35,7 +68,7 @@ export const registerUser = async (req, res) => {
       },
       process.env.JWT_KEY,
     )
-    const { password, ...user } = userRegister._doc
+    const { password, hashedEmail, ...user } = userRegister._doc
     res.status(200).json({ user, token })
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -44,6 +77,8 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { username, password } = req.body
+  const salt = await bcrypt.genSalt(10)
+  console.log(salt)
   try {
     const userLogin = await userModel.findOne({ username: username })
     if (userLogin) {
