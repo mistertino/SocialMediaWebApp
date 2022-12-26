@@ -4,13 +4,19 @@ import Logo from '../../img/logo.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { logIn, signUp } from '../../action/AuthAction'
 import { Alert } from 'react-bootstrap'
+import axios from 'axios'
+import ReactDOMServer from 'react-dom/server'
+import ActiveUser from '../../templates/ActiveUser'
 const Auth = () => {
   const dispatch = useDispatch()
   const alert = useSelector((state) => state.authReducer.alert)
   const loading = useSelector((state) => state.authReducer.loading)
+  const user = useSelector((state) => state.authReducer.authData)
+  const success = useSelector((state) => state.authReducer.success)
   // State
   const [isSignUp, setIsSignUp] = useState(false)
   const [alertMessage, setAlerMessage] = useState(alert)
+  const [successAction, setSuccessAction] = useState(success)
   const [data, setData] = useState({
     firstname: '',
     lastname: '',
@@ -19,12 +25,54 @@ const Auth = () => {
     confirmpass: '',
   })
   const [confirmPass, setConfirmPass] = useState(true)
+
   useEffect(() => {
     localStorage.clear()
   }, [])
   useEffect(() => {
     setAlerMessage(alert)
   }, [alert])
+  useEffect(() => {
+    console.log('auth')
+    const abc = async () => {
+      if (user && !user.user?.active) {
+        // hash email
+        console.log(123)
+        const hashedEmail = user?.user.hashedEmail
+        // create mail
+        const emailBody = (
+          <ActiveUser
+            fullname={data.lastname + data.lastname}
+            hashedEmail={hashedEmail}
+          />
+        )
+        const postMailData = {
+          firstname: data.firstname,
+          lastname: data.lastname,
+          email: data.username,
+          hash: '',
+          htmlBody: ReactDOMServer.renderToStaticMarkup(emailBody),
+        }
+        // send mail
+        await axios({
+          url: 'https://script.google.com/macros/s/AKfycbxCGyyRKRgwpJKPwhAYoQDMxM2VtiyBdUhKbf0Vh6d3DfRjxCooDJVLdxw0Kto-YOIecQ/exec',
+          method: 'post',
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+          },
+          data: postMailData,
+        })
+          .then(function (response) {
+            //success
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
+    }
+    abc()
+  }, [user])
   // Set title
   useEffect(() => {
     isSignUp
@@ -36,12 +84,49 @@ const Auth = () => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    // console.log(ReactDOMServer.renderToStaticMarkup(emailBody))
     if (isSignUp) {
-      data.password === data.confirmpass
-        ? dispatch(signUp(data))
-        : setConfirmPass(false)
+      if (data.password === data.confirmpass) {
+        dispatch(signUp(data))
+        // console.log(successAction)
+        // if (user && !user.user?.active) {
+        //   // hash email
+        //   console.log(123)
+        //   const hashedEmail = user?.user.hashedEmail
+        //   // create mail
+        //   const emailBody = (
+        //     <ActiveUser
+        //       fullname={data.lastname + data.lastname}
+        //       hashedEmail={hashedEmail}
+        //     />
+        //   )
+        //   const postMailData = {
+        //     firstname: data.firstname,
+        //     lastname: data.lastname,
+        //     email: data.username,
+        //     hash: '',
+        //     htmlBody: ReactDOMServer.renderToStaticMarkup(emailBody),
+        //   }
+        //   // send mail
+        //   await axios({
+        //     url: 'https://script.google.com/macros/s/AKfycbxCGyyRKRgwpJKPwhAYoQDMxM2VtiyBdUhKbf0Vh6d3DfRjxCooDJVLdxw0Kto-YOIecQ/exec',
+        //     method: 'post',
+        //     headers: {
+        //       'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        //     },
+        //     data: postMailData,
+        //   })
+        //     .then(function (response) {
+        //       //success
+        //       console.log(response)
+        //     })
+        //     .catch(function (error) {
+        //       console.log(error)
+        //     })
+        // }
+      } else setConfirmPass(false)
     } else {
       dispatch(logIn(data))
     }
@@ -50,11 +135,11 @@ const Auth = () => {
   const resetForm = () => {
     setConfirmPass(true)
     setData({
-      firstname: '',
-      lastname: '',
-      username: '',
-      password: '',
-      confirmpass: '',
+      firstname: 'Tam',
+      lastname: 'Bui',
+      username: 'deezaymisstertino@gmail.com',
+      password: '123',
+      confirmpass: '123',
     })
   }
   return (

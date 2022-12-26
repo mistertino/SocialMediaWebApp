@@ -23,6 +23,16 @@ export const signUp = (formData) => async (dispatch) => {
   }
 }
 
+export const activeUser = (hash) => async (dispatch) => {
+  try {
+    const { data } = await AuthApi.activeUser(hash)
+    dispatch({ type: 'ACTIVE_SUCCESS', data: data })
+  } catch (error) {
+    console.log(error)
+    dispatch({ type: 'ACTIVE_FAIL' })
+  }
+}
+
 export const logOut = () => async (dispatch) => {
   dispatch({ type: 'LOG_OUT' })
 }
