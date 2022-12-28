@@ -1,23 +1,22 @@
 import userModel from '../Models/userModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-// import crypto from 'crypto'
+import crypto from 'crypto'
 
-// const key = Buffer.alloc(32)
-// key.write('tc', 'utf-8')
-// const iv = Buffer.alloc(16)
-// iv.write('media', 'utf-8')
-// console.log(key)
-// console.log(iv)
-//Encrypting text
-// function encrypt(text) {
-//   let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv)
-//   let encrypted = cipher.update(text)
-//   encrypted = Buffer.concat([encrypted, cipher.final()])
-//   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') }
-// }
+// Create key to hash
+const key = Buffer.alloc(32)
+key.write('tc', 'utf-8')
+const iv = Buffer.alloc(16)
+iv.write('media', 'utf-8')
+// Encrypting text
+function encrypt(text) {
+  let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv)
+  let encrypted = cipher.update(text)
+  encrypted = Buffer.concat([encrypted, cipher.final()])
+  return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') }
+}
 
-// // Decrypting text
+// Decrypting text
 // function decrypt(text) {
 //   let iv = Buffer.from(text.iv, 'hex')
 //   let encryptedText = Buffer.from(text.encryptedData, 'hex')
@@ -33,14 +32,13 @@ import jwt from 'jsonwebtoken'
 
 export const activeUser = async (req, res) => {
   const hash = req.params.hash
-  console.log(hash)
-
   try {
-    const userActive = await userModel.find({
-      hashedEmail: hash,
-    })
     // console.log(userActive)
-    const user = await userActive.updateOne({ $push: { active: true } })
+    const user = await userModel.findOneAndUpdate(
+      { hashedEmail: hash },
+      { active: true },
+      { new: true },
+    )
     res.status(200).json(user)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -53,8 +51,8 @@ export const registerUser = async (req, res) => {
   const hashedPass = await bcrypt.hash(req.body.password, salt)
   req.body.password = hashedPass
   // Hash Email
-  const hashedEmail = await bcrypt.hash(req.body.username, salt)
-  req.body.hashedEmail = hashedEmail
+  const hashedEmail = encrypt(req.body.username)
+  req.body.hashedEmail = hashedEmail.encryptedData
   //Create new document
   const newUser = new userModel(req.body)
   const { username } = req.body
@@ -82,7 +80,6 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { username, password } = req.body
   const salt = await bcrypt.genSalt(10)
-  console.log(salt)
   try {
     const userLogin = await userModel.findOne({ username: username })
     if (userLogin) {

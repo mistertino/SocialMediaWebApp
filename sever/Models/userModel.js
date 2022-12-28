@@ -38,7 +38,7 @@ const UserSchema = mongoose.Schema(
     followers: [],
     following: [],
     notifications: [],
-    hashedEmail: {},
+    hashedEmail: { type: String },
     active: { type: Boolean, default: false },
   },
   { timestamps: true },

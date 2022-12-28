@@ -10,7 +10,7 @@ import { uploadPost } from '../../action/UploadAction'
 import { Collapse } from '@mantine/core'
 import { Radio } from '@mantine/core'
 import Picker from 'emoji-picker-react'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const PostShare = ({ setModalOpened }) => {
   const uploading = useSelector((state) => state.postReducer.uploading)
@@ -107,9 +107,7 @@ const PostShare = ({ setModalOpened }) => {
     <div className="PostShare">
       <img
         src={
-          user.profilePicture
-            ? user.profilePicture.url
-            : PUBLIC_FOLDER + 'user.png'
+          user.profilePicture?.url ? user.profilePicture?.url : profilePicture
         }
         alt=""
       />

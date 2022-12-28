@@ -61,7 +61,7 @@
 
 .left-side > .grabbercontainer > img {
   width: 100%;
-  object-fit: cover;
+  /* object-fit: cover; */
   border-radius: 10px;
   max-height: 100vh;
 }

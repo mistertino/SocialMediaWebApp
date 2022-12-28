@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/UserRequest'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
+
 const Comment = ({ comment, comments }) => {
   // State
   const [userComment, setUserComment] = useState({})
@@ -22,9 +23,9 @@ const Comment = ({ comment, comments }) => {
         >
           <img
             src={
-              userComment.profilePicture
-                ? userComment.profilePicture.url
-                : PUBLIC_FOLDER + 'user.png'
+              userComment.profilePicture?.url
+                ? userComment.profilePicture?.url
+                : profilePicture
             }
             alt=""
             style={{

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getUser } from '../../api/UserRequest'
 import { Link, useNavigate } from 'react-router-dom'
 import './UserFollow.css'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const UserFollow = ({ userId, setOpenModalFollow }) => {
   const [user, setUser] = useState()
@@ -18,9 +18,7 @@ const UserFollow = ({ userId, setOpenModalFollow }) => {
     <div className="user-item">
       <img
         src={
-          user?.profilePicture
-            ? user?.profilePicture.url
-            : PUBLIC_FOLDER + 'user.png'
+          user?.profilePicture?.url ? user?.profilePicture?.url : profilePicture
         }
         alt=""
         className="followerImg"

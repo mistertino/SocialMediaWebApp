@@ -9,7 +9,8 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import { UilSearchMinus, UilSearchPlus } from '@iconscout/react-unicons'
 import { followUser, unFollowUser } from '../../action/UserAction'
 import FollowModal from '../FollowModal/FollowModal'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
+import coverPicture from '../../img/cover.jpg'
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -42,7 +43,7 @@ const ProfileCard = ({ location }) => {
       }
     }
     fetchProfileUser()
-  }, [params.id])
+  }, [params.id, user])
 
   // Func
   const handleFollow = () => {
@@ -81,12 +82,12 @@ const ProfileCard = ({ location }) => {
           <img
             src={
               user._id === params.id
-                ? user.coverPicture
-                  ? user.coverPicture.url
-                  : PUBLIC_FOLDER + 'cover.jpg'
-                : profileUser.coverPicture
-                ? profileUser.coverPicture.url
-                : PUBLIC_FOLDER + 'cover.jpg'
+                ? user.coverPicture?.url
+                  ? user.coverPicture?.url
+                  : coverPicture
+                : profileUser.coverPicture?.url
+                ? profileUser.coverPicture?.url
+                : coverPicture
             }
             alt=""
             style={
@@ -98,36 +99,36 @@ const ProfileCard = ({ location }) => {
               setOpenModalImage(true)
               setImage(
                 user._id === params.id
-                  ? user.coverPicture
-                    ? user.coverPicture.url
-                    : PUBLIC_FOLDER + 'cover.jpg'
-                  : profileUser.coverPicture
-                  ? profileUser.coverPicture.url
-                  : PUBLIC_FOLDER + 'cover.jpg',
+                  ? user.coverPicture?.url
+                    ? user.coverPicture?.url
+                    : coverPicture
+                  : profileUser.coverPicture?.url
+                  ? profileUser.coverPicture?.url
+                  : coverPicture,
               )
             }}
           />
           <img
             src={
               user._id === params.id
-                ? user.profilePicture
-                  ? user.profilePicture.url
-                  : PUBLIC_FOLDER + 'user.png'
-                : profileUser.profilePicture
-                ? profileUser.profilePicture.url
-                : PUBLIC_FOLDER + 'user.png'
+                ? user.profilePicture?.url
+                  ? user.profilePicture?.url
+                  : profilePicture
+                : profileUser.profilePicture?.url
+                ? profileUser.profilePicture?.url
+                : profilePicture
             }
             alt=""
             onClick={() => {
               setOpenModalImage(true)
               setImage(
                 user._id === params.id
-                  ? user.profilePicture
-                    ? user.profilePicture.url
-                    : PUBLIC_FOLDER + 'user.png'
-                  : profileUser.profilePicture
-                  ? profileUser.profilePicture.url
-                  : PUBLIC_FOLDER + 'user.png',
+                  ? user.profilePicture?.url
+                    ? user.profilePicture?.url
+                    : profilePicture
+                  : profileUser.profilePicture?.url
+                  ? profileUser.profilePicture?.url
+                  : profilePicture,
               )
             }}
           />

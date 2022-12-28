@@ -11,7 +11,7 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import { UilSearchMinus, UilSearchPlus } from '@iconscout/react-unicons'
 import { UilSmile } from '@iconscout/react-unicons'
 import Picker from 'emoji-picker-react'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const PostModal = ({
   modalOpened,
@@ -112,9 +112,9 @@ const PostModal = ({
             <div>
               <img
                 src={
-                  userPost.profilePicture
-                    ? userPost.profilePicture.url
-                    : PUBLIC_FOLDER + 'user.png'
+                  userPost.profilePicture?.url
+                    ? userPost.profilePicture?.url
+                    : profilePicture
                 }
                 alt=""
               />
@@ -154,9 +154,9 @@ const PostModal = ({
             <div className="user-input-conment">
               <img
                 src={
-                  user.profilePicture
-                    ? user.profilePicture.url
-                    : PUBLIC_FOLDER + 'user.png'
+                  user.profilePicture?.url
+                    ? user.profilePicture?.url
+                    : profilePicture
                 }
                 alt=""
               />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getUser } from '../../api/UserRequest'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const Conversation = ({ data, currentUser, online }) => {
   //State
@@ -24,9 +24,9 @@ const Conversation = ({ data, currentUser, online }) => {
           {online && <div className="online-dot"></div>}
           <img
             src={
-              userData?.profilePicture
-                ? userData.profilePicture.url
-                : PUBLIC_FOLDER + 'user.png'
+              userData?.profilePicture?.url
+                ? userData.profilePicture?.url
+                : profilePicture
             }
             alt=""
             className="followerImage"

@@ -16,7 +16,8 @@ import { UilEllipsisH } from '@iconscout/react-unicons'
 import { UilSmile } from '@iconscout/react-unicons'
 import Picker from 'emoji-picker-react'
 import { format } from 'timeago.js'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
+
 import { Modal, useMantineTheme } from '@mantine/core'
 import LikerModal from '../LikerModal/LikerModal'
 
@@ -110,9 +111,9 @@ const Post = ({ post, posts, location }) => {
           <div className="user">
             <img
               src={
-                userPost.profilePicture
-                  ? userPost.profilePicture.url
-                  : PUBLIC_FOLDER + 'user.png'
+                userPost.profilePicture?.url
+                  ? userPost.profilePicture?.url
+                  : profilePicture
               }
               alt=""
             />
@@ -144,9 +145,9 @@ const Post = ({ post, posts, location }) => {
           <div className="">
             <img
               src={
-                userPost.profilePicture
-                  ? userPost.profilePicture.url
-                  : PUBLIC_FOLDER + 'user.png'
+                userPost.profilePicture?.url
+                  ? userPost.profilePicture?.url
+                  : profilePicture
               }
               alt=""
             />
@@ -302,9 +303,9 @@ const Post = ({ post, posts, location }) => {
           <div className="user-input-conment">
             <img
               src={
-                user.profilePicture
-                  ? user.profilePicture.url
-                  : PUBLIC_FOLDER + 'user.png'
+                user.profilePicture?.url
+                  ? user.profilePicture?.url
+                  : profilePicture
               }
               alt=""
             />

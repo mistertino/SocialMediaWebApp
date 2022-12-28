@@ -5,7 +5,7 @@ import { getUser } from '../../api/UserRequest'
 import { format } from 'timeago.js'
 import Picker from 'emoji-picker-react'
 import { UilSmile } from '@iconscout/react-unicons'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
   const scroll = useRef()
@@ -121,9 +121,9 @@ const ChatBox = ({ chat, currentUser, setSendMessage, receivedMessage }) => {
                 <div>
                   <img
                     src={
-                      userData?.profilePicture
-                        ? userData.profilePicture.url
-                        : PUBLIC_FOLDER + 'user.png'
+                      userData?.profilePicture?.url
+                        ? userData.profilePicture?.url
+                        : profilePicture
                     }
                     alt=""
                     className="followerImage"

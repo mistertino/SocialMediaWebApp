@@ -11,7 +11,7 @@ import Chat from '../../img/chat.png'
 import { UilSetting } from '@iconscout/react-unicons'
 import { Modal, useMantineTheme } from '@mantine/core'
 import { UilEye } from '@iconscout/react-unicons'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 import { Alert } from 'react-bootstrap'
 
 const Navbar = () => {
@@ -81,6 +81,7 @@ const Navbar = () => {
 
   const handleOpenNotify = () => {
     setOpenNotify((prev) => !prev)
+    setOpenSetting(false)
     dispatch(getNotify(user._id))
   }
   return (
@@ -126,7 +127,12 @@ const Navbar = () => {
         <img src={Chat} alt="" style={{ width: '1,5rem', height: '1,5rem' }} />
       </Link>
       <div className="setting">
-        <UilSetting onClick={() => setOpenSetting((prev) => !prev)} />
+        <UilSetting
+          onClick={() => {
+            setOpenSetting((prev) => !prev)
+            setOpenNotify(false)
+          }}
+        />
         <div
           className="setting-container"
           style={openSetting ? { display: 'block' } : { display: 'none' }}
@@ -142,9 +148,9 @@ const Navbar = () => {
             >
               <img
                 src={
-                  user.profilePicture
-                    ? user.profilePicture.url
-                    : PUBLIC_FOLDER + 'user.png'
+                  user.profilePicture?.url
+                    ? user.profilePicture?.url
+                    : profilePicture
                 }
                 alt=""
                 style={{

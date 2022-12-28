@@ -13,7 +13,6 @@ const TrendCard = () => {
       let listHastags = []
       // create new array field hastags of posts
       const listPost = data.map((post) => post.hastags)
-      console.log(listPost)
       // get hastag in all posts then push to new array
       listPost.forEach((hastags) => {
         hastags.forEach((hastag) => {

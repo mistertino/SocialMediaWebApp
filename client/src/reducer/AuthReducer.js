@@ -1,6 +1,5 @@
 const authReducer = (
   state = {
-    success: false,
     authData: null,
     loading: false,
     error: false,
@@ -14,6 +13,8 @@ const authReducer = (
 ) => {
   switch (action.type) {
     // Active User
+    case 'ACTIVE_START':
+      return { ...state, error: false, loading: true }
     case 'ACTIVE_SUCCESS':
       localStorage.setItem('profile', JSON.stringify({ ...action?.data }))
       return {
@@ -30,13 +31,11 @@ const authReducer = (
         loading: true,
         error: false,
         alert: null,
-        success: false,
       }
     case 'AUTH_SUCCESS':
       localStorage.setItem('profile', JSON.stringify({ ...action?.data }))
       return {
         ...state,
-        success: true,
         authData: action.data,
         loading: false,
         error: false,

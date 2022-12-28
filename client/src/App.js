@@ -11,6 +11,7 @@ import { getNotify } from './action/UserAction'
 import { useCallback, useEffect } from 'react'
 import PostsResult from './pages/results/PostsResult'
 import VerifyAccount from './pages/auth/VerifyAccount'
+import ActiveAccount from './pages/auth/ActiveAccount'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.authReducer.authData)
@@ -33,21 +34,24 @@ function App() {
   //   }),
   //   3000,
   // )
-  console.log(user)
   return (
     <div className="App">
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>
       <div className="blur" style={{ top: '36%', left: ' -8rem' }}></div>
       <Routes>
-        <Route path="/active/:hash" element={<VerifyAccount />} />
+        <Route
+          path="/active/:hash"
+          element={user ? <Navigate to="../auth" /> : <ActiveAccount />}
+        />
+        <Route path="/verify" element={<VerifyAccount />} />
         <Route
           path="/"
           element={
             user ? (
-              user.user.active ? (
+              user?.user?.active ? (
                 <Navigate to="home" />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Navigate to="../auth" />
@@ -58,10 +62,10 @@ function App() {
           path="/home"
           element={
             user ? (
-              user.user.active ? (
+              user?.user?.active ? (
                 <Home />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Navigate to="../auth" />
@@ -72,10 +76,10 @@ function App() {
           path="/view/post/:id"
           element={
             user ? (
-              user.user.active ? (
+              user?.user?.active ? (
                 <PostView />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Navigate to="../auth" />
@@ -86,10 +90,10 @@ function App() {
           path="/posts/result"
           element={
             user ? (
-              user.user.active ? (
+              user?.user?.active ? (
                 <PostsResult />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Navigate to="../auth" />
@@ -100,10 +104,10 @@ function App() {
           path="/search/result"
           element={
             user ? (
-              user.user.active ? (
+              user?.user?.active ? (
                 <SearchResults />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Navigate to="../auth" />
@@ -114,10 +118,10 @@ function App() {
           path="/auth"
           element={
             user ? (
-              user.user.active ? (
-                <Navigate to="home" />
+              user?.user?.active ? (
+                <Navigate to="/home" />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Auth />
@@ -128,10 +132,10 @@ function App() {
           path="/profile/:id"
           element={
             user ? (
-              user.user.active ? (
+              user?.user?.active ? (
                 <Profile />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Navigate to="../auth" />
@@ -142,10 +146,10 @@ function App() {
           path="/chat"
           element={
             user ? (
-              user.user.active ? (
+              user?.user?.active ? (
                 <Chat />
               ) : (
-                <Navigate to="../active" />
+                <Navigate to="../verify" />
               )
             ) : (
               <Navigate to="../auth" />
