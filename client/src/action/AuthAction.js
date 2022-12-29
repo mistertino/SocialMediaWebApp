@@ -64,6 +64,7 @@ export const activeUser = (hash) => async (dispatch) => {
   try {
     console.log(hash)
     const { data } = await AuthApi.activeUser(hash)
+    console.log('data', data)
     dispatch({ type: 'ACTIVE_SUCCESS', data: data })
   } catch (error) {
     console.log(error)

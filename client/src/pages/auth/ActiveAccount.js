@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router'
+import { Navigate, useNavigate, useParams } from 'react-router'
 import { activeUser } from '../../action/AuthAction'
 
 const ActiveAccount = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { hash } = useParams()
   const loading = useSelector((state) => state.authReducer.loading)
+  const user = useSelector((state) => state.authReducer.authData)
   useEffect(() => {
     dispatch(activeUser(hash))
   }, [])
+
   return (
     <>
       {loading !== null && loading ? (
