@@ -55,7 +55,7 @@ const Auth = () => {
     setData({
       firstname: 'Tam',
       lastname: 'Bui',
-      username: 'deezaymisstertino@gmail.com',
+      username: 'tamtino2k@gmail.com',
       password: '123',
       confirmpass: '123',
     })

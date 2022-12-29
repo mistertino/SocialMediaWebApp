@@ -20,6 +20,7 @@ const Navbar = () => {
   const {
     updateError,
     authData: { user },
+    updateLoading,
   } = useSelector((state) => state.authReducer)
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
@@ -37,21 +38,12 @@ const Navbar = () => {
     confirmPass: '',
   })
 
-  // useEffect(() => {
-  //   const Intv = setInterval(() => {
-  //     if (user) {
-  //       dispatch(getNotify(user._id))
-  //       console.log(123, user)
-  //     }
-  //   }, 30000)
-  // }, [])
-
   useEffect(() => {
     if (!updateError) {
       reset()
       setModalOpened(false)
     }
-  }, [updateError])
+  }, [updateError, user])
 
   //Func
   const handleChange = (event) => {
@@ -239,8 +231,12 @@ const Navbar = () => {
             >
               * Xác nhận mật khẩu không chính xác
             </span>
-            <button className="button change-pass-button" type="submit">
-              Xác nhận
+            <button
+              className="button change-pass-button"
+              type="submit"
+              disabled={updateLoading}
+            >
+              {updateLoading ? 'Đang xác nhận' : 'Xác nhận'}
             </button>
           </form>
         </div>

@@ -24,7 +24,7 @@ export const signUp = (formData) => async (dispatch) => {
     const hashedEmail = data.user.hashedEmail
     const emailBody = (
       <ActiveUser
-        fullname={data.user.lastname + data.user.lastname}
+        fullname={data.user.lastname + ' ' + data.user.firstname}
         hashedEmail={hashedEmail}
       />
     )

@@ -50,7 +50,6 @@ export const createPost = async (req, res) => {
 // Get post for hastags
 export const getPostForHastag = async (req, res) => {
   const hastag = req.params.hastag
-  console.log(hastag)
   try {
     const posts = await postModel.find()
     const postsForTag = posts.filter((post) => post.hastags.includes(hastag))
@@ -238,7 +237,7 @@ export const getComments = async (req, res) => {
 export const getPostLastWeek = async (req, res) => {
   try {
     const posts = await postModel.find({
-      timestamp: {
+      createdAt: {
         $gte: new Date(new Date(Date.now()) - 7 * 60 * 60 * 24 * 1000),
       },
     })

@@ -65,7 +65,6 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
         console.log(error)
       }
     }
-    console.log(UserData)
     dispatch(updateUser(params.id, UserData))
     setModalOpened(false)
     setCoverImage(null)
