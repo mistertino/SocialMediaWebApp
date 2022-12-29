@@ -53,11 +53,11 @@ const Auth = () => {
   const resetForm = () => {
     setConfirmPass(true)
     setData({
-      firstname: 'Tam',
-      lastname: 'Bui',
-      username: 'tamtino2k@gmail.com',
-      password: '123',
-      confirmpass: '123',
+      firstname: '',
+      lastname: '',
+      username: '',
+      password: '',
+      confirmpass: '',
     })
   }
   return (
@@ -66,7 +66,7 @@ const Auth = () => {
         <img src={Logo} alt="" />
         <div className="webname">
           <h1>TC Social Media</h1>
-          <h6>Share your ideas here!</h6>
+          <h6>Nơi chia sẻ và lưu dữ khoảng khắc của bạn!</h6>
         </div>
       </div>
       <div className="a-right">

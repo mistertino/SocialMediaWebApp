@@ -34,6 +34,8 @@ function App() {
   //   }),
   //   3000,
   // )
+  console.log('app', user)
+
   return (
     <div className="App">
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>
@@ -41,7 +43,7 @@ function App() {
       <Routes>
         <Route
           path="/active/:hash"
-          element={user ? <Navigate to="../auth" /> : <ActiveAccount />}
+          element={user ? <Navigate to="/home" /> : <ActiveAccount />}
         />
         <Route path="/verify" element={<VerifyAccount />} />
         <Route
