@@ -28,10 +28,9 @@ const TrendCard = () => {
     }
     fetchPosts()
   }, [])
-  console.log(listHastags)
-  console.log(listHastagsNoduplicate)
   return (
     <div className="TrendCard">
+      <h5>Thịnh Hành</h5>
       {listHastagsNoduplicate.map((hastag) => (
         <Hastag hastag={hastag} listHastags={listHastags} />
       ))}

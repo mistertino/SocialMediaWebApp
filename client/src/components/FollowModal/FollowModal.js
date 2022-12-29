@@ -9,11 +9,6 @@ const FollowModal = ({
   type,
   profileUser,
 }) => {
-  // State
-  const [text, setText] = useState('')
-  function handleOnEnter(text) {
-    console.log('enter', text)
-  }
   return (
     <Modal
       opened={openModalFollow}

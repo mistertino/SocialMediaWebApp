@@ -18,16 +18,17 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    emailAddress: { type: String, required: true },
     isAdmin: {
       type: Boolean,
       default: false,
     },
     profilePicture: {
-      type: String,
+      public_id: { type: String },
+      url: { type: String },
     },
     coverPicture: {
-      type: String,
+      public_id: { type: String },
+      url: { type: String },
     },
     about: String,
     livesin: String,
@@ -37,6 +38,8 @@ const UserSchema = mongoose.Schema(
     followers: [],
     following: [],
     notifications: [],
+    hashedEmail: { type: String },
+    active: { type: Boolean, default: false },
   },
   { timestamps: true },
 )

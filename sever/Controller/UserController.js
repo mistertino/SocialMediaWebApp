@@ -2,6 +2,14 @@ import userModel from '../Models/userModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+import { v2 as cloudinary } from 'cloudinary'
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_APIKEY,
+  api_secret: process.env.CLOUDINARY_APISECRET,
+})
+
 // Get User
 export const getUser = async (req, res) => {
   const id = req.params.id
@@ -140,6 +148,7 @@ export const unFollowUser = async (req, res) => {
   }
 }
 
+// Get Notify
 export const getNotify = async (req, res) => {
   const id = req.params.id
   try {
@@ -150,6 +159,7 @@ export const getNotify = async (req, res) => {
   }
 }
 
+// Remove Notify
 export const removeNotify = async (req, res) => {
   const { userId, notifyId } = req.body
   try {
@@ -158,6 +168,33 @@ export const removeNotify = async (req, res) => {
       $pull: { notifications: { notifyId: notifyId } },
     })
     res.status(200).json('removed notify')
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+// Upload image (avt, coverPic)
+export const uploadUserImage = async (req, res) => {
+  const { profilePicture, coverPicture } = req.body
+  try {
+    if (profilePicture) {
+      const result = await cloudinary.uploader.upload(profilePicture, {
+        upload_preset: 'upload_avatar_unsigned',
+        allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif'],
+      })
+      res
+        .status(200)
+        .json({ public_id: result.public_id, url: result.secure_url })
+    }
+    if (coverPicture) {
+      const result = await cloudinary.uploader.upload(coverPicture, {
+        upload_preset: 'upload_coverpicture_unsigned',
+        allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif'],
+      })
+      res
+        .status(200)
+        .json({ public_id: result.public_id, url: result.secure_url })
+    }
   } catch (error) {
     res.status(500).json({ message: error.message })
   }

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { followUser, unFollowUser } from '../../action/UserAction'
 import { createChat, findChat } from '../../api/ChatRequest'
 import './ResultItem.css'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const ResultItem = ({ result }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -42,9 +42,9 @@ const ResultItem = ({ result }) => {
       <div className="user">
         <img
           src={
-            result.profilePicture
-              ? PUBLIC_FOLDER + result.profilePicture
-              : PUBLIC_FOLDER + 'user.png'
+            result.profilePicture?.url
+              ? result.profilePicture?.url
+              : profilePicture
           }
           alt=""
         />

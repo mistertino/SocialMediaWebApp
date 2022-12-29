@@ -8,12 +8,14 @@ import {
   getAllUsers,
   getNotify,
   removeNotify,
+  uploadUserImage,
 } from '../Controller/UserController.js'
 import authMiddleWare from '../MiddleWare/AuthMiddleWare.js'
 
 const router = express.Router()
 
 router.get('/', getAllUsers)
+router.post('/upload', uploadUserImage)
 router.put('/notify', removeNotify)
 router.get('/:id', getUser)
 router.put('/:id', authMiddleWare, updateUser)

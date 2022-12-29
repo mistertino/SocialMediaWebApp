@@ -10,7 +10,7 @@ import { uploadPost } from '../../action/UploadAction'
 import { Collapse } from '@mantine/core'
 import { Radio } from '@mantine/core'
 import Picker from 'emoji-picker-react'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const PostShare = ({ setModalOpened }) => {
   const uploading = useSelector((state) => state.postReducer.uploading)
@@ -43,7 +43,6 @@ const PostShare = ({ setModalOpened }) => {
   const onEmojiClick = (emojiObject) => {
     setDesc((desc) => desc + emojiObject.emoji)
     setShowPicker(false)
-    console.log(PUBLIC_FOLDER)
   }
 
   const onImageChange = (event) => {
@@ -79,15 +78,16 @@ const PostShare = ({ setModalOpened }) => {
     if (desc !== '') {
       opened === false && setStatus()
       let hastags = []
+      let newDesc = ''
       const listText = desc.split(' ', 10)
       listText.map((text) => {
         if (text.includes('#')) {
-          hastags.push(text)
-        }
+          hastags.push(text.slice(1))
+        } else newDesc = newDesc + text
       })
       const newPost = {
         userId: user._id,
-        desc: desc,
+        desc: newDesc,
         hastags: hastags,
         status: status,
       }
@@ -107,9 +107,7 @@ const PostShare = ({ setModalOpened }) => {
     <div className="PostShare">
       <img
         src={
-          user.profilePicture
-            ? PUBLIC_FOLDER + user.profilePicture
-            : PUBLIC_FOLDER + 'user.png'
+          user.profilePicture?.url ? user.profilePicture?.url : profilePicture
         }
         alt=""
       />

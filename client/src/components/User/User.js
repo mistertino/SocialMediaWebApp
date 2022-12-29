@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { followUser, unFollowUser } from '../../action/UserAction'
 import { Link } from 'react-router-dom'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
 
 const User = ({ person }) => {
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -24,9 +24,9 @@ const User = ({ person }) => {
       <div>
         <img
           src={
-            person.profilePicture
-              ? PUBLIC_FOLDER + person.profilePicture
-              : PUBLIC_FOLDER + 'user.png'
+            person.profilePicture?.url
+              ? person.profilePicture?.url
+              : profilePicture
           }
           alt=""
           className="followerImg"

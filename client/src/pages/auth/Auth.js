@@ -19,12 +19,14 @@ const Auth = () => {
     confirmpass: '',
   })
   const [confirmPass, setConfirmPass] = useState(true)
+
   useEffect(() => {
     localStorage.clear()
   }, [])
   useEffect(() => {
     setAlerMessage(alert)
   }, [alert])
+
   // Set title
   useEffect(() => {
     isSignUp
@@ -36,12 +38,13 @@ const Auth = () => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    // console.log(ReactDOMServer.renderToStaticMarkup(emailBody))
     if (isSignUp) {
-      data.password === data.confirmpass
-        ? dispatch(signUp(data))
-        : setConfirmPass(false)
+      if (data.password === data.confirmpass) {
+        dispatch(signUp(data))
+      } else setConfirmPass(false)
     } else {
       dispatch(logIn(data))
     }
@@ -50,11 +53,11 @@ const Auth = () => {
   const resetForm = () => {
     setConfirmPass(true)
     setData({
-      firstname: '',
-      lastname: '',
-      username: '',
-      password: '',
-      confirmpass: '',
+      firstname: 'Tam',
+      lastname: 'Bui',
+      username: 'tamtino2k@gmail.com',
+      password: '123',
+      confirmpass: '123',
     })
   }
   return (
@@ -68,7 +71,7 @@ const Auth = () => {
       </div>
       <div className="a-right">
         <form action="" className="infoForm authForm" onSubmit={handleSubmit}>
-          <h3>{isSignUp ? 'Đăng kí' : 'Đăng nhập'}</h3>
+          <h3>{isSignUp ? 'Đăng ký' : 'Đăng nhập'}</h3>
           {alertMessage !== null && <Alert variant="danger">{alert}</Alert>}
           {isSignUp && (
             <div>
@@ -94,7 +97,7 @@ const Auth = () => {
           )}
           <div>
             <input
-              type="text"
+              type={isSignUp ? 'email' : 'text'}
               className="infoInput"
               placeholder="Email"
               name="username"
@@ -146,7 +149,7 @@ const Auth = () => {
             >
               {isSignUp
                 ? 'Đã có tài khoản? Đăng nhập'
-                : `Chưa có tài khoản? Đăng kí`}
+                : `Chưa có tài khoản? Đăng ký`}
             </span>
           </div>
           <button
@@ -156,10 +159,10 @@ const Auth = () => {
           >
             {loading
               ? isSignUp
-                ? 'Đăng kí...'
+                ? 'Đăng ký...'
                 : 'Đăng nhập...'
               : isSignUp
-              ? 'Đăng kí'
+              ? 'Đăng ký'
               : 'Đăng nhập'}
           </button>
         </form>

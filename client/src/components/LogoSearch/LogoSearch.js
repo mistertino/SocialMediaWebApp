@@ -24,14 +24,14 @@ const LogoSearch = () => {
     }
   }
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault()
     const results = users.filter(
       (user) =>
         user.firstname.includes(search) ||
         user.lastname.includes(search) ||
         user.username.includes(search),
     )
-    console.log(results)
     setSearch('')
     navigate('../search/result', { state: { results: results } })
   }

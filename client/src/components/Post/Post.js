@@ -16,10 +16,12 @@ import { UilEllipsisH } from '@iconscout/react-unicons'
 import { UilSmile } from '@iconscout/react-unicons'
 import Picker from 'emoji-picker-react'
 import { format } from 'timeago.js'
-import { PUBLIC_FOLDER } from '../../constants/constants'
+import profilePicture from '../../img/user.png'
+
+import { Modal, useMantineTheme } from '@mantine/core'
+import LikerModal from '../LikerModal/LikerModal'
 
 const Post = ({ post, posts, location }) => {
-  // console.log(post)
   const myPost = useRef(null)
   const { user } = useSelector((state) => state.authReducer.authData)
   const { updating } = useSelector((state) => state.postReducer)
@@ -40,6 +42,7 @@ const Post = ({ post, posts, location }) => {
   const [desc, setDesc] = useState(post?.desc)
   const [modalOpened, setModalOpened] = useState(false)
   const [showPicker, setShowPicker] = useState(false)
+  const [modalLikerOpened, setModalLikerOpened] = useState(false)
 
   //Func
   const handleLike = () => {
@@ -108,9 +111,9 @@ const Post = ({ post, posts, location }) => {
           <div className="user">
             <img
               src={
-                userPost.profilePicture
-                  ? PUBLIC_FOLDER + userPost.profilePicture
-                  : PUBLIC_FOLDER + 'user.png'
+                userPost.profilePicture?.url
+                  ? userPost.profilePicture?.url
+                  : profilePicture
               }
               alt=""
             />
@@ -142,9 +145,9 @@ const Post = ({ post, posts, location }) => {
           <div className="">
             <img
               src={
-                userPost.profilePicture
-                  ? PUBLIC_FOLDER + userPost.profilePicture
-                  : PUBLIC_FOLDER + 'user.png'
+                userPost.profilePicture?.url
+                  ? userPost.profilePicture?.url
+                  : profilePicture
               }
               alt=""
             />
@@ -226,7 +229,7 @@ const Post = ({ post, posts, location }) => {
         {post?.hastags &&
           post.hastags.map((hastag) => (
             <span>
-              <b style={{ color: 'purple', cursor: 'pointer' }}>{hastag} </b>
+              <b style={{ color: 'purple', cursor: 'pointer' }}>#{hastag} </b>
             </span>
           ))}
       </div>
@@ -254,8 +257,12 @@ const Post = ({ post, posts, location }) => {
         </div>
       )}
       <div className="lenght-react">
-        <span>{likes} Lượt thích</span>
-        <span>{lcomments} Lượt bình luận</span>
+        <span onClick={() => setModalLikerOpened((prev) => !prev)}>
+          {likes} Lượt thích
+        </span>
+        <span onClick={() => setOpenComments((prev) => !prev)}>
+          {lcomments} Lượt bình luận
+        </span>
       </div>
 
       {/* Update */}
@@ -296,9 +303,9 @@ const Post = ({ post, posts, location }) => {
           <div className="user-input-conment">
             <img
               src={
-                user.profilePicture
-                  ? PUBLIC_FOLDER + user.profilePicture
-                  : PUBLIC_FOLDER + 'user.png'
+                user.profilePicture?.url
+                  ? user.profilePicture?.url
+                  : profilePicture
               }
               alt=""
             />
@@ -348,6 +355,12 @@ const Post = ({ post, posts, location }) => {
         setLComments={setLComments}
         handleComment={handleComment}
         lcomments={lcomments}
+      />
+      <LikerModal
+        likes={likes}
+        listLiker={post.likes}
+        modalLikerOpened={modalLikerOpened}
+        setModalLikerOpened={setModalLikerOpened}
       />
     </div>
   )

@@ -20,6 +20,7 @@
 	- Cài heroku CLI tại: https://devcenter.heroku.com/articles/heroku-command-line
 	
 	- Chạy cmd tại file server:
+		heroku login
 		$ cd my-project/
 		$ git init
 		$ heroku git:remote -a tambv-social-socket

@@ -264,6 +264,7 @@
 
 .lenght-react > span {
   margin: 10px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 992px) {

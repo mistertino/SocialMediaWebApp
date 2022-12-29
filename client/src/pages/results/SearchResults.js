@@ -9,13 +9,12 @@ import './SearchResults.css'
 
 const SearchResults = () => {
   const location = useLocation()
-  const results = location.state.results
-
+  const results = location?.state?.results
   // Set title
   useEffect(() => {
     document.title = 'TC - Search'
-  })
-  if (results.length === 0) {
+  }, [])
+  if (results?.length === 0) {
     return (
       <div className="Home">
         <ProfileSide location="searchPage" />
@@ -33,8 +32,8 @@ const SearchResults = () => {
         <ProfileSide location="searchPage" />
         <div className="result">
           <img src={found} alt="" />
-          <b>Kết quả tìm được: {results.length}</b>
-          {results.map((result) => (
+          <b>Kết quả tìm được: {results?.length}</b>
+          {results?.map((result) => (
             <ResultItem result={result} />
           ))}
         </div>

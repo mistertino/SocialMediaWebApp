@@ -9,18 +9,21 @@ import SearchResults from './pages/results/SearchResults'
 import PostView from './pages/views/PostView'
 import { getNotify } from './action/UserAction'
 import { useCallback, useEffect } from 'react'
+import PostsResult from './pages/results/PostsResult'
+import VerifyAccount from './pages/auth/VerifyAccount'
+import ActiveAccount from './pages/auth/ActiveAccount'
 function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.authReducer.authData)
   // console.log(user)
-  useEffect(() => {
-    const Intv = setInterval(() => {
-      if (user) {
-        dispatch(getNotify(user?.user._id))
-        console.log(123, user)
-      }
-    }, 30000)
-  }, [user])
+  // useEffect(() => {
+  //   const Intv = setInterval(() => {
+  //     if (user) {
+  //       dispatch(getNotify(user?.user._id))
+  //       console.log(123, user)
+  //     }
+  //   }, 30000)
+  // }, [user])
 
   // setInterval(
   //   useCallback(() => {
@@ -31,39 +34,127 @@ function App() {
   //   }),
   //   3000,
   // )
-
   return (
     <div className="App">
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>
       <div className="blur" style={{ top: '36%', left: ' -8rem' }}></div>
       <Routes>
         <Route
+          path="/active/:hash"
+          element={user ? <Navigate to="../auth" /> : <ActiveAccount />}
+        />
+        <Route path="/verify" element={<VerifyAccount />} />
+        <Route
           path="/"
-          element={user ? <Navigate to="home" /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user?.user?.active ? (
+                <Navigate to="home" />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/home"
-          element={user ? <Home /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user?.user?.active ? (
+                <Home />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/view/post/:id"
-          element={user ? <PostView /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user?.user?.active ? (
+                <PostView />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
+        />
+        <Route
+          path="/posts/result"
+          element={
+            user ? (
+              user?.user?.active ? (
+                <PostsResult />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/search/result"
-          element={user ? <SearchResults /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user?.user?.active ? (
+                <SearchResults />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/auth"
-          element={user ? <Navigate to="../home" /> : <Auth />}
+          element={
+            user ? (
+              user?.user?.active ? (
+                <Navigate to="/home" />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Auth />
+            )
+          }
         />
         <Route
           path="/profile/:id"
-          element={user ? <Profile /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user?.user?.active ? (
+                <Profile />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
         <Route
           path="/chat"
-          element={user ? <Chat /> : <Navigate to="../auth" />}
+          element={
+            user ? (
+              user?.user?.active ? (
+                <Chat />
+              ) : (
+                <Navigate to="../verify" />
+              )
+            ) : (
+              <Navigate to="../auth" />
+            )
+          }
         />
       </Routes>
     </div>

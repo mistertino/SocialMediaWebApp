@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { uploadImage } from '../../action/UploadAction'
 import { updateUser } from '../../action/UserAction'
+import { uploadUserImage } from '../../api/UserRequest'
 
 function ProfileModal({ modalOpened, setModalOpened, data }) {
   const theme = useMantineTheme()
@@ -25,40 +26,49 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0]
-      event.target.name === 'profileImage'
-        ? setProfileImage(img)
-        : setCoverImage(img)
+      if (event.target.name === 'profileImage') {
+        // convert image to base64
+        const reader = new FileReader()
+        reader.readAsDataURL(img)
+        reader.onloadend = () => {
+          setProfileImage(reader.result)
+        }
+      } else {
+        // convert image to base64
+        const reader = new FileReader()
+        reader.readAsDataURL(img)
+        reader.onloadend = () => {
+          setCoverImage(reader.result)
+        }
+      }
     }
   }
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     let UserData = formData
     if (profileImage) {
-      const data = new FormData()
-      const fileName = Date.now() + profileImage.name
-      data.append('name', fileName)
-      data.append('file', profileImage)
-      UserData.profilePicture = fileName
       try {
-        dispatch(uploadImage(data))
+        const { data } = await uploadUserImage({ profilePicture: profileImage })
+        console.log(data)
+        UserData.profilePicture = { url: data.url, public_id: data.public_id }
       } catch (error) {
         console.log(error)
       }
     }
     if (coverImage) {
-      const data = new FormData()
-      const fileName = Date.now() + coverImage.name
-      data.append('name', fileName)
-      data.append('file', coverImage)
-      UserData.coverPicture = fileName
       try {
-        dispatch(uploadImage(data))
+        console.log(coverImage)
+        const { data } = await uploadUserImage({ coverPicture: coverImage })
+        console.log(data)
+        UserData.coverPicture = { url: data.url, public_id: data.public_id }
       } catch (error) {
         console.log(error)
       }
     }
     dispatch(updateUser(params.id, UserData))
     setModalOpened(false)
+    setCoverImage(null)
+    setProfileImage(null)
   }
   return (
     <Modal
