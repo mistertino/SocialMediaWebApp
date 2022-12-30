@@ -59,4 +59,6 @@
 	- Làm tương tự server
 	- Thay url tại client: nếu ở client là ws://localhost:8800 -> vẫn bỏ ws:// thay bằng url được tạo khi deploy lên heroku
 		
-				
+###################
+truongductai.vn@gmail.com
+fbi286!A		
