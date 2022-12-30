@@ -34,7 +34,6 @@ function App() {
   //   }),
   //   3000,
   // )
-  console.log('app', user)
 
   return (
     <div className="App">

@@ -22,10 +22,10 @@ export const deletePost = (postId, userId) => async (dispatch) => {
   }
 }
 
-export const updatePost = (postId, userId, desc) => async (dispatch) => {
+export const updatePost = (postId, newPost) => async (dispatch) => {
   dispatch({ type: 'UPDATE_POST_START' })
   try {
-    const { data } = await PostApi.updatePost(postId, userId, desc)
+    const { data } = await PostApi.updatePost(postId, newPost)
     console.log(data)
     dispatch({
       type: 'UPDATE_POST_SUCCESS',

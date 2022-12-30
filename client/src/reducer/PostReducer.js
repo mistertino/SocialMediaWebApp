@@ -32,16 +32,15 @@ const postReducer = (
 
     // Delete Post
     case 'DELETE_POST_START':
-      return { ...state, loading: true, error: false }
+      return { ...state, error: false }
     case 'DELETE_POST_SUCCESS':
       return {
         ...state,
-        loading: false,
         error: false,
         posts: [...state.posts.filter((post) => post._id !== action.data)],
       }
     case 'DELETE_POST_FAIL':
-      return { ...state, loading: false, error: true }
+      return { ...state, error: true }
 
     // Update Post
     case 'UPDATE_POST_START':

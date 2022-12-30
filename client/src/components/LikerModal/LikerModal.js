@@ -25,7 +25,7 @@ const LikerModal = ({
       title="Người thích"
     >
       <div className="user-container" style={{ width: '100%' }}>
-        {listLiker.map((userId) => (
+        {listLiker?.map((userId) => (
           <UserFollow userId={userId} />
         ))}
       </div>

@@ -83,8 +83,23 @@ const Post = ({ post, posts, location }) => {
   }
 
   const handleUpdate = () => {
-    dispatch(updatePost(post._id, user._id, desc))
-    setUpdate(false)
+    if (desc !== '') {
+      let hastags = []
+      let newDesc = ''
+      const listText = desc.split(' ', 10)
+      listText.map((text) => {
+        if (text.includes('#')) {
+          hastags.push(text.slice(1))
+        } else newDesc = newDesc + text + ' '
+      })
+      const newPost = {
+        currentUserId: user._id,
+        desc: newDesc,
+        hastags: hastags,
+      }
+      dispatch(updatePost(post._id, newPost))
+      setUpdate(false)
+    }
   }
 
   const handleChange = (e) => {
@@ -257,7 +272,9 @@ const Post = ({ post, posts, location }) => {
         </div>
       )}
       <div className="lenght-react">
-        <span onClick={() => setModalLikerOpened((prev) => !prev)}>
+        <span
+          onClick={() => likes !== 0 && setModalLikerOpened((prev) => !prev)}
+        >
           {likes} Lượt thích
         </span>
         <span onClick={() => setOpenComments((prev) => !prev)}>

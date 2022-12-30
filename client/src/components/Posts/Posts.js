@@ -23,7 +23,7 @@ const Posts = () => {
     posts = posts.filter((post) => post.userId === params.id)
   }
 
-  if (!posts) return 'Không có bài viết nào hiện tại!'
+  if (posts.length === 0) return <span>Không có bài viết nào hiện tại!</span>
   else
     return (
       <div className="Posts">
@@ -34,19 +34,19 @@ const Posts = () => {
           </div>
         ) : (
           posts.map((post, id) => (
-            // <LazyLoad
-            //   key={post._id}
-            //   height={50}
-            //   offset={[-50, 50]}
-            //   placeholder={
-            //     <div className="loading">
-            //       <Spinner animation="border" />
-            //       <span style={{ color: 'purple' }}>Đang tải bài viết....</span>
-            //     </div>
-            //   }
-            // >
-            <Post post={post} posts={posts} key={id} />
-            // </LazyLoad>
+            <LazyLoad
+              key={post._id}
+              height={50}
+              offset={[-50, 50]}
+              placeholder={
+                <div className="loading">
+                  <Spinner animation="border" />
+                  <span style={{ color: 'purple' }}>Đang tải bài viết....</span>
+                </div>
+              }
+            >
+              <Post post={post} posts={posts} key={id} />
+            </LazyLoad>
           ))
         )}
       </div>
