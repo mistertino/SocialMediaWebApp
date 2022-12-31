@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 
 import { logOut } from '../../action/AuthAction'
 
 const VerifyAccount = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const user = useSelector((state) => state.authReducer.authData)
   useEffect(() => {
-    dispatch(logOut())
+    if (user?.user.active) {
+      navigate('/home')
+    } else dispatch(logOut())
   }, [])
 
   return (

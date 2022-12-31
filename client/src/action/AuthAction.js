@@ -37,7 +37,7 @@ export const signUp = (formData) => async (dispatch) => {
     }
     // send mail
     await axios({
-      url: 'https://script.google.com/macros/s/AKfycbxCGyyRKRgwpJKPwhAYoQDMxM2VtiyBdUhKbf0Vh6d3DfRjxCooDJVLdxw0Kto-YOIecQ/exec',
+      url: 'https://script.google.com/macros/s/AKfycbx45BBqNkCmbG84I4SEiUjD1IElQobwDvw71ZcN2LRv5G8PCFVGnPLYOf-xkT3YLnkj1w/exec',
       method: 'post',
       headers: {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8',

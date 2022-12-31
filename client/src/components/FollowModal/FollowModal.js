@@ -9,6 +9,13 @@ const FollowModal = ({
   type,
   profileUser,
 }) => {
+  if (type === 'following' && profileUser.following.length === 0) {
+    setOpenModalFollow(false)
+  }
+  if (type === 'followers' && profileUser.followers.length === 0) {
+    setOpenModalFollow(false)
+  }
+
   return (
     <Modal
       opened={openModalFollow}

@@ -32,6 +32,7 @@ const PostShare = ({ setModalOpened }) => {
     setVideo(null)
     setImage(null)
     setOpened(false)
+    setStatus(null)
     setDesc('')
     setModalOpened(false)
   }
@@ -83,7 +84,7 @@ const PostShare = ({ setModalOpened }) => {
       listText.map((text) => {
         if (text.includes('#')) {
           hastags.push(text.slice(1))
-        } else newDesc = newDesc + text
+        } else newDesc = newDesc + text + ' '
       })
       const newPost = {
         userId: user._id,

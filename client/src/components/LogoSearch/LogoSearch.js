@@ -28,9 +28,9 @@ const LogoSearch = () => {
     e.preventDefault()
     const results = users.filter(
       (user) =>
-        user.firstname.includes(search) ||
-        user.lastname.includes(search) ||
-        user.username.includes(search),
+        user.firstname.toLowerCase().includes(search.toLowerCase()) ||
+        user.lastname.toLowerCase().includes(search.toLowerCase()) ||
+        user.username.toLowerCase().includes(search.toLowerCase()),
     )
     setSearch('')
     navigate('../search/result', { state: { results: results } })
