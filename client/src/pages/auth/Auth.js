@@ -65,7 +65,7 @@ const Auth = () => {
       <div className="a-left">
         <img src={Logo} alt="" />
         <div className="webname">
-          <h1>TC Social Media</h1>
+          <h1>TC Connect</h1>
           <h6>Nơi chia sẻ và lưu dữ khoảng khắc của bạn!</h6>
         </div>
       </div>
