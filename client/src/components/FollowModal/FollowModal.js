@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal } from '@mantine/core'
 import UserFollow from '../UserFollow/UserFollow'
 import './FollowModal.css'
+import { getUser } from '../../api/UserRequest'
 
 const FollowModal = ({
   openModalFollow,
@@ -28,6 +29,7 @@ const FollowModal = ({
           profileUser.following.map((userId) => (
             <UserFollow
               userId={userId}
+              lengthItems={profileUser.following.length}
               setOpenModalFollow={setOpenModalFollow}
             />
           ))}
@@ -35,6 +37,7 @@ const FollowModal = ({
           profileUser.followers.map((userId) => (
             <UserFollow
               userId={userId}
+              lengthItems={profileUser.following.length}
               setOpenModalFollow={setOpenModalFollow}
             />
           ))}

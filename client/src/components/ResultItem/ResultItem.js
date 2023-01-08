@@ -56,7 +56,7 @@ const ResultItem = ({ result }) => {
             <b>
               {result.firstname} {result.lastname}
             </b>
-            <p>@{result.username}</p>
+            <p>{result.username}</p>
           </Link>
         </span>
       </div>
