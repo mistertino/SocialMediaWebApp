@@ -85,15 +85,21 @@ const AdminSide = () => {
       {/* Posts Report */}
       <Tabs.Panel value="posts-report">
         <div className="posts-report-manage">
-          {posts.map((post) => (
-            <div className="post-report">
-              <span>
-                <UilExclamationOctagon /> Có <b>{post?.report?.length}</b> người
-                báo cáo bài viết này
-              </span>
-              <Post post={post} location="viewPost" key={post._id} />
-            </div>
-          ))}
+          {posts?.length === 0 ? (
+            <span style={{ textAlign: 'center' }}>
+              Không có bài viết nào bị báo cáo
+            </span>
+          ) : (
+            posts.map((post) => (
+              <div className="post-report">
+                <span>
+                  <UilExclamationOctagon /> Có <b>{post?.report?.length}</b>{' '}
+                  người báo cáo bài viết này
+                </span>
+                <Post post={post} location="viewPost" key={post._id} />
+              </div>
+            ))
+          )}
         </div>
       </Tabs.Panel>
     </Tabs>
