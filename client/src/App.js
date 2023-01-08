@@ -18,7 +18,7 @@ function App() {
   // console.log(user)
   useEffect(() => {
     const Intv = setInterval(() => {
-      if (user) {
+      if (user !== null) {
         dispatch(getNotify(user?.user._id))
         console.log(123, user)
       } else clearInterval(Intv)
