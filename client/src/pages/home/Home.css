@@ -12,12 +12,12 @@
     grid-template-columns: 1fr;
   }
 
-  .ProfileSide {
-    display: none;
+  .ProfileSide-box {
+    position: unset;
   }
 
-  .ProfileSide > .FollowerCard,
-  .ProfileSide > .ProfileCard {
+  .ProfileSide-box > .FollowerCard,
+  .ProfileSide-box > .ProfileCard {
     display: none;
   }
 
