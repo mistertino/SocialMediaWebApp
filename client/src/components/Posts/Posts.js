@@ -26,7 +26,7 @@ const Posts = () => {
   if (posts.length === 0)
     return (
       <span style={{ textAlign: 'center' }}>
-        Không có bài viết nào hiện tại!
+        Không có bài viết nào hiện tại! Hãy Theo dõi hoặc Đăng bài!
       </span>
     )
   else
