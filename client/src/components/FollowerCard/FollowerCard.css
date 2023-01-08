@@ -10,7 +10,7 @@
   flex-direction: column;
   font-size: 13px;
   max-height: 15rem;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .user::-webkit-scrollbar {
@@ -61,6 +61,7 @@
   height: 2rem;
   padding-left: 20px;
   padding-right: 20px;
+  width: 6rem;
 }
 
 .unfollowbtn {

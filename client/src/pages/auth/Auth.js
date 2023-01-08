@@ -147,9 +147,17 @@ const Auth = () => {
                 resetForm()
               }}
             >
-              {isSignUp
-                ? 'Đã có tài khoản? Đăng nhập'
-                : `Chưa có tài khoản? Đăng ký`}
+              {isSignUp ? (
+                <>
+                  Đã có tài khoản?{' '}
+                  <span style={{ textDecoration: 'underline' }}>Đăng nhập</span>
+                </>
+              ) : (
+                <>
+                  Chưa có tài khoản?{' '}
+                  <span style={{ textDecoration: 'underline' }}>Đăng ký</span>
+                </>
+              )}
             </span>
           </div>
           <button

@@ -23,7 +23,12 @@ const Posts = () => {
     posts = posts.filter((post) => post.userId === params.id)
   }
 
-  if (posts.length === 0) return <span>Không có bài viết nào hiện tại!</span>
+  if (posts.length === 0)
+    return (
+      <span style={{ textAlign: 'center' }}>
+        Không có bài viết nào hiện tại!
+      </span>
+    )
   else
     return (
       <div className="Posts">
