@@ -7,9 +7,11 @@ import './ProfileLeft.css'
 const ProfileLeft = () => {
   return (
     <div className="ProfileLeft">
-      <LogoSearch />
-      <InfoCard />
-      <FollowerCard location="profilePage" />
+      <div className="ProfileLeft-box">
+        <LogoSearch />
+        <InfoCard />
+        <FollowerCard location="profilePage" />
+      </div>
     </div>
   )
 }

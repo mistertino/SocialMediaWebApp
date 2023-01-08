@@ -10,12 +10,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import ShareModal from '../ShareModal/ShareModal'
 import Navbar from '../Navbar/Navbar'
 
-const RightSide = ({ location }) => {
+const RightSide = () => {
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
 
   return (
-    <div className={location === 'homePage' && 'RightSide'}>
+    <div className="RightSide">
       <div className="RightSide-box">
         <Navbar />
 
