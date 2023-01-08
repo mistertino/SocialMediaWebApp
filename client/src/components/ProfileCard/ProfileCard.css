@@ -57,7 +57,7 @@
   border-radius: 10px;
   max-height: 100vh;
   cursor: grab;
-  justify-self: center;
+  justify-content: center;
   display: flex;
 }
 
@@ -134,7 +134,7 @@
 }
 
 .vl {
-  height: 150%;
+  height: 73px;
   border-left: 2px solid var(--hrColor);
 }
 

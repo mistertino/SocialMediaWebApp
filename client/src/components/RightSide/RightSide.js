@@ -10,20 +10,25 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import ShareModal from '../ShareModal/ShareModal'
 import Navbar from '../Navbar/Navbar'
 
-const RightSide = () => {
+const RightSide = ({ location }) => {
   // Sate modal
   const [modalOpened, setModalOpened] = useState(false)
 
   return (
-    <div className="RightSide">
-      <Navbar />
+    <div className={location === 'homePage' && 'RightSide'}>
+      <div className="RightSide-box">
+        <Navbar />
 
-      <TrendCard />
+        <TrendCard />
 
-      <button className="button s-button" onClick={() => setModalOpened(true)}>
-        Đăng bài
-      </button>
-      <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />
+        <button
+          className="button s-button"
+          onClick={() => setModalOpened(true)}
+        >
+          Đăng bài
+        </button>
+        <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />
+      </div>
     </div>
   )
 }

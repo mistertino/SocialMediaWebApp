@@ -40,7 +40,7 @@ const User = ({ person }) => {
               {person.firstname} {person.lastname}
             </Link>
           </span>
-          <span>@{person.username}</span>
+          <span>{person.username}</span>
         </div>
       </div>
       <button

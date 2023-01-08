@@ -246,3 +246,26 @@ export const getPostLastWeek = async (req, res) => {
     res.status(500).json(error)
   }
 }
+
+// Report Post
+export const reportPost = async (req, res) => {
+  const postId = req.params.id
+  const { userId } = req.body
+  try {
+    const post = await postModel.findById(postId)
+    await post.updateOne({ $push: { report: userId } })
+    res.status(200).json('Report Success')
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+// Get posts report
+export const getPostsReport = async (req, res) => {
+  try {
+    const posts = await postModel.find({ 'report.0': { $exists: true } })
+    res.status(200).json(posts)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}

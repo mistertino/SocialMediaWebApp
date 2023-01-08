@@ -1,7 +1,16 @@
-.RightSide {
+.RightSide-box {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  position: fixed;
+
+  width: -webkit-fill-available;
+  width: -moz-available; /* WebKit-based browsers will ignore this. */
+  /* width: fill-available; */
+}
+
+.RightSide {
+  position: relative;
 }
 
 .navIcon {
@@ -109,4 +118,10 @@
 }
 .dropdown-toggle::after {
   display: none !important;
+}
+
+@media screen and (max-width: 992px) {
+  .RightSide-box {
+    position: unset;
+  }
 }

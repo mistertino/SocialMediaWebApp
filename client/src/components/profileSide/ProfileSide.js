@@ -6,10 +6,12 @@ import FollowerCard from '../FollowerCard/FollowerCard'
 
 const ProfileSide = ({ location }) => {
   return (
-    <div className="ProfileSide">
-      <LogoSearch />
-      {location !== 'viewPost' ? <ProfileCard location="homePage" /> : ''}
-      {location === 'homePage' ? <FollowerCard /> : ''}
+    <div className={location === 'homePage' && 'ProfileSide'}>
+      <div className="ProfileSide-box">
+        <LogoSearch />
+        {location !== 'viewPost' ? <ProfileCard location="homePage" /> : ''}
+        {location === 'homePage' ? <FollowerCard /> : ''}
+      </div>
     </div>
   )
 }

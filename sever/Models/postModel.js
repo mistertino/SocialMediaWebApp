@@ -19,6 +19,7 @@ const PostSchema = mongoose.Schema(
     hastags: [],
     status: String,
     comments: { type: Array },
+    report: [],
   },
   {
     timestamps: true,

@@ -88,9 +88,9 @@ export const updateUser = async (req, res) => {
 //delete User
 export const deleteUser = async (req, res) => {
   const id = req.params.id
-  const { currentUserId, currenrUsserAdminStatus } = req.body
+  const { currentUserId, AdminStatus } = req.body
 
-  if (id === currentUserId || currenrUsserAdminStatus) {
+  if (id === currentUserId || AdminStatus) {
     try {
       await userModel.findByIdAndDelete(id)
       res.status(200).json('User Deleteed')
