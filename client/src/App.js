@@ -23,7 +23,7 @@ function App() {
         console.log(123, user)
       } else clearInterval(Intv)
     }, 40000)
-  }, [user])
+  }, [user?.user?.notifycation])
 
   // setInterval(
   //   useCallback(() => {
