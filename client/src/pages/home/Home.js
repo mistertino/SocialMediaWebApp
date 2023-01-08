@@ -17,7 +17,7 @@ const Home = () => {
       <ProfileSide location="homePage" />
       {user.isAdmin ? <AdminSide /> : <PostSide location="homePage" />}
 
-      <RightSide />
+      <RightSide location="homePage" />
     </div>
   )
 }

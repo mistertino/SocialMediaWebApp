@@ -6,7 +6,12 @@ import NotLike from '../../img/notlike.png'
 // import CommentIcon from '../../img/comment.png'
 import Comment from '../Comment/Comment'
 import { useDispatch, useSelector } from 'react-redux'
-import { addComment, getComments, likePost } from '../../api/PostRequest'
+import {
+  addComment,
+  getComments,
+  likePost,
+  reportPost,
+} from '../../api/PostRequest'
 import { Link } from 'react-router-dom'
 import { getUser } from '../../api/UserRequest'
 import { deletePost, updatePost } from '../../action/PostAction'
@@ -17,8 +22,6 @@ import { UilSmile } from '@iconscout/react-unicons'
 import Picker from 'emoji-picker-react'
 import { format } from 'timeago.js'
 import profilePicture from '../../img/user.png'
-
-import { Modal, useMantineTheme } from '@mantine/core'
 import LikerModal from '../LikerModal/LikerModal'
 
 const Post = ({ post, posts, location }) => {
@@ -45,8 +48,8 @@ const Post = ({ post, posts, location }) => {
   const [modalLikerOpened, setModalLikerOpened] = useState(false)
 
   //Func
-  const handleLike = () => {
-    likePost(post._id, user._id)
+  const handleLike = async () => {
+    await likePost(post._id, user._id)
     setLiked((prev) => !prev)
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1)
   }
@@ -82,6 +85,10 @@ const Post = ({ post, posts, location }) => {
     dispatch(deletePost(post._id, user._id))
   }
 
+  const handleChange = (e) => {
+    setDesc(e.target.value)
+  }
+
   const handleUpdate = () => {
     if (desc !== '') {
       let hastags = []
@@ -102,8 +109,9 @@ const Post = ({ post, posts, location }) => {
     }
   }
 
-  const handleChange = (e) => {
-    setDesc(e.target.value)
+  const handleReport = async () => {
+    const { data } = await reportPost(post._id, user._id)
+    setOpenOption(false)
   }
 
   // Get info User
@@ -288,28 +296,31 @@ const Post = ({ post, posts, location }) => {
           <img src={liked ? Like : NotLike} alt="" onClick={handleLike} />
           <UilCommentAltNotes onClick={openComment} />
           {/* <img src={CommentIcon} alt="" onClick={openComment} /> */}
-          {post?.userId === user._id ? (
-            <UilEllipsisH onClick={() => setOpenOption((prev) => !prev)} />
-          ) : // <img
-          //   src={Option}
-          //   alt=""
 
-          // />
-          null}
+          {location === 'viewPost' ? null : (
+            <UilEllipsisH onClick={() => setOpenOption((prev) => !prev)} />
+          )}
+
           <ul
             className="dropdown-option"
             style={openOption ? { display: 'block' } : { display: 'none' }}
           >
-            <li
-              onClick={() => {
-                setOpenOption(false)
-                setUpdate(true)
-                myPost.current.scrollIntoView({ behavior: 'smooth' })
-              }}
-            >
-              Sửa bài viết
-            </li>
-            <li onClick={handleDelete}>Xoá bài viết</li>
+            {post?.userId === user._id || user.isAdmin ? (
+              <>
+                <li
+                  onClick={() => {
+                    setOpenOption(false)
+                    setUpdate(true)
+                    myPost.current.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                >
+                  Sửa bài viết
+                </li>
+                <li onClick={handleDelete}>Xoá bài viết</li>
+              </>
+            ) : (
+              <li onClick={handleReport}>Báo cáo bài viết</li>
+            )}
           </ul>
         </div>
       )}

@@ -51,18 +51,18 @@
 }
 
 .left-side > .grabbercontainer {
-  display: flex;
   width: 100%;
   object-fit: contain;
   border-radius: 10px;
-  max-height: 80vh;
+  max-height: 100vh;
   cursor: grab;
-  align-self: flex-start;
+  justify-content: center;
+  display: flex;
 }
 
 .left-side > .grabbercontainer > img {
-  width: 100%;
-  /* object-fit: cover; */
+  /* width: 100%; */
+  object-fit: contain;
 
   border-radius: 10px;
   max-height: 100vh;
@@ -97,6 +97,10 @@
   height: 26px;
   cursor: pointer;
   margin-right: 10px;
+}
+
+.mantine-Modal-body::-webkit-scrollbar {
+  width: 0px;
 }
 
 @media screen and (max-width: 992px) {

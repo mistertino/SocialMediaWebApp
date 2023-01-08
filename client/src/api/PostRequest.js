@@ -17,5 +17,7 @@ export const deletePost = (postId, userId) => {
 }
 
 export const updatePost = (id, newPost) => API.put(`/post/${id}`, newPost)
-
-export const getPostForHastag = (hastag) => API.get(`/post/${hastag}`)
+export const reportPost = (id, userId) =>
+  API.put(`post/${id}/report`, { userId: userId })
+export const getPostsReport = () => API.get('/post/report')
+export const getPostForHastag = (hastag) => API.get(`/post/${hastag}/hastag`)

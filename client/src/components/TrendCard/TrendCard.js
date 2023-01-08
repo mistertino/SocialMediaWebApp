@@ -28,6 +28,7 @@ const TrendCard = () => {
     }
     fetchPosts()
   }, [])
+  console.log(listHastags)
   return (
     <div className="TrendCard">
       <h5>Thịnh Hành</h5>

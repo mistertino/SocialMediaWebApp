@@ -12,9 +12,9 @@
     grid-template-columns: 1fr;
   }
 
-  /* .ProfileSide {
+  .ProfileSide {
     display: none;
-  } */
+  }
 
   .ProfileSide > .FollowerCard,
   .ProfileSide > .ProfileCard {
