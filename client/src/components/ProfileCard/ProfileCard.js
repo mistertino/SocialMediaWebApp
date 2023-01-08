@@ -43,7 +43,7 @@ const ProfileCard = ({ location }) => {
       }
     }
     fetchProfileUser()
-  }, [params.id, user])
+  }, [params.id])
 
   // Func
   const handleFollow = () => {
