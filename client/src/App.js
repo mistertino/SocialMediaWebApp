@@ -16,14 +16,14 @@ function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.authReducer.authData)
   // console.log(user)
-  useEffect(() => {
-    const Intv = setInterval(() => {
-      if (user) {
-        dispatch(getNotify(user?.user._id))
-        console.log(123, user)
-      } else clearInterval(Intv)
-    }, 40000)
-  }, [user])
+  // useEffect(() => {
+  //   const Intv = setInterval(() => {
+  //     if (user) {
+  //       dispatch(getNotify(user?.user._id))
+  //       console.log(123, user)
+  //     } else clearInterval(Intv)
+  //   }, 40000)
+  // }, [user])
 
   // setInterval(
   //   useCallback(() => {
