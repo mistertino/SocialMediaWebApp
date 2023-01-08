@@ -69,4 +69,5 @@
   border: 2px solid var(--purple);
   cursor: pointer;
   background: transparent;
+  line-height: 12px;
 }

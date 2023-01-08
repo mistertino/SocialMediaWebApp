@@ -45,7 +45,7 @@
   cursor: pointer;
   color: var(--purple);
   background: transparent;
-  border: 2px solid var(--purple);
+  border: 1px solid var(--purple);
 }
 
 .button:disabled {
