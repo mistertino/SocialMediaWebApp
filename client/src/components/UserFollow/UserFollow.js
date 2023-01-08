@@ -3,8 +3,9 @@ import { getUser } from '../../api/UserRequest'
 import { Link, useNavigate } from 'react-router-dom'
 import './UserFollow.css'
 import profilePicture from '../../img/user.png'
+import LoadingUser from '../LoadingUser/LoadingUser'
 
-const UserFollow = ({ userId, setOpenModalFollow }) => {
+const UserFollow = ({ userId, setOpenModalFollow, lengthItems, setCount }) => {
   const [user, setUser] = useState()
   const navigate = useNavigate()
   useEffect(() => {
@@ -14,7 +15,7 @@ const UserFollow = ({ userId, setOpenModalFollow }) => {
     }
     fetchUser()
   }, [])
-  return (
+  return user ? (
     <div className="user-item">
       <img
         src={
@@ -31,13 +32,15 @@ const UserFollow = ({ userId, setOpenModalFollow }) => {
           }}
         >
           {/* to={`/profile/${user?._id}`}
-            style={{ textDecoration: 'none', color: 'black' }}
-          > */}
+        style={{ textDecoration: 'none', color: 'black' }}
+      > */}
           {user?.firstname} {user?.lastname}
         </span>
-        <span>@{user?.username}</span>
+        <span>{user?.username}</span>
       </div>
     </div>
+  ) : (
+    <LoadingUser />
   )
 }
 
