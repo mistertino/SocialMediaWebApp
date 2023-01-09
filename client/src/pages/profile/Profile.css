@@ -12,6 +12,11 @@
   .FollowerCard {
     display: none;
   }
+
+  .ProfileLeft-box {
+    position: unset;
+  }
+
   .infoForm > div {
     display: flex;
     gap: 1rem;
