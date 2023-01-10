@@ -3,7 +3,7 @@ dotenv.config()
 
 const io = require('socket.io')(process.env.PORT || 5001, {
   cors: {
-    origin: 'https://tcmedia.netlify.app',
+    origin: 'http://localhost:3000',
   },
 })
 
