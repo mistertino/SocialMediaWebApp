@@ -20,11 +20,11 @@ const InfoCard = () => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id) {
         setProfileUser(user)
-        document.title = `${user.firstname} ${user.lastname} | TC`
+        document.title = `${user.firstname} ${user.lastname} | TC Connect`
       } else {
         const profileUser = await UserApi.getUser(profileUserId)
         setProfileUser(profileUser.data)
-        document.title = `${profileUser.data.firstname} ${profileUser.data.lastname} | TC`
+        document.title = `${profileUser.data.firstname} ${profileUser.data.lastname} | TC Connect`
       }
     }
     fetchProfileUser()

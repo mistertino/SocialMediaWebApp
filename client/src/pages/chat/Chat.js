@@ -25,7 +25,7 @@ const Chat = () => {
 
   useEffect(() => {
     const getChats = async () => {
-      document.title = 'TC - Chat'
+      document.title = 'TC Connect - Chat'
       try {
         const { data } = await userChats(user._id)
         setChats(data)

@@ -12,7 +12,7 @@ const SearchResults = () => {
   const results = location?.state?.results
   // Set title
   useEffect(() => {
-    document.title = 'TC - Search'
+    document.title = 'TC Connect - Search'
   }, [])
   if (results?.length === 0) {
     return (

@@ -30,8 +30,8 @@ const Auth = () => {
   // Set title
   useEffect(() => {
     isSignUp
-      ? (document.title = 'TC - Đăng kí')
-      : (document.title = 'TC - Đăng nhập')
+      ? (document.title = 'TC Connect - Đăng kí')
+      : (document.title = 'TC Connect - Đăng nhập')
   }, [isSignUp])
   // Func
   const handleChange = (e) => {
