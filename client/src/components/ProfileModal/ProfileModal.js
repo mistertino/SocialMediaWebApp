@@ -144,9 +144,19 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
         </div>
         <div>
           Ảnh đại diện
-          <input type="file" name="profileImage" onChange={onImageChange} />
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            name="profileImage"
+            onChange={onImageChange}
+          />
           Ảnh bìa
-          <input type="file" name="coverImage" onChange={onImageChange} />
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            name="coverImage"
+            onChange={onImageChange}
+          />
         </div>
         <button className="button infobutton" type="submit">
           Cập nhật
