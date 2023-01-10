@@ -10,6 +10,7 @@ import { logOut } from '../../action/AuthAction'
 import ChatBox from '../../components/ChatBox/ChatBox'
 import { io } from 'socket.io-client'
 import Navbar from '../../components/Navbar/Navbar'
+import { URL_SOCKET } from '../../constants/constants'
 const Chat = () => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.authReducer.authData)
@@ -40,7 +41,7 @@ const Chat = () => {
 
   // Connect to Socket.io
   useEffect(() => {
-    socket.current = io('https://tambv-social-socket.herokuapp.com')
+    socket.current = io(URL_SOCKET)
     socket.current.emit('new-user-add', user._id)
     socket.current.on('get-users', (users) => {
       setOnlineUsers(users)

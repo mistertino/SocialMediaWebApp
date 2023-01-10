@@ -6,7 +6,13 @@ import FollowerCard from '../FollowerCard/FollowerCard'
 
 const ProfileSide = ({ location }) => {
   return (
-    <div className={location === 'homePage' && 'ProfileSide'}>
+    <div
+      className={
+        (location === 'homePage' && 'ProfileSide') ||
+        (location === 'searchPage' && 'ProfileSide') ||
+        (location === 'viewPost' && 'ProfileSide')
+      }
+    >
       <div className="ProfileSide-box">
         <LogoSearch />
         {location !== 'viewPost' ? <ProfileCard location="homePage" /> : ''}
