@@ -72,7 +72,7 @@
   .Chat-container {
     zoom: unset;
   }
-  .Left-side-chat > .LogoSearch > .Search {
+  .Left-side-chat > div > .LogoSearch > .Search {
     display: none;
   }
   .Right-side-chat > div {
@@ -82,7 +82,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .Search {
+  .Left-side-chat > div > .LogoSearch > .Search {
     display: none;
   }
   .Chat {
