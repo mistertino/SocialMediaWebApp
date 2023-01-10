@@ -14,7 +14,7 @@ const PostView = () => {
   const [post, setPost] = useState()
   // Set title
   useEffect(() => {
-    document.title = 'TC - Post'
+    document.title = 'TC Connect - Post'
     const fetchPost = async () => {
       if (!postNotify) {
         const post = await getPost(params.id)

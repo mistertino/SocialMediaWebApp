@@ -10,6 +10,7 @@ const ActiveAccount = () => {
   const loading = useSelector((state) => state.authReducer.loading)
   const user = useSelector((state) => state.authReducer.authData)
   useEffect(() => {
+    document.title = 'TC Connect - Đăng kí'
     dispatch(activeUser(hash))
   }, [])
 

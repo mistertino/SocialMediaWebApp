@@ -10,7 +10,7 @@ const Home = () => {
   const { user } = useSelector((state) => state.authReducer.authData)
   // Set title
   useEffect(() => {
-    document.title = 'TC - Home'
+    document.title = 'TC Connect - Home'
   })
   return (
     <div className="Home">
