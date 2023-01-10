@@ -9,7 +9,8 @@
 
 @media screen and (max-width: 992px) {
   .Home {
-    grid-template-columns: 1fr;
+    grid-template-columns: unset;
+    min-height: unset;
   }
 
   .ProfileSide-box {
