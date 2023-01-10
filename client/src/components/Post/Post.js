@@ -92,16 +92,16 @@ const Post = ({ post, posts, location }) => {
   const handleUpdate = () => {
     if (desc !== '') {
       let hastags = []
-      let newDesc = ''
+      // let newDesc = ''
       const listText = desc.split(' ', 10)
       listText.map((text) => {
         if (text.includes('#')) {
           hastags.push(text.slice(1))
-        } else newDesc = newDesc + text + ' '
+        }
       })
       const newPost = {
         currentUserId: user._id,
-        desc: newDesc,
+        desc: desc,
         hastags: hastags,
       }
       dispatch(updatePost(post._id, newPost))

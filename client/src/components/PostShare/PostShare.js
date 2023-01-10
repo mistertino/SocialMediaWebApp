@@ -79,16 +79,16 @@ const PostShare = ({ setModalOpened }) => {
     if (desc !== '') {
       opened === false && setStatus()
       let hastags = []
-      let newDesc = ''
+      // let newDesc = ''
       const listText = desc.split(' ', 10)
       listText.map((text) => {
         if (text.includes('#')) {
           hastags.push(text.slice(1))
-        } else newDesc = newDesc + text + ' '
+        }
       })
       const newPost = {
         userId: user._id,
-        desc: newDesc,
+        desc: desc,
         hastags: hastags,
         status: status,
       }
