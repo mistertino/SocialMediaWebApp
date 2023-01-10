@@ -82,6 +82,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .Search {
+    display: none;
+  }
   .Chat {
     grid-template-columns: 45px auto;
   }
