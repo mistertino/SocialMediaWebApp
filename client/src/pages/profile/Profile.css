@@ -15,6 +15,7 @@
 
   .ProfileLeft-box {
     position: unset;
+    width: unset;
   }
 
   .infoForm > div {
