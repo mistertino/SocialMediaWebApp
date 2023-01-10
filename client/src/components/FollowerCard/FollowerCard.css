@@ -1,5 +1,6 @@
 .FollowerCard {
-  width: 100%;
+  width: 98%;
+  margin: 0 auto;
 }
 
 .FollowerCard > .user {
